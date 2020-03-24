@@ -34,7 +34,6 @@ const uiReducer = (state=UI_INITIAL_STATE, action) => {
 const AUTH_INITIAL_STATE = {
     isAuthenticated: false,
     user: {},
-    loading: false
 }
 
 const authReducer = (state=AUTH_INITIAL_STATE, action) => {
@@ -42,11 +41,7 @@ const authReducer = (state=AUTH_INITIAL_STATE, action) => {
         case types.SET_CURRENT_USER:
             return Object.assign({}, state, {
                 isAuthenticated: action.isAuthenticated,
-                user: action.user
-            });
-        case types.USER_LOADING:
-            return Object.assign({}, state, {
-                loading: true
+                user: {...action.user}
             });
         default:
             return state;

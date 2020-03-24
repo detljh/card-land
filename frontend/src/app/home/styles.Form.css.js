@@ -38,7 +38,18 @@ let styles = {
     },
     formField: {
         padding: '5px',
-        marginBottom: '10px'
+        marginBottom: '10px',
+        border: '1px solid',
+        borderColor: 'grey',
+        error: {
+            borderColor: 'red'
+        }
+    },
+    errorText: {
+        fontSize: '0.7em',
+        color: 'red',
+        margin: '0',
+        textAlign: 'center'
     }
 }
 

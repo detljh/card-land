@@ -3,10 +3,21 @@ import axios from 'axios';
 import setAuthToken from "../../../utils/setAuthToken";
 import jwt_decode from "jwt-decode";
 
-const showLoginForm = Creators.showLoginForm;
-const showRegisterForm = Creators.showRegisterForm;
 const hideLoginForm = Creators.hideLoginForm;
 const hideRegisterForm = Creators.hideRegisterForm;
+
+const showLoginForm = () => {
+    return (dispatch) => {
+        dispatch(Creators.errors({}));
+        dispatch(Creators.showLoginForm());
+    }
+}
+const showRegisterForm = () => {
+    return (dispatch) => {
+        dispatch(Creators.errors({}));
+        dispatch(Creators.showRegisterForm());
+    }
+}
 
 const login = (username, password) => {
     return (dispatch) => {

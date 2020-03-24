@@ -5,7 +5,7 @@ import styles from './styles.Home.css';
 class HomeComponent extends React.Component {
     render() {
         let isAuthenticated = this.props.auth.isAuthenticated;
-
+        
         return (
             <div style={styles.homePage}>
                 <div style={styles.header}>
@@ -16,6 +16,11 @@ class HomeComponent extends React.Component {
                             <button key={"login_button"} onClick={this.props.showLoginForm}>Login</button>,
                             <button key={"register_button"} onClick={this.props.showRegisterForm}>Register</button> 
                         ]
+                    }
+
+                    {
+                        isAuthenticated &&
+                        <div>User: {this.props.auth.user.name} </div>
                     }
                 </div>
 

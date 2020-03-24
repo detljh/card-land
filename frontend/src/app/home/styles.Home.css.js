@@ -10,7 +10,7 @@ let styles = {
         top: '0',
         zIndex: '10',
         position: 'fixed',
-        backgroundColor: 'white'
+        backgroundColor: 'grey'
     },
     formWrapper: {
         display: 'flex',
