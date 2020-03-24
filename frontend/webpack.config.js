@@ -5,6 +5,15 @@ module.exports = {
     entry: [
         path.join(__dirname, 'src/index.js')
     ],
+    devServer: {
+        host: 'localhost',
+        port: 8080,
+        proxy: {
+            '/api': {
+                target: 'http://localhost:5000'
+            }
+        }
+    },
     module: {
         rules: [{
             test: /\.(js|jsx)$/,

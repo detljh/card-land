@@ -1,12 +1,12 @@
 import types from './types';
 import { combineReducers } from 'redux';
 
-const INITIAL_STATE = {
+const UI_INITIAL_STATE = {
     showLoginForm: false,
     showRegisterForm: false
 }
 
-const authReducer = (state=INITIAL_STATE, action) => {
+const uiReducer = (state=UI_INITIAL_STATE, action) => {
     switch (action.type) {
         case types.SHOW_LOGIN_FORM:
             return Object.assign({}, state, {
@@ -31,7 +31,40 @@ const authReducer = (state=INITIAL_STATE, action) => {
     }
 }
 
+const AUTH_INITIAL_STATE = {
+    isAuthenticated: false,
+    user: {},
+    loading: false
+}
+
+const authReducer = (state=AUTH_INITIAL_STATE, action) => {
+    switch (action.type) {
+        case types.SET_CURRENT_USER:
+            return Object.assign({}, state, {
+                isAuthenticated: action.isAuthenticated,
+                user: action.user
+            });
+        case types.USER_LOADING:
+            return Object.assign({}, state, {
+                loading: true
+            });
+        default:
+            return state;
+    }
+}
+
+const errorReducer = (state={}, action) => {
+    switch (action.type) {
+        case types.GET_ERRORS:
+            return action.errors;
+        default:
+            return state;
+    }
+}
+
 const reducer = combineReducers({
-    auth: authReducer
+    ui: uiReducer,
+    auth: authReducer,
+    errors: errorReducer
 });
 export default reducer;

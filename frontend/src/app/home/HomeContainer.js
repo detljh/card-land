@@ -4,12 +4,14 @@ import { homeOperations } from './duck';
 
 const mapStateToProps = (state) => {
     return {
-        displayLogin: state.home.auth.showLoginForm,
-        displayRegister: state.home.auth.showRegisterForm
+        displayLogin: state.home.ui.showLoginForm,
+        displayRegister: state.home.ui.showRegisterForm,
+        auth: state.home.auth,
+        errors: state.home.errors
     }
 }
 
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = (dispatch, ownProps) => {
     return {
         showLoginForm: () => {
             dispatch(homeOperations.showLoginForm());
@@ -22,6 +24,15 @@ const mapDispatchToProps = (dispatch) => {
         },
         hideRegisterForm: () => {
             dispatch(homeOperations.hideRegisterForm());
+        },
+        login: (username, password) => {
+            dispatch(homeOperations.login(username, password));
+        },
+        register: (username, password, confirmPassword) => {
+            dispatch(homeOperations.register(username, password, confirmPassword));
+        },
+        logout: () => {
+            dispatch(homeOperations.logout());
         }
     }
 }

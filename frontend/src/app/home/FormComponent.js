@@ -34,6 +34,7 @@ class FormComponent extends React.Component {
             this.props.form === "register" && styles.block.register,
             this.props.form === "login" && styles.block.login
         );
+
         return (
             <div style={style}>
                 <div style={styles.header}>
@@ -41,21 +42,25 @@ class FormComponent extends React.Component {
                 </div>
 
                 <div style={styles.form}>
+                    <span>{this.props.errors.error}</span>
                     <label htmlFor="username" style={styles.formLabel}>Username</label>
+                    <span>{this.props.errors.username}</span>
                     <input type="text" name="username" id="username" placeholder="Enter username" style={styles.formField} onChange={(e) => this.updateUsername(e)} />
                     <label htmlFor="password" style={styles.formLabel}>Password</label>
+                    <span>{this.props.errors.password}</span>
                     <input type="password" name="password" id="password" placeholder="Enter password" style={styles.formField} onChange={(e) => this.updatePassword(e)} />
                     {
                         this.props.form === "login" && 
-                        <button>Login</button>
+                        <button onClick={() => this.props.action(this.state.username, this.state.password)}>Login</button>
                     }
 
                     {
                         this.props.form === "register" && 
                         [
-                            <label htmlFor="confirmPassword" style={styles.formLabel}>Confirm Password</label>,
-                            <input type="password" name="confirmPassword" id="confirmPassword" placeholder="Confirm password" style={styles.formField} onChange={(e) => this.updateConfirmPassword(e)} />,
-                            <button>Register</button>
+                            <label key="confirm_label" htmlFor="confirmPassword" style={styles.formLabel}>Confirm Password</label>,
+                            <span key={"confirm_error"}>{this.props.errors.confirmPassword}</span>,
+                            <input key="confirm_input" type="password" name="confirmPassword" id="confirmPassword" placeholder="Confirm password" style={styles.formField} onChange={(e) => this.updateConfirmPassword(e)} />,
+                            <button key="register_button" onClick={() => this.props.action(this.state.username, this.state.password, this.state.confirmPassword)}>Register</button>
                         ]
                     }
                 </div>

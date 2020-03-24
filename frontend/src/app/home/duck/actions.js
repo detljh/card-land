@@ -24,9 +24,26 @@ const hideRegisterForm = () => {
     }
 }
 
+const setCurrentUser = (user, isAuthenticated) => {
+    return {
+        type: types.SET_CURRENT_USER,
+        user: user,
+        isAuthenticated: isAuthenticated
+    }
+}
+
+const errors = (errors) => {
+    return {
+        type: types.GET_ERRORS,
+        errors: errors
+    }
+}
+
 export default {
     showLoginForm,
     showRegisterForm,
     hideLoginForm,
-    hideRegisterForm
+    hideRegisterForm,
+    setCurrentUser,
+    errors
 }
