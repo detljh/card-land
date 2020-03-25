@@ -2,9 +2,12 @@ import Creators from './actions';
 import axios from 'axios';
 import setAuthToken from "../../../utils/setAuthToken";
 import jwt_decode from "jwt-decode";
+import gameTypes from '../../../../../constants/gameTypes';
+import wsActions from '../../../socket/actions';
 
 const hideLoginForm = Creators.hideLoginForm;
 const hideRegisterForm = Creators.hideRegisterForm;
+const setConnection = Creators.setConnection;
 
 const showLoginForm = () => {
     return (dispatch) => {
@@ -31,6 +34,7 @@ const login = (username, password) => {
             const decoded = jwt_decode(token);
             dispatch(Creators.hideLoginForm());
             dispatch(Creators.setCurrentUser(decoded, true));
+            dispatch(wsActions.wsAuth(decoded));
         })
         .catch(err => {
             dispatch(Creators.errors(err.response.data));
@@ -58,7 +62,16 @@ const logout = () => {
         localStorage.removeItem("jwtToken");
         setAuthToken(false);
         dispatch(Creators.setCurrentUser({}, false));
+        dispatch(wsActions.wsAuth(decoded));
     }
+}
+
+const startGame = (type, ownProps) => {
+    return () => {
+        if (type === gameTypes.TIC_TAC_TOE) {
+            ownProps.history.push('/tic_tac_toe');
+        }
+    }   
 }
 
 export default {
@@ -68,5 +81,7 @@ export default {
     hideRegisterForm,
     login,
     register,
-    logout
+    logout,
+    startGame,
+    setConnection
 }

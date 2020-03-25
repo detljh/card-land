@@ -1,11 +1,15 @@
 import React from 'react';
 import FormComponent from './FormComponent';
 import styles from './styles.Home.css';
+import gameTypes from '../../../../constants/gameTypes';
 
 class HomeComponent extends React.Component {
+    constructor(props) {
+        super(props);
+    }
+
     render() {
         let isAuthenticated = this.props.auth.isAuthenticated;
-        
         return (
             <div style={styles.homePage}>
                 <div style={styles.header}>
@@ -38,6 +42,9 @@ class HomeComponent extends React.Component {
                     </div>
                 }
                 
+                <div style={styles.main}>
+                    <button onClick={() => this.props.startGame(gameTypes.TIC_TAC_TOE)}>Tic Tac Toe</button>
+                </div>
             </div>
         )
     }

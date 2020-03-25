@@ -33,6 +33,9 @@ const mapDispatchToProps = (dispatch, ownProps) => {
         },
         logout: () => {
             dispatch(homeOperations.logout());
+        },
+        startGame: (type) => {
+            dispatch(homeOperations.startGame(type, ownProps));
         }
     }
 }

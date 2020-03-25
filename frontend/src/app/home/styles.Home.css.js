@@ -1,7 +1,8 @@
 let styles = {
     homePage: {
         width: '100%',
-        height: '100%',
+        minHeight: '100%',
+        overflow: 'auto'
     },
     header: {
         width: '100%',
@@ -12,6 +13,11 @@ let styles = {
         position: 'fixed',
         backgroundColor: 'grey'
     },
+    main: {
+        marginTop: '60px',
+        width: '100%',
+        height: '100%'
+    },
     formWrapper: {
         display: 'flex',
         width: '100%',
@@ -19,7 +25,6 @@ let styles = {
         justifyContent: 'center',
         alignItems: 'center',
         position: 'fixed',
-        marginTop: '60px',
         backgroundColor: 'hsla(0, 0%, 0%, 0.3)'
     }
 }

@@ -4,8 +4,8 @@ const User = mongoose.model('user');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const secret = process.env.SESSION_SECRET;
-const validateRegisterInput = require('../../auth/register');
-const validateLoginInput = require('../../auth/login');
+const validateRegisterInput = require('../auth/register');
+const validateLoginInput = require('../auth/login');
 
 module.exports = (app) => {
     app.route('/api/register')

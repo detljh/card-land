@@ -39,11 +39,19 @@ const errors = (errors) => {
     }
 }
 
+const setConnection = (connected) => {
+    return {
+        type: types.SET_CONNECTION,
+        connected: connected
+    }
+}
+
 export default {
     showLoginForm,
     showRegisterForm,
     hideLoginForm,
     hideRegisterForm,
     setCurrentUser,
-    errors
+    errors,
+    setConnection
 }

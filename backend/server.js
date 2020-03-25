@@ -2,7 +2,7 @@
 
 require('dotenv').config();
 const path = require('path');
-const fs = require('fs')
+const fs = require('fs');
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser= require('body-parser');
@@ -19,10 +19,12 @@ if (env != 'production') {
   config = require('./config/config.js')[env];
 }
 
+const port = process.env.PORT || config.port;
+
 const models_path = path.join(__dirname, '/models');
 fs.readdirSync(models_path).forEach(file => {
   require(models_path + '/' + file);
-})
+});
 
 const app = express();
 
@@ -36,22 +38,25 @@ require('./config/auth')(passport);
 
 mongoose.connect(config.db, { useNewUrlParser: true, useUnifiedTopology: true });
 
-app.route('/')
-  .get((req, res) => {
-    res.send('BACKEND CONNECTED');
-  });
-  
-const authRoutes = require('./routes/api/auth');
+app.use(express.static(path.join(__dirname, '../frontend/public')));
+
+app.get('/', (req, res) => {
+  res.sendFile(path.resolve(__dirname, '../frontend/public/index.html'));
+});
+
+const authRoutes = require('./routes/auth');
 authRoutes(app);
 
-app.use((req, res, next) => {
-  res.status(404)
-      .type('text')
-      .send('Not Found');
-  });
+app.get('*', (req, res) => {
+  res.sendFile(path.resolve(__dirname, '../frontend/public/index.html'));
+});
 
-app.listen(process.env.PORT || config.port, () => {
-    console.log("Listening on port..." + (process.env.PORT || config.port));
+const http = require('http').Server(app);
+const io = require('socket.io')(http);
+require('./socket/socket')(io);
+
+http.listen(port, () => {
+    console.log("Listening on port..." + port);
     
     if (process.env.NODE_ENV === 'test') {
         console.log("Running Tests...");

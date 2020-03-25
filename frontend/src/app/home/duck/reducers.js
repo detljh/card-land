@@ -34,6 +34,7 @@ const uiReducer = (state=UI_INITIAL_STATE, action) => {
 const AUTH_INITIAL_STATE = {
     isAuthenticated: false,
     user: {},
+    connected: false
 }
 
 const authReducer = (state=AUTH_INITIAL_STATE, action) => {
@@ -43,6 +44,10 @@ const authReducer = (state=AUTH_INITIAL_STATE, action) => {
                 isAuthenticated: action.isAuthenticated,
                 user: {...action.user}
             });
+        case types.SET_CONNECTION:
+            return Object.assign({}, state, {
+                connected: action.connected
+            })
         default:
             return state;
     }
