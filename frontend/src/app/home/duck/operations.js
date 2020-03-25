@@ -62,7 +62,7 @@ const logout = () => {
         localStorage.removeItem("jwtToken");
         setAuthToken(false);
         dispatch(Creators.setCurrentUser({}, false));
-        dispatch(wsActions.wsAuth(decoded));
+        dispatch(wsActions.wsAuth({}));
     }
 }
 
