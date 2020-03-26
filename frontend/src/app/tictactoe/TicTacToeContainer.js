@@ -4,13 +4,9 @@ import { ticOperations } from './duck';
 
 const mapStateToProps = (state) => {
     return {
-<<<<<<< HEAD
         connected: state.home.auth.connected,
         players: state.tic.game.players,
         countdown: state.tic.game.countdown
-=======
-        connected: state.home.auth.connected
->>>>>>> 8224622607e852a412880a04b41a84fb3393e17d
     }
 }
 

@@ -1,7 +1,6 @@
 import types from './types';
 import { combineReducers } from 'redux';
 
-<<<<<<< HEAD
 const GAME_INITIAL_STATE = {
     players: [],
     countdown: 5
@@ -25,12 +24,5 @@ const gameReducer = (state=GAME_INITIAL_STATE, action) => {
 
 const reducer = combineReducers({
     game: gameReducer
-=======
-const UI_INITIAL_STATE = {
-}
-
-const reducer = combineReducers({
-    
->>>>>>> 8224622607e852a412880a04b41a84fb3393e17d
 });
 export default reducer;

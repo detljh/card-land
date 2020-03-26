@@ -1,5 +1,4 @@
 import Creators from './actions';
-<<<<<<< HEAD
 import sActions from '../../../socket/actions';
 import gameTypes from '../../../../../constants/gameTypes';
 
@@ -36,35 +35,18 @@ const countdown = () => {
 const join = () => {
     return (dispatch) => {
         dispatch(sActions.sGetRoom(gameTypes.TIC_TAC_TOE));
-=======
-import wsActions from '../../../socket/actions';
-import gameTypes from '../../../../../constants/gameTypes';
-
-const join = () => {
-    return (dispatch) => {
-        dispatch(wsActions.wsJoinRoom(gameTypes.TIC_TAC_TOE));
->>>>>>> 8224622607e852a412880a04b41a84fb3393e17d
     }
 }
 
 const leave = () => {
     return (dispatch) => {
-<<<<<<< HEAD
         dispatch(sActions.sLeaveRoom());
-=======
-        dispatch(wsActions.wsLeaveRoom());
->>>>>>> 8224622607e852a412880a04b41a84fb3393e17d
     }
 }
 
 export default {
-<<<<<<< HEAD
     updatePlayers,
     join,
     leave,
     countdown
-=======
-    join,
-    leave
->>>>>>> 8224622607e852a412880a04b41a84fb3393e17d
 }

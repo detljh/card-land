@@ -1,9 +1,5 @@
 let styles = {
-<<<<<<< HEAD
     page: {
-=======
-    homePage: {
->>>>>>> 8224622607e852a412880a04b41a84fb3393e17d
         width: '100%',
         minHeight: '100%',
         overflow: 'auto'

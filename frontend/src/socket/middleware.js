@@ -3,15 +3,11 @@ import types from './types';
 import io from 'socket.io-client';
 import events from '../../../constants/socketEvents'; 
 import { homeOperations } from '../app/home/duck';
-<<<<<<< HEAD
 import { ticOperations } from '../app/tictactoe/duck';
-=======
->>>>>>> 8224622607e852a412880a04b41a84fb3393e17d
 
 const socketMiddleware = () => {
     let socket = null;
 
-<<<<<<< HEAD
     
     return store => next => {
         const listeners = (socket) => {
@@ -59,30 +55,6 @@ const socketMiddleware = () => {
                 default:
                     return next(action);
             }
-=======
-    return store => next => action => {
-        switch(action.type) {
-            case types.WS_CONNECT:
-                if (socket != null) {
-                    socket.close();
-                }
-
-                socket = io(action.host);
-                store.dispatch(homeOperations.setConnection(true));
-                socket.emit(events.USER_AUTH, action.user);
-                break;
-            case types.WS_AUTH:
-                socket.emit(events.USER_AUTH, action.user);
-                break;
-            case types.WS_JOIN_ROOM:
-                socket.emit(events.START_GAME, action.gameType);
-                break;
-            case types.WS_LEAVE_ROOM:
-                socket.emit(events.LEAVE_ROOM);
-                break;
-            default:
-                return next(action);
->>>>>>> 8224622607e852a412880a04b41a84fb3393e17d
         }
     }
 }

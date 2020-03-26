@@ -62,7 +62,6 @@ const errorReducer = (state={}, action) => {
     }
 }
 
-<<<<<<< HEAD
 let socketState = {
     online: 0,
     room: null
@@ -88,11 +87,5 @@ const reducer = combineReducers({
     auth: authReducer,
     errors: errorReducer,
     socket: socketReducer
-=======
-const reducer = combineReducers({
-    ui: uiReducer,
-    auth: authReducer,
-    errors: errorReducer
->>>>>>> 8224622607e852a412880a04b41a84fb3393e17d
 });
 export default reducer;

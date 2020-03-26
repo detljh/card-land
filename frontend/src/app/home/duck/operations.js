@@ -3,20 +3,13 @@ import axios from 'axios';
 import setAuthToken from "../../../utils/setAuthToken";
 import jwt_decode from "jwt-decode";
 import gameTypes from '../../../../../constants/gameTypes';
-<<<<<<< HEAD
 import sActions from '../../../socket/actions';
 import history from '../../../history';
-=======
-import wsActions from '../../../socket/actions';
->>>>>>> 8224622607e852a412880a04b41a84fb3393e17d
 
 const hideLoginForm = Creators.hideLoginForm;
 const hideRegisterForm = Creators.hideRegisterForm;
 const setConnection = Creators.setConnection;
-<<<<<<< HEAD
 const updateUsersOnline = Creators.updateUsersOnline;
-=======
->>>>>>> 8224622607e852a412880a04b41a84fb3393e17d
 
 const showLoginForm = () => {
     return (dispatch) => {
@@ -43,11 +36,7 @@ const login = (username, password) => {
             const decoded = jwt_decode(token);
             dispatch(Creators.hideLoginForm());
             dispatch(Creators.setCurrentUser(decoded, true));
-<<<<<<< HEAD
             dispatch(sActions.sAuth(decoded));
-=======
-            dispatch(wsActions.wsAuth(decoded));
->>>>>>> 8224622607e852a412880a04b41a84fb3393e17d
         })
         .catch(err => {
             dispatch(Creators.errors(err.response.data));
@@ -75,7 +64,6 @@ const logout = () => {
         localStorage.removeItem("jwtToken");
         setAuthToken(false);
         dispatch(Creators.setCurrentUser({}, false));
-<<<<<<< HEAD
         dispatch(sActions.sAuth({}));
     }
 }
@@ -94,18 +82,6 @@ const assignRoom = (room, type) => {
             history.push(`/tic_tac_toe/${room}`);
         }
     }
-=======
-        dispatch(wsActions.wsAuth({}));
-    }
-}
-
-const startGame = (type, ownProps) => {
-    return () => {
-        if (type === gameTypes.TIC_TAC_TOE) {
-            ownProps.history.push('/tic_tac_toe');
-        }
-    }   
->>>>>>> 8224622607e852a412880a04b41a84fb3393e17d
 }
 
 export default {
@@ -116,13 +92,8 @@ export default {
     login,
     register,
     logout,
-<<<<<<< HEAD
     getRoom,
     setConnection,
     updateUsersOnline,
     assignRoom
-=======
-    startGame,
-    setConnection
->>>>>>> 8224622607e852a412880a04b41a84fb3393e17d
 }

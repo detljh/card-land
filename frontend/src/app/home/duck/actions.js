@@ -46,7 +46,6 @@ const setConnection = (connected) => {
     }
 }
 
-<<<<<<< HEAD
 const updateUsersOnline = (online) => {
     return {
         type: types.UPDATE_ONLINE_USERS,
@@ -61,8 +60,6 @@ const assignRoom = (room) => {
     }
 }
 
-=======
->>>>>>> 8224622607e852a412880a04b41a84fb3393e17d
 export default {
     showLoginForm,
     showRegisterForm,
@@ -70,11 +67,7 @@ export default {
     hideRegisterForm,
     setCurrentUser,
     errors,
-<<<<<<< HEAD
     setConnection,
     updateUsersOnline,
     assignRoom
-=======
-    setConnection
->>>>>>> 8224622607e852a412880a04b41a84fb3393e17d
 }

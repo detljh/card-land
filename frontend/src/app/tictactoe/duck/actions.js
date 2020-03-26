@@ -1,6 +1,5 @@
 import types from "./types"
 
-<<<<<<< HEAD
 const updatePlayers = (players) => {
     return {
         type: types.UPDATE_PLAYERS,
@@ -18,9 +17,4 @@ const countdown = (reset) => {
 export default {
     updatePlayers,
     countdown
-=======
-
-export default {
-    
->>>>>>> 8224622607e852a412880a04b41a84fb3393e17d
 }
