@@ -53,10 +53,11 @@ const updateUsersOnline = (online) => {
     }
 }
 
-const assignRoom = (room) => {
+const assignRoom = (room, type) => {
     return {
         type: types.ASSIGN_ROOM,
-        room: room
+        room: room,
+        gameType: type
     }
 }
 

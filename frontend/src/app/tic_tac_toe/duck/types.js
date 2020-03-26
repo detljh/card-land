@@ -1,0 +1,7 @@
+const UPDATE_PLAYERS = "UPDATE_PLAYERS"
+const COUNTDOWN = "COUNTDOWN";
+
+export default {
+    UPDATE_PLAYERS,
+    COUNTDOWN
+}

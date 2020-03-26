@@ -1,7 +1,7 @@
 import React from 'react';
-import styles from './styles.TicTacToe.css';
+import styles from './styles.LoadingScreen.css';
 
-class TicTacToeComponent extends React.Component {
+class LoadingScreenComponent extends React.Component {
     constructor(props) {
         super(props);
         this.handleLoad = this.handleLoad.bind(this);
@@ -20,9 +20,6 @@ class TicTacToeComponent extends React.Component {
 
     handleLoad() {
         if (this.props.connected) {
-            this.setState({
-                joined: true
-            });
             this.props.join();
         }  
     }
@@ -38,4 +35,4 @@ class TicTacToeComponent extends React.Component {
     }
 }
 
-export default TicTacToeComponent;
+export default LoadingScreenComponent;

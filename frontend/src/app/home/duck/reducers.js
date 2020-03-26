@@ -75,7 +75,8 @@ const socketReducer = (state=socketState, action) => {
             });
         case types.ASSIGN_ROOM:
             return Object.assign({}, state, {
-                room: action.room
+                room: action.room,
+                gameType: action.gameType
             });
         default:
             return state;

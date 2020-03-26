@@ -1,7 +1,8 @@
 import React from 'react';
 import { Router, Switch, Route } from 'react-router-dom';
 import { Home } from './home';
-import { TicTacToe } from './tictactoe';
+import { LoadingScreen } from './loading_screen';
+import { TicTacToe } from './tic_tac_toe';
 import history from '../history';
 
 class App extends React.Component {
@@ -10,7 +11,8 @@ class App extends React.Component {
             <Router history={history}>
                 <Switch>
                     <Route exact path='/' component={Home} />
-                    <Route path='/tic_tac_toe/:room' component={TicTacToe} />
+                    <Route path='/:room' component={LoadingScreen} />
+                    <Route path='/:room/tic_tac_toe' component={TicTacToe} />
                 </Switch>
             </Router>
         )

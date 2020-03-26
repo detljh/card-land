@@ -76,10 +76,10 @@ const getRoom = (type) => {
 
 const assignRoom = (room, type) => {
     return (dispatch) => {
-        dispatch(Creators.assignRoom(room));
+        dispatch(Creators.assignRoom(room, type));
         dispatch(sActions.sJoinRoom(type));
         if (type === gameTypes.TIC_TAC_TOE) {
-            history.push(`/tic_tac_toe/${room}`);
+            history.push(`/${room}`);
         }
     }
 }

@@ -3,7 +3,7 @@ import types from './types';
 import io from 'socket.io-client';
 import events from '../../../constants/socketEvents'; 
 import { homeOperations } from '../app/home/duck';
-import { ticOperations } from '../app/tictactoe/duck';
+import { ticOperations } from '../app/tic_tac_toe/duck';
 
 const socketMiddleware = () => {
     let socket = null;
