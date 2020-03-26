@@ -53,10 +53,16 @@ const updateUsersOnline = (online) => {
     }
 }
 
-const assignRoom = (room, type) => {
+const assignRoom = (room) => {
     return {
         type: types.ASSIGN_ROOM,
-        room: room,
+        room: room
+    }
+}
+
+const assignGameType = (type) => {
+    return {
+        type: types.ASSIGN_GAME_TYPE,
         gameType: type
     }
 }
@@ -70,5 +76,6 @@ export default {
     errors,
     setConnection,
     updateUsersOnline,
-    assignRoom
+    assignRoom,
+    assignGameType
 }

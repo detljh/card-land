@@ -1,5 +1,6 @@
 import React from 'react';
 import styles from './styles.TicTacToe.css';
+import history from '../../history';
 
 class TicTacToeComponent extends React.Component {
     constructor(props) {
@@ -12,14 +13,11 @@ class TicTacToeComponent extends React.Component {
     }
 
     componentWillUnmount() {
-        
         window.removeEventListener('load', this.handleLoad);   
     }
 
     handleLoad() {
-        if (this.props.connected) {
-            
-        }  
+        //history.push('/');
     }
 
     render() {

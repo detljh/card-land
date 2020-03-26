@@ -1,5 +1,6 @@
 import React from 'react';
 import styles from './styles.LoadingScreen.css';
+import history from '../../history';
 
 class LoadingScreenComponent extends React.Component {
     constructor(props) {
@@ -19,9 +20,7 @@ class LoadingScreenComponent extends React.Component {
     }
 
     handleLoad() {
-        if (this.props.connected) {
-            this.props.join();
-        }  
+        history.push('/');
     }
 
     render() {

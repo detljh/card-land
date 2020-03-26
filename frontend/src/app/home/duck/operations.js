@@ -2,7 +2,6 @@ import Creators from './actions';
 import axios from 'axios';
 import setAuthToken from "../../../utils/setAuthToken";
 import jwt_decode from "jwt-decode";
-import gameTypes from '../../../../../constants/gameTypes';
 import sActions from '../../../socket/actions';
 import history from '../../../history';
 
@@ -70,17 +69,16 @@ const logout = () => {
 
 const getRoom = (type) => {
     return (dispatch) => {
+        dispatch(Creators.assignGameType(type));
         dispatch(sActions.sGetRoom(type));
     }   
 }
 
 const assignRoom = (room, type) => {
     return (dispatch) => {
-        dispatch(Creators.assignRoom(room, type));
+        dispatch(Creators.assignRoom(room));
         dispatch(sActions.sJoinRoom(type));
-        if (type === gameTypes.TIC_TAC_TOE) {
-            history.push(`/${room}`);
-        }
+        history.push(`/${room}`);
     }
 }
 

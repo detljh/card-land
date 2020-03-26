@@ -3,7 +3,7 @@ import types from './types';
 import io from 'socket.io-client';
 import events from '../../../constants/socketEvents'; 
 import { homeOperations } from '../app/home/duck';
-import { ticOperations } from '../app/tic_tac_toe/duck';
+import { loadingOperations } from '../app/loading_screen/duck';
 
 const socketMiddleware = () => {
     let socket = null;
@@ -20,11 +20,11 @@ const socketMiddleware = () => {
             });
     
             socket.on(events.LOAD_PLAYERS, (data) => {
-                store.dispatch(ticOperations.updatePlayers(data.players));
+                store.dispatch(loadingOperations.updatePlayers(data.players));
             });
     
             socket.on(events.READY, () => {
-               store.dispatch(ticOperations.countdown()); 
+               store.dispatch(loadingOperations.countdown()); 
             });
         }
         

@@ -11,7 +11,7 @@ class App extends React.Component {
             <Router history={history}>
                 <Switch>
                     <Route exact path='/' component={Home} />
-                    <Route path='/:room' component={LoadingScreen} />
+                    <Route exact path='/:room' component={LoadingScreen} />
                     <Route path='/:room/tic_tac_toe' component={TicTacToe} />
                 </Switch>
             </Router>

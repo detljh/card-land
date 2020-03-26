@@ -1,6 +1,7 @@
 import Creators from './actions';
 import sActions from '../../../socket/actions';
 import gameTypes from '../../../../../constants/gameTypes';
+import history from '../../../history';
 
 const updatePlayers = Creators.updatePlayers;
 
@@ -16,8 +17,8 @@ const tick = (dispatch, getState) => {
             let count = getState().tic.game.countdown;
 
             if (count === 0) {
-                console.log('start');
                 clearInterval(timer);
+                startGame(getState);
             }
         }
     }, 1000);
@@ -33,14 +34,27 @@ const countdown = () => {
 }
 
 const join = () => {
-    return (dispatch) => {
-        dispatch(sActions.sGetRoom(gameTypes.TIC_TAC_TOE));
+    return (dispatch, getState) => {
+        let type = getState().home.auth.gameType;
+        dispatch(sActions.sGetRoom(type));
     }
 }
 
 const leave = () => {
     return (dispatch) => {
         dispatch(sActions.sLeaveRoom());
+    }
+}
+
+const startGame = (getState) => {
+    let type = getState().home.socket.gameType;
+    let room = getState().home.socket.room;
+    switch (type) {
+        case gameTypes.TIC_TAC_TOE:
+            history.push(`/${room}/tic_tac_toe`);
+            break;
+        default:
+            return;
     }
 }
 
