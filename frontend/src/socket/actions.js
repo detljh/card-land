@@ -1,0 +1,44 @@
+import types from './types';
+
+const sConnect = (host, user) => {
+    return {
+        type: types.S_CONNECT,
+        host: host,
+        user: user
+    }
+}
+
+const sAuth = (user) => {
+    return {
+        type: types.S_AUTH,
+        user: user
+    }
+}
+
+const sJoinRoom = (gameType) => {
+    return {
+        type: types.S_JOIN_ROOM,
+        gameType: gameType
+    }
+}
+
+const sLeaveRoom = () => {
+    return {
+        type: types.S_LEAVE_ROOM
+    }
+}
+
+const sGetRoom = (gameType) => {
+    return {
+        type: types.S_GET_ROOM,
+        gameType: gameType
+    }
+}
+
+export default {
+    sConnect,
+    sAuth,
+    sJoinRoom,
+    sLeaveRoom,
+    sGetRoom
+}
