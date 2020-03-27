@@ -7,14 +7,30 @@ const updatePlayers = (players) => {
     }
 }
 
-const countdown = (reset) => {
+const takeTurn = (squares, currentPlayer) => {
     return {
-        type: types.COUNTDOWN,
-        reset: reset
+        type: types.TAKE_TURN,
+        squares: squares,
+        currentPlayer
+    }
+}
+
+const win = (winner) => {
+    return {
+        type: types.WIN,
+        winner: winner
+    }
+}
+
+const draw = () => {
+    return {
+        type: types.DRAW
     }
 }
 
 export default {
     updatePlayers,
-    countdown
+    takeTurn,
+    win,
+    draw
 }

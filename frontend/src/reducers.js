@@ -1,11 +1,11 @@
 import { combineReducers } from 'redux';
 import homeReducer from './app/home/duck';
-import loadingReducer from './app/loading_screen/duck';
+import roomReducer from './app/loading_room/duck';
 import ticReducer from './app/tic_tac_toe/duck';
 
 const rootReducer = combineReducers({
     home: homeReducer,
-    loading: loadingReducer,
+    room: roomReducer,
     tic: ticReducer
 });
 

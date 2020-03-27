@@ -35,10 +35,17 @@ const sGetRoom = (gameType) => {
     }
 }
 
+const sStartGame = () => {
+    return {
+        type: types.S_START_GAME
+    }
+}
+
 export default {
     sConnect,
     sAuth,
     sJoinRoom,
     sLeaveRoom,
-    sGetRoom
+    sGetRoom,
+    sStartGame
 }

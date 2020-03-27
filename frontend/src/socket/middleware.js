@@ -3,12 +3,11 @@ import types from './types';
 import io from 'socket.io-client';
 import events from '../../../constants/socketEvents'; 
 import { homeOperations } from '../app/home/duck';
-import { loadingOperations } from '../app/loading_screen/duck';
+import { roomOperations } from '../app/loading_room/duck';
 
 const socketMiddleware = () => {
     let socket = null;
 
-    
     return store => next => {
         const listeners = (socket) => {
             socket.on(events.USERS_ONLINE, (data) => {
@@ -20,11 +19,11 @@ const socketMiddleware = () => {
             });
     
             socket.on(events.LOAD_PLAYERS, (data) => {
-                store.dispatch(loadingOperations.updatePlayers(data.players));
+                store.dispatch(roomOperations.updatePlayers(data.players));
             });
     
             socket.on(events.READY, () => {
-               store.dispatch(loadingOperations.countdown()); 
+               store.dispatch(roomOperations.countdown()); 
             });
         }
         
@@ -52,6 +51,8 @@ const socketMiddleware = () => {
                     break;
                 case types.S_GET_ROOM:
                     socket.emit(events.GET_ROOM, action.gameType);
+                case types.S_START_GAME:
+                    socket.emit(events.START_GAME);
                 default:
                     return next(action);
             }

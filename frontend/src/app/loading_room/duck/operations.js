@@ -8,13 +8,13 @@ const updatePlayers = Creators.updatePlayers;
 let timer = null;
 const tick = (dispatch, getState) => {
     return setInterval(() => {
-        let players = getState().tic.game.players;
+        let players = getState().room.players;
         if (players.length !== 2) {
             clearInterval(timer);
             dispatch(Creators.countdown(true));
         } else {
             dispatch(Creators.countdown());
-            let count = getState().tic.game.countdown;
+            let count = getState().room.countdown;
 
             if (count === 0) {
                 clearInterval(timer);
@@ -49,6 +49,7 @@ const leave = () => {
 const startGame = () => {
     return (dispatch, getState) => {
         dispatch(Creators.startGame());
+        dispatch(sActions.sStartGame());
         let type = getState().home.socket.gameType;
         let room = getState().home.socket.room;
 

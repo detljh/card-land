@@ -1,8 +1,8 @@
 import React from 'react';
-import styles from './styles.LoadingScreen.css';
+import styles from './styles.LoadingRoom.css';
 import history from '../../history';
 
-class LoadingScreenComponent extends React.Component {
+class LoadingRoomComponent extends React.Component {
     constructor(props) {
         super(props);
         this.handleLoad = this.handleLoad.bind(this);
@@ -34,4 +34,4 @@ class LoadingScreenComponent extends React.Component {
     }
 }
 
-export default LoadingScreenComponent;
+export default LoadingRoomComponent;
