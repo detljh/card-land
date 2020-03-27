@@ -14,7 +14,14 @@ const countdown = (reset) => {
     }
 }
 
+const startGame = () => {
+    return {
+        type: types.START_GAME
+    }
+}
+
 export default {
     updatePlayers,
-    countdown
+    countdown,
+    startGame
 }

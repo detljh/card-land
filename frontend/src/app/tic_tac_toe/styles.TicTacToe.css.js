@@ -1,13 +1,20 @@
 let styles = {
     page: {
         width: '100%',
-        minHeight: '100%',
-        overflow: 'auto'
+        height: '100%',
+        overflow: 'auto',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center'
     },
-    main: {
-        marginTop: '60px',
-        width: '100%',
-        height: '100%'
+    game: {
+        width: '35vw',
+        height: 'calc(35vw)',
+        display: 'grid',
+        gridTemplateColumns: 'repeat(3, 1fr)',
+        gridRowColumns: 'repeat(3, 1fr)',
+        gridGap: '1px',
+        backgroundColor: 'black'
     }
 }
 

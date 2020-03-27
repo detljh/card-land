@@ -18,7 +18,7 @@ const tick = (dispatch, getState) => {
 
             if (count === 0) {
                 clearInterval(timer);
-                startGame(getState);
+                dispatch(startGame());
             }
         }
     }, 1000);
@@ -46,15 +46,19 @@ const leave = () => {
     }
 }
 
-const startGame = (getState) => {
-    let type = getState().home.socket.gameType;
-    let room = getState().home.socket.room;
-    switch (type) {
-        case gameTypes.TIC_TAC_TOE:
-            history.push(`/${room}/tic_tac_toe`);
-            break;
-        default:
-            return;
+const startGame = () => {
+    return (dispatch, getState) => {
+        dispatch(Creators.startGame());
+        let type = getState().home.socket.gameType;
+        let room = getState().home.socket.room;
+
+        switch (type) {
+            case gameTypes.TIC_TAC_TOE:
+                history.push(`/${room}/tic_tac_toe`);
+                break;
+            default:
+                return;
+        }
     }
 }
 

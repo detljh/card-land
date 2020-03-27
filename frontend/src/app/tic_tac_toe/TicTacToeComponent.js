@@ -1,6 +1,7 @@
 import React from 'react';
 import styles from './styles.TicTacToe.css';
 import history from '../../history';
+import SquareComponent from './SquareComponent';
 
 class TicTacToeComponent extends React.Component {
     constructor(props) {
@@ -9,6 +10,9 @@ class TicTacToeComponent extends React.Component {
     }
 
     componentDidMount() {
+        if (this.props.players.length != 2) {
+            history.push('/');
+        }
         window.addEventListener('load', this.handleLoad);
     }
 
@@ -23,7 +27,19 @@ class TicTacToeComponent extends React.Component {
     render() {
         return (
             <div style={styles.page}>
-                gameee
+                {this.props.players[0]}
+                <div style={styles.game}>
+                    <SquareComponent id="square-1" />
+                    <SquareComponent />
+                    <SquareComponent />
+                    <SquareComponent />
+                    <SquareComponent />
+                    <SquareComponent />
+                    <SquareComponent />
+                    <SquareComponent />
+                    <SquareComponent />
+                </div>
+                {this.props.players[1]}
             </div>
         )
     }

@@ -5,8 +5,9 @@ import { loadingOperations } from './duck';
 const mapStateToProps = (state) => {
     return {
         connected: state.home.auth.connected,
-        players: state.loading.game.players,
-        countdown: state.loading.game.countdown
+        players: state.loading.players,
+        countdown: state.loading.countdown,
+        start: state.loading.start
     }
 }
 

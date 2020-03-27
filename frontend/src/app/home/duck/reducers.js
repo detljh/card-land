@@ -64,7 +64,8 @@ const errorReducer = (state={}, action) => {
 
 let socketState = {
     online: 0,
-    room: null
+    room: null,
+    gameType: null
 }
 
 const socketReducer = (state=socketState, action) => {

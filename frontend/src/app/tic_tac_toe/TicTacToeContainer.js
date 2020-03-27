@@ -4,7 +4,7 @@ import { ticOperations } from './duck';
 
 const mapStateToProps = (state) => {
     return {
-        
+        players: state.loading.players
     }
 }
 

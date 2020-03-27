@@ -28,7 +28,7 @@ class WebSocketConnection extends React.Component {
 
     render() {
         return (
-            <div>
+            <div id="app">
                 {this.props.children}
             </div>
         )

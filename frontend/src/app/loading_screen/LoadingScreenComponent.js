@@ -13,7 +13,7 @@ class LoadingScreenComponent extends React.Component {
     }
 
     componentWillUnmount() {
-        if (this.props.connected) {
+        if (this.props.connected && !this.props.start) {
             this.props.leave();
         }
         window.removeEventListener('load', this.handleLoad);   

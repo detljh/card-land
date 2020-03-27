@@ -1,7 +1,9 @@
 const UPDATE_PLAYERS = "UPDATE_PLAYERS"
 const COUNTDOWN = "COUNTDOWN";
+const START_GAME = "START_GAME";
 
 export default {
     UPDATE_PLAYERS,
-    COUNTDOWN
+    COUNTDOWN,
+    START_GAME
 }
