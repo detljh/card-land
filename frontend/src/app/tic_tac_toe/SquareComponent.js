@@ -20,6 +20,10 @@ class SquareComponent extends React.Component {
     }
 
     click() {
+        if (this.props.squares[this.props.id]) {
+            return;
+        }
+        
         this.setState({
             hover: false
         });

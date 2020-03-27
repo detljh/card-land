@@ -42,6 +42,7 @@ const join = () => {
 
 const leave = () => {
     return (dispatch) => {
+        history.push('/');
         dispatch(sActions.sLeaveRoom());
     }
 }

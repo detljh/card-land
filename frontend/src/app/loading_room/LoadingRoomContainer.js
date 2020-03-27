@@ -7,7 +7,8 @@ const mapStateToProps = (state) => {
         connected: state.home.auth.connected,
         players: state.room.players,
         countdown: state.room.countdown,
-        start: state.room.start
+        start: state.room.start,
+        room: state.home.socket.room
     }
 }
 

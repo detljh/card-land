@@ -9,9 +9,13 @@ class TicTacToeComponent extends React.Component {
     }
 
     componentDidMount() {
-        // if (this.props.players.length != 2) {
-        //     history.push('/');
-        // }
+        if (this.props.players.length != 2) {
+            history.push('/');
+        }
+    }
+
+    componentWillUnmount() {
+        this.props.leave();
     }
 
     render() {

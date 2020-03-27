@@ -9,6 +9,10 @@ class LoadingRoomComponent extends React.Component {
     }
 
     componentDidMount() {
+        if (this.props.room === null) {
+            history.push('/');
+            return;
+        }
         window.addEventListener('load', this.handleLoad);
     }
 
@@ -20,7 +24,7 @@ class LoadingRoomComponent extends React.Component {
     }
 
     handleLoad() {
-        history.push('/');
+        this.props.leave();
     }
 
     render() {
