@@ -25,6 +25,7 @@ class TicTacToeComponent extends React.Component {
                             this.props.winner :
                             'draw'
                         }
+                        <button onClick={this.props.reset}>Play again</button>
                     </div>
                 }
                 {this.props.players[0]}

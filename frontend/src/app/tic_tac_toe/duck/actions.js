@@ -28,9 +28,16 @@ const draw = () => {
     }
 }
 
+const reset = () => {
+    return {
+        type: types.RESET
+    }
+}
+
 export default {
     updatePlayers,
     takeTurn,
     win,
-    draw
+    draw,
+    reset
 }

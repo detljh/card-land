@@ -5,13 +5,12 @@ class SquareComponent extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            hover: false,
-            clicked: false
+            hover: false
         };
     }
 
     setHover(value) {
-        if (this.state.clicked) {
+        if (this.props.squares[this.props.id]) {
             return;
         }
 
@@ -22,7 +21,6 @@ class SquareComponent extends React.Component {
 
     click() {
         this.setState({
-            clicked: true,
             hover: false
         });
         this.props.takeTurn(this.props.id);
@@ -35,7 +33,7 @@ class SquareComponent extends React.Component {
                     this.state.hover && this.props.currentIcon
                 }
                 {
-                    this.state.clicked && this.props.squares[this.props.id]
+                    this.props.squares[this.props.id] && this.props.squares[this.props.id]
                 }
             </div>
         )

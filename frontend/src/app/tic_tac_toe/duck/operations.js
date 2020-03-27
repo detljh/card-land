@@ -2,8 +2,12 @@ import Creators from './actions';
 import sActions from '../../../socket/actions';
 import gameTypes from '../../../../../constants/gameTypes';
 
-// order is rows, columns, left diagonal, right diagonal
-let boardStatus = Array.from(new Array(8), () => [0, 0]);
+const initialise = () => {
+    // order is rows, columns, left diagonal, right diagonal
+    return Array.from(new Array(8), () => [0, 0]);
+}
+let boardStatus = initialise();
+
 
 const takeTurn = (id) => {
     return (dispatch, getState) => {
@@ -66,7 +70,8 @@ const checkStatus = (id, currentPlayer) => {
 
 const reset = () => {
     return (dispatch) => {
-
+        boardStatus = initialise();
+        dispatch(Creators.reset());
     }
 }
 

@@ -36,6 +36,8 @@ const gameReducer = (state=GAME_INITIAL_STATE, action) => {
             return Object.assign({}, state, {
                 finished: true
         });
+        case types.RESET:
+            return GAME_INITIAL_STATE;
         default:
             return state;
     }
