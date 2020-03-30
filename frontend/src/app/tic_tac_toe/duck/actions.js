@@ -27,9 +27,17 @@ const reset = () => {
     }
 }
 
+const setGameState = (payload) => {
+    return {
+        type: types.SET_GAME_STATE,
+        payload
+    }
+}
+
 export default {
     takeTurn,
     win,
     draw,
-    reset
+    reset,
+    setGameState
 }

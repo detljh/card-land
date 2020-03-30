@@ -4,6 +4,7 @@ import io from 'socket.io-client';
 import events from '../../../constants/serverEvents'; 
 import { homeOperations } from '../app/home/duck';
 import { roomOperations } from '../app/loading_room/duck';
+import { ticOperations } from '../app/tic_tac_toe/duck';
 
 const socketMiddleware = () => {
     let socket = null;
@@ -24,6 +25,10 @@ const socketMiddleware = () => {
 
             socket.on(events.UPDATE_ROOM_STATE, (data) => {
                 store.dispatch(roomOperations.updateRoomState(data.room));
+            });
+
+            socket.on(events.UPDATE_GAME, (data) => {
+                store.dispatch(ticOperations.setGameState(data.room));
             })
     
             socket.on(events.READY, () => {
@@ -61,6 +66,9 @@ const socketMiddleware = () => {
                     break;
                 case types.END_TURN:
                     socket.emit(action.type);
+                    break;
+                case types.UPDATE_GAME_STATE:
+                    socket.emit(action.type, action.payload);
                     break;
                 default:
                     return next(action);

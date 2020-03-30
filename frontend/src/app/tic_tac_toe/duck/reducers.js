@@ -11,11 +11,11 @@ const GAME_INITIAL_STATE = {
 
 const gameReducer = (state=GAME_INITIAL_STATE, action) => {
     switch (action.type) {
-        case types.TAKE_TURN:
+        case types.SET_GAME_STATE:
             return Object.assign({}, state, {
-                currentIcon: action.currentIcon,
-                squares: [...action.squares],
-                turns: state.turns + 1
+                currentIcon: action.payload.currentIcon,
+                squares: [...action.payload.squares],
+                turns: action.payload.turns
             });
         case types.WIN:
             return Object.assign({}, state, {
