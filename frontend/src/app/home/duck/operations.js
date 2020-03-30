@@ -82,6 +82,12 @@ const assignRoom = (room, type) => {
     }
 }
 
+const setGuestId = (username) => {
+    return (dispatch) => {
+        dispatch(Creators.setCurrentUser({ name: username }, false));
+    }
+}
+
 export default {
     showLoginForm,
     showRegisterForm,
@@ -93,5 +99,6 @@ export default {
     getRoom,
     setConnection,
     updateUsersOnline,
-    assignRoom
+    assignRoom,
+    setGuestId
 }

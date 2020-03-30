@@ -23,8 +23,9 @@ class HomeComponent extends React.Component {
                     }
 
                     {
-                        isAuthenticated &&
-                        <div>User: {this.props.auth.user.name} </div>
+                        isAuthenticated ?
+                        <div>User: {this.props.auth.user.name} </div> :
+                        <div>{this.props.auth.user.name} </div>
                     }
 
                     <div>Users online: {this.props.usersOnline}</div>

@@ -7,6 +7,13 @@ const updatePlayers = (players) => {
     }
 }
 
+const setOpponent = (opponent) => {
+    return {
+        type: types.SET_OPPONENT,
+        opponent: opponent
+    }
+}
+
 const countdown = (reset) => {
     return {
         type: types.COUNTDOWN,
@@ -22,6 +29,7 @@ const startGame = () => {
 
 export default {
     updatePlayers,
+    setOpponent,
     countdown,
     startGame
 }

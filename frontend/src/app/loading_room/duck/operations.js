@@ -4,6 +4,7 @@ import gameTypes from '../../../../../constants/gameTypes';
 import history from '../../../history';
 
 const updatePlayers = Creators.updatePlayers;
+const setOpponent = Creators.setOpponent;
 
 let timer = null;
 const tick = (dispatch, getState) => {
@@ -66,6 +67,7 @@ const startGame = () => {
 
 export default {
     updatePlayers,
+    setOpponent,
     join,
     leave,
     countdown

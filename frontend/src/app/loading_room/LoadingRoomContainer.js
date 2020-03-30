@@ -8,7 +8,9 @@ const mapStateToProps = (state) => {
         players: state.room.players,
         countdown: state.room.countdown,
         start: state.room.start,
-        room: state.home.socket.room
+        room: state.home.socket.room,
+        user: state.home.auth.user,
+        opponent: state.room.opponent
     }
 }
 

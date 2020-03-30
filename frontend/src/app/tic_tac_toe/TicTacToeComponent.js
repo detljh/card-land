@@ -32,7 +32,7 @@ class TicTacToeComponent extends React.Component {
                         <button onClick={this.props.reset}>Play again</button>
                     </div>
                 }
-                {this.props.players[0]}
+                {this.props.user.name}
                 <div style={styles.game}>
                     <Square id="0" />
                     <Square id="1" />
@@ -44,7 +44,7 @@ class TicTacToeComponent extends React.Component {
                     <Square id="7" />
                     <Square id="8" />
                 </div>
-                {this.props.players[1]}
+                {this.props.opponent}
             </div>
         )
     }

@@ -13,17 +13,22 @@ const socketMiddleware = () => {
             socket.on(events.USERS_ONLINE, (data) => {
                 store.dispatch(homeOperations.updateUsersOnline(data.online));
             });
-    
+            
+            socket.on(events.SET_GUEST_ID, (data) => {
+                store.dispatch(homeOperations.setGuestId(data.username));
+            });
+
             socket.on(events.ASSIGN_ROOM, (data) => {
                 store.dispatch(homeOperations.assignRoom(data.room, data.gameType))
             });
     
             socket.on(events.LOAD_PLAYERS, (data) => {
-                store.dispatch(roomOperations.updatePlayers(data.players));
+                store.dispatch(roomOperations.setOpponent(data.opponent));
             });
     
-            socket.on(events.READY, () => {
-               store.dispatch(roomOperations.countdown()); 
+            socket.on(events.READY, (data) => {
+                store.dispatch(roomOperations.updatePlayers(data.players));
+                store.dispatch(roomOperations.countdown()); 
             });
         }
         

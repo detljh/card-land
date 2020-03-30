@@ -8,7 +8,9 @@ const mapStateToProps = (state) => {
         players: state.room.players,
         currentIcon: state.tic.game.currentIcon,
         finished: state.tic.game.finished,
-        winner: state.tic.game.winner
+        winner: state.tic.game.winner,
+        user: state.home.auth.user,
+        opponent: state.room.opponent
     }
 }
 

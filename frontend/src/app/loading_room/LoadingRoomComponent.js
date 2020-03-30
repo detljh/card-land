@@ -30,7 +30,10 @@ class LoadingRoomComponent extends React.Component {
     render() {
         return (
             <div style={styles.page}>
-                {this.props.players}
+                {this.props.user.name}
+                {
+                    this.props.opponent !== null && this.props.opponent
+                }
                 <br />
                 {this.props.countdown}
             </div>
