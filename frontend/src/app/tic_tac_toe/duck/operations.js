@@ -62,7 +62,7 @@ const checkStatus = (id) => {
             dispatch(Creators.draw());
         }
 
-        dispatch(roomOperations.endTurn());
+        dispatch(sActions.endTurn());
     }
 }
 

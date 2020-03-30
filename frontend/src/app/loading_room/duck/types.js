@@ -1,12 +1,10 @@
 const COUNTDOWN = "COUNTDOWN";
-const END_TURN = "END_TURN";
 const START_GAME = "START_GAME";
 const UPDATE_ROOM_STATE = "UPDATE_ROOM_STATE"
 
 
 export default {
     COUNTDOWN,
-    END_TURN,
     START_GAME,
     UPDATE_ROOM_STATE
 }

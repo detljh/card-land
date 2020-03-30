@@ -3,8 +3,6 @@ import sActions from '../../../socket/actions';
 import gameTypes from '../../../../../constants/gameTypes';
 import history from '../../../history';
 
-const endTurn = Creators.endTurn;
-
 let timer = null;
 const tick = (dispatch, getState) => {
     return setInterval(() => {
@@ -32,13 +30,6 @@ const countdown = () => {
             clearInterval(timer);
         }
         timer = tick(dispatch, getState);
-    }
-}
-
-const join = () => {
-    return (dispatch, getState) => {
-        let type = getState().home.auth.gameType;
-        dispatch(sActions.sGetRoom(type, getState().game.user.name));
     }
 }
 
@@ -79,9 +70,7 @@ const startGame = (payload) => {
 }
 
 export default {
-    join,
     leave,
     countdown,
-    endTurn,
     updateRoomState
 }

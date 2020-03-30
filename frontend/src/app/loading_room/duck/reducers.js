@@ -23,10 +23,6 @@ const reducer = (state=ROOM_INITIAL_STATE, action) => {
                 players: action.payload.players,
                 type: action.payload.type
         });
-        case types.END_TURN:
-            return Object.assign({}, state, {
-                currentPlayerIndex: (state.currentPlayerIndex + 1) % state.players.length
-        });
         case types.START_GAME:
             return Object.assign({}, state, {
             });

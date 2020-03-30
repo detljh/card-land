@@ -1,8 +1,8 @@
-import types from './types';
+import clientEvents from '../../../constants/clientEvents';
 
 const sConnect = (host, user) => {
     return {
-        type: types.S_CONNECT,
+        type: clientEvents.CONNECT,
         host: host,
         user: user
     }
@@ -10,34 +10,40 @@ const sConnect = (host, user) => {
 
 const sAuth = (user) => {
     return {
-        type: types.S_AUTH,
+        type: clientEvents.AUTH,
         user: user
     }
 }
 
 const sJoinRoom = (roomId) => {
     return {
-        type: types.S_JOIN_ROOM,
+        type: clientEvents.JOIN_ROOM,
         roomId: roomId
     }
 }
 
 const sLeaveRoom = () => {
     return {
-        type: types.S_LEAVE_ROOM
+        type: clientEvents.LEAVE_ROOM
     }
 }
 
 const sGetRoom = (gameType) => {
     return {
-        type: types.S_GET_ROOM,
+        type: clientEvents.GET_ROOM,
         gameType: gameType
     }
 }
 
 const sStartGame = () => {
     return {
-        type: types.S_START_GAME
+        type: clientEvents.START_GAME
+    }
+}
+
+const sEndTurn = () => {
+    return {
+        type: clientEvents.END_TURN
     }
 }
 
@@ -47,5 +53,6 @@ export default {
     sJoinRoom,
     sLeaveRoom,
     sGetRoom,
-    sStartGame
+    sStartGame,
+    sEndTurn
 }

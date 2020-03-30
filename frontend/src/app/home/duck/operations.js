@@ -9,7 +9,6 @@ const hideLoginForm = Creators.hideLoginForm;
 const hideRegisterForm = Creators.hideRegisterForm;
 const setConnection = Creators.setConnection;
 const updateUsersOnline = Creators.updateUsersOnline;
-const updateRoom = Creators.updateRoom;
 
 const showLoginForm = () => {
     return (dispatch) => {
@@ -100,6 +99,5 @@ export default {
     setConnection,
     updateUsersOnline,
     assignRoom,
-    setGuestId,
-    updateRoom
+    setGuestId
 }
