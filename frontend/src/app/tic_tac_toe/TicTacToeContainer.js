@@ -10,7 +10,8 @@ const mapStateToProps = (state) => {
         finished: state.tic.game.finished,
         winner: state.tic.game.winner,
         user: state.home.auth.user,
-        opponent: state.room.opponent
+        opponent: state.room.opponent,
+        currentPlayerIndex: state.room.currentPlayerIndex
     }
 }
 

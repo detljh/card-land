@@ -9,7 +9,7 @@ class TicTacToeComponent extends React.Component {
     }
 
     componentDidMount() {
-        if (this.props.players.length != 2) {
+        if (!this.props.players.length) {
             history.push('/');
         }
     }
@@ -19,11 +19,21 @@ class TicTacToeComponent extends React.Component {
     }
 
     render() {
+        let disabledPage = Object.assign({}, styles.disabledPage, 
+            this.props.finished && styles.disabled.finished
+        );
+
         return (
             <div style={styles.page}>
                 {
+                    (!this.props.finished && (this.props.players[this.props.currentPlayerIndex] !== this.props.user.name)) &&
+                    <div style={disabledPage}>
+                        Opponent's Turn
+                    </div>
+                }
+                {
                     this.props.finished &&
-                    <div style={styles.finished}>   
+                    <div style={disabledPage}>   
                         {
                             this.props.winner !== null ?
                             this.props.winner :

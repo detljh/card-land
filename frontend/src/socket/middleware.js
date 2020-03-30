@@ -19,15 +19,19 @@ const socketMiddleware = () => {
             });
 
             socket.on(events.ASSIGN_ROOM, (data) => {
-                store.dispatch(homeOperations.assignRoom(data.room, data.gameType))
+                store.dispatch(homeOperations.assignRoom(data.roomId));
             });
     
             socket.on(events.LOAD_PLAYERS, (data) => {
                 store.dispatch(roomOperations.setOpponent(data.opponent));
             });
+
+            socket.on(events.UPDATE_ROOM_STATE, (data) => {
+                store.dispatch(roomOperations.updateRoomState(data.room));
+                store.dispatch(homeOperations.updateRoom(data.room));
+            })
     
-            socket.on(events.READY, (data) => {
-                store.dispatch(roomOperations.updatePlayers(data.players));
+            socket.on(events.READY, () => {
                 store.dispatch(roomOperations.countdown()); 
             });
         }
@@ -49,7 +53,7 @@ const socketMiddleware = () => {
                     socket.emit(events.USER_AUTH, action.user);
                     break;
                 case types.S_JOIN_ROOM:
-                    socket.emit(events.JOIN_ROOM, action.gameType);
+                    socket.emit(events.JOIN_ROOM, { roomId: action.roomId });
                     break;
                 case types.S_LEAVE_ROOM:
                     socket.emit(events.LEAVE_ROOM);
@@ -58,6 +62,7 @@ const socketMiddleware = () => {
                     socket.emit(events.GET_ROOM, action.gameType);
                 case types.S_START_GAME:
                     socket.emit(events.START_GAME);
+                    break;
                 default:
                     return next(action);
             }

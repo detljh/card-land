@@ -64,8 +64,7 @@ const errorReducer = (state={}, action) => {
 
 let socketState = {
     online: 0,
-    room: null,
-    gameType: null
+    room: null
 }
 
 const socketReducer = (state=socketState, action) => {
@@ -74,14 +73,10 @@ const socketReducer = (state=socketState, action) => {
             return Object.assign({}, state, {
                 online: action.online
             });
-        case types.ASSIGN_ROOM:
+        case types.UPDATE_ROOM:
             return Object.assign({}, state, {
                 room: action.room
             });
-        case types.ASSIGN_GAME_TYPE:
-            return Object.assign({}, state, {
-                gameType: action.gameType
-            })
         default:
             return state;
     }

@@ -9,6 +9,7 @@ const hideLoginForm = Creators.hideLoginForm;
 const hideRegisterForm = Creators.hideRegisterForm;
 const setConnection = Creators.setConnection;
 const updateUsersOnline = Creators.updateUsersOnline;
+const updateRoom = Creators.updateRoom;
 
 const showLoginForm = () => {
     return (dispatch) => {
@@ -69,16 +70,15 @@ const logout = () => {
 
 const getRoom = (type) => {
     return (dispatch) => {
-        dispatch(Creators.assignGameType(type));
         dispatch(sActions.sGetRoom(type));
     }   
 }
 
-const assignRoom = (room, type) => {
+const assignRoom = (roomId) => {
     return (dispatch) => {
-        dispatch(Creators.assignRoom(room));
-        dispatch(sActions.sJoinRoom(type));
-        history.push(`/${room}`);
+        dispatch(Creators.updateRoom(roomId));
+        dispatch(sActions.sJoinRoom(roomId));
+        history.push(`/${roomId}`);
     }
 }
 
@@ -100,5 +100,6 @@ export default {
     setConnection,
     updateUsersOnline,
     assignRoom,
-    setGuestId
+    setGuestId,
+    updateRoom
 }

@@ -1,17 +1,10 @@
 import types from "./types"
 
-const updatePlayers = (players) => {
-    return {
-        type: types.UPDATE_PLAYERS,
-        players: players
-    }
-}
-
-const takeTurn = (squares, currentPlayer) => {
+const takeTurn = (squares, currentIcon) => {
     return {
         type: types.TAKE_TURN,
         squares: squares,
-        currentPlayer
+        currentIcon: currentIcon
     }
 }
 
@@ -35,7 +28,6 @@ const reset = () => {
 }
 
 export default {
-    updatePlayers,
     takeTurn,
     win,
     draw,

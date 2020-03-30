@@ -7,7 +7,7 @@ let styles = {
         justifyContent: 'center',
         alignItems: 'center'
     },
-    finished: {
+    disabledPage: {
         width: '100%',
         minHeight: '100%',
         overflow: 'auto',
@@ -15,9 +15,11 @@ let styles = {
         justifyContent: 'center',
         alignItems: 'center',
         zIndex: '10',
-        backgroundColor: 'grey',
         position: 'absolute',
-        opacity: '0.5'
+        finished: {
+            backgroundColor: 'grey',
+            opacity: '0.5'
+        }
     },
     game: {
         width: '35vw',

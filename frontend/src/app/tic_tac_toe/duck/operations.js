@@ -1,13 +1,13 @@
 import Creators from './actions';
 import sActions from '../../../socket/actions';
 import gameTypes from '../../../../../constants/gameTypes';
+import { roomOperations } from '../../loading_room/duck';
 
 const initialise = () => {
     // order is rows, columns, left diagonal, right diagonal
     return Array.from(new Array(8), () => [0, 0]);
 }
 let boardStatus = initialise();
-
 
 const takeTurn = (id) => {
     return (dispatch, getState) => {
@@ -17,21 +17,17 @@ const takeTurn = (id) => {
         }
         let squares = [...getState().tic.game.squares];
         let currentIcon = getState().tic.game.currentIcon;
-        let currentPlayer = {...getState().tic.game.currentPlayer};
         squares[id] = currentIcon;
-
-        let updatePlayer = {
-            id: (currentPlayer.id + 1) % 2,
-            icon: currentIcon === 'x' ? 'o' : 'x'
-        }
-        dispatch(Creators.takeTurn(squares, updatePlayer));
-        dispatch(checkStatus(id, currentPlayer.id));
+        currentIcon = currentIcon === 'x' ? 'o' : 'x';
+        dispatch(Creators.takeTurn(squares, currentIcon));
+        dispatch(checkStatus(id));
     }
 }
 
-const checkStatus = (id, currentPlayer) => {
+const checkStatus = (id) => {
     return (dispatch, getState) => {
         let turns = getState().tic.game.turns;
+        let currentPlayer = getState().room.currentPlayerIndex;
         let row = 0;
         let column = 0;
         let diag = 0;
@@ -65,6 +61,8 @@ const checkStatus = (id, currentPlayer) => {
         } else if (turns === 9) {
             dispatch(Creators.draw());
         }
+
+        dispatch(roomOperations.endTurn());
     }
 }
 

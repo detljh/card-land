@@ -15,10 +15,10 @@ const sAuth = (user) => {
     }
 }
 
-const sJoinRoom = (gameType) => {
+const sJoinRoom = (roomId) => {
     return {
         type: types.S_JOIN_ROOM,
-        gameType: gameType
+        roomId: roomId
     }
 }
 

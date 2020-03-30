@@ -1,19 +1,5 @@
 import types from "./types"
 
-const updatePlayers = (players) => {
-    return {
-        type: types.UPDATE_PLAYERS,
-        players: players
-    }
-}
-
-const setOpponent = (opponent) => {
-    return {
-        type: types.SET_OPPONENT,
-        opponent: opponent
-    }
-}
-
 const countdown = (reset) => {
     return {
         type: types.COUNTDOWN,
@@ -21,15 +7,29 @@ const countdown = (reset) => {
     }
 }
 
-const startGame = () => {
+const endTurn = () => {
     return {
-        type: types.START_GAME
+        type: types.END_TURN,
+    }
+}
+
+const updateRoomState = (payload) => {
+    return {
+        type: types.UPDATE_ROOM_STATE,
+        payload: payload
+    }
+}
+
+const startGame = (currentPlayerIndex) => {
+    return {
+        type: types.START_GAME,
+        currentPlayerIndex: currentPlayerIndex
     }
 }
 
 export default {
-    updatePlayers,
-    setOpponent,
     countdown,
+    endTurn,
+    updateRoomState,
     startGame
 }
