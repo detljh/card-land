@@ -70,6 +70,9 @@ const socketMiddleware = () => {
                 case types.UPDATE_GAME_STATE:
                     socket.emit(action.type, action.payload);
                     break;
+                case types.END_GAME:
+                    socket.emit(action.type, action.payload);
+                    break;
                 default:
                     return next(action);
             }

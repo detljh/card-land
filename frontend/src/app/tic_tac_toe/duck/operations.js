@@ -4,12 +4,7 @@ import gameTypes from '../../../../../constants/gameTypes';
 import { roomOperations } from '../../loading_room/duck';
 
 const setGameState = Creators.setGameState;
-
-const initialise = () => {
-    // order is rows, columns, left diagonal, right diagonal
-    return Array.from(new Array(8), () => [0, 0]);
-}
-let boardStatus = initialise();
+const reset = Creators.reset;
 
 const takeTurn = (id) => {
     return (dispatch, getState) => {
@@ -25,28 +20,28 @@ const takeTurn = (id) => {
         
         let turns = getState().tic.game.turns;
         let currentPlayer = getState().room.currentPlayerIndex;
+        let boardStatus = getState().tic.game.boardStatus;
+        let status = checkStatus(id, turns, currentPlayer, boardStatus);
         let payload = {
             squares: squares,
             currentIcon: currentIcon,
-            turns: turns + 1
+            turns: turns + 1,
+            boardStatus: boardStatus
         }
+
         dispatch(sActions.sUpdateGameState(payload));
-        let status = checkStatus(id, turns, currentPlayer);
-        if (status.status && status.type === 'win') {
-            dispatch(Creators.win(getState().tic.game.players[currentPlayer]));
-        } else if (status.status && status.type === 'draw') {
-            dispatch(Creators.draw());
+        if (status.status) {
+            dispatch(sActions.sEndGame(status));
         } else {
             dispatch(sActions.sEndTurn());
         }
     }
 }
 
-const checkStatus = (id, turns, currentPlayer) => {
+const checkStatus = (id, turns, currentPlayer, boardStatus) => {
     let row = 0;
     let column = 0;
     let diag = 0;
-
     if (id === "0" || id === "1" || id === "2") {
         row = ++boardStatus[0][currentPlayer];
     } else if (id === "3" || id === "4" || id === "5") {
@@ -72,18 +67,11 @@ const checkStatus = (id, turns, currentPlayer) => {
     }
 
     if (row === 3 || column === 3 || diag === 3) {
-        return { status: true, type: 'win' };
+        return { status: true, winner: currentPlayer };
     } else if (turns === 9) {
-        return { status: true, type: 'draw' };
+        return { status: true, winner: null };
     }
     return { status: false, type: null };
-}
-
-const reset = () => {
-    return (dispatch) => {
-        boardStatus = initialise();
-        dispatch(Creators.reset());
-    }
 }
 
 export default {

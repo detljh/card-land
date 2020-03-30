@@ -20,7 +20,7 @@ class TicTacToeComponent extends React.Component {
 
     render() {
         let disabledPage = Object.assign({}, styles.disabledPage, 
-            this.props.finished && styles.disabled.finished
+            this.props.finished && styles.disabledPage.finished
         );
 
         return (

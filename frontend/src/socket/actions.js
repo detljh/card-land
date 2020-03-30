@@ -54,6 +54,13 @@ const sUpdateGameState = (payload) => {
     }
 }
 
+const sEndGame = (payload) => {
+    return {
+        type: clientEvents.END_GAME,
+        payload
+    }
+}
+
 export default {
     sConnect,
     sAuth,
@@ -62,5 +69,6 @@ export default {
     sGetRoom,
     sStartGame,
     sEndTurn,
-    sUpdateGameState
+    sUpdateGameState,
+    sEndGame
 }
