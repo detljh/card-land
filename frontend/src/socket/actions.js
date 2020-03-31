@@ -61,6 +61,24 @@ const sEndGame = (payload) => {
     }
 }
 
+const sRequestReset = () => {
+    return {
+        type: clientEvents.REQUEST_RESET
+    }
+}
+
+const sDeclineReset = () => {
+    return {
+        type: clientEvents.DECLINE_RESET
+    }
+}
+
+const sAcceptReset = () => {
+    return {
+        type: clientEvents.ACCEPT_RESET
+    }
+}
+
 export default {
     sConnect,
     sAuth,
@@ -70,5 +88,8 @@ export default {
     sStartGame,
     sEndTurn,
     sUpdateGameState,
-    sEndGame
+    sEndGame,
+    sRequestReset,
+    sDeclineReset,
+    sAcceptReset
 }

@@ -17,8 +17,18 @@ let styles = {
         zIndex: '10',
         position: 'absolute',
         finished: {
-            backgroundColor: 'grey',
-            opacity: '0.5'
+            backgroundColor: 'hsla(0, 0%, 50%, 0.5)',
+        }
+    },
+    prompt: {
+        backgroundColor: 'white',
+        width: '30%',
+        height: '30%',
+        promptButtonWrapper: {
+            display: 'flex',
+            button: {
+                cursor: 'pointer'
+            }
         }
     },
     game: {

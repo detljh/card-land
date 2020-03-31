@@ -5,12 +5,12 @@ import { roomOperations } from './duck';
 const mapStateToProps = (state) => {
     return {
         connected: state.home.auth.connected,
-        players: state.room.players,
-        countdown: state.room.countdown,
-        started: state.room.started,
+        players: state.room.room.players,
+        countdown: state.room.room.countdown,
+        started: state.room.room.started,
         room: state.home.socket.room,
         user: state.home.auth.user,
-        opponent: state.room.opponent
+        opponent: state.room.room.opponent
     }
 }
 

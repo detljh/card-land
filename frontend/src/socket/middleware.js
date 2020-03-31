@@ -1,4 +1,4 @@
-import actions from './actions';
+import gameTypes from '../../../constants/gameTypes';
 import types from '../../../constants/clientEvents';
 import io from 'socket.io-client';
 import events from '../../../constants/serverEvents'; 
@@ -28,11 +28,29 @@ const socketMiddleware = () => {
             });
 
             socket.on(events.UPDATE_GAME, (data) => {
-                store.dispatch(ticOperations.setGameState(data.room));
+                store.dispatch(roomOperations.updateGame(data));
             })
     
             socket.on(events.READY, () => {
-                store.dispatch(roomOperations.countdown()); 
+                store.dispatch(roomOperations.countdown(() => {
+                    store.dispatch(roomOperations.startGame());
+                })); 
+            });
+
+            socket.on(events.SEND_RESET_REQUEST, () => {
+                store.dispatch(roomOperations.sendResetRequest());
+            });
+
+            socket.on(events.WAITING_RESPONSE, () => {
+                store.dispatch(roomOperations.waitingResponse());
+            });
+
+            socket.on(events.DECLINED_RESET, () => {
+                store.dispatch(roomOperations.setDeclinePrompt());
+            });
+
+            socket.on(events.ACCEPTED_RESET, () => {
+                store.dispatch(roomOperations.setAcceptPrompt());
             });
         }
         
@@ -55,23 +73,20 @@ const socketMiddleware = () => {
                 case types.JOIN_ROOM:
                     socket.emit(action.type, { roomId: action.roomId });
                     break;
-                case types.LEAVE_ROOM:
-                    socket.emit(action.type);
+                case types.UPDATE_GAME_STATE:
+                case types.END_GAME:
+                    socket.emit(action.type, action.payload);
                     break;
                 case types.GET_ROOM:
                     socket.emit(action.type, action.gameType);
                     break;
+                case types.LEAVE_ROOM:
                 case types.START_GAME:
-                    socket.emit(action.type);
-                    break;
                 case types.END_TURN:
+                case types.REQUEST_RESET:
+                case types.DECLINE_RESET:
+                case types.ACCEPT_RESET:
                     socket.emit(action.type);
-                    break;
-                case types.UPDATE_GAME_STATE:
-                    socket.emit(action.type, action.payload);
-                    break;
-                case types.END_GAME:
-                    socket.emit(action.type, action.payload);
                     break;
                 default:
                     return next(action);

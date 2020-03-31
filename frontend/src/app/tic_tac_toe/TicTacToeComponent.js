@@ -26,7 +26,7 @@ class TicTacToeComponent extends React.Component {
         return (
             <div style={styles.page}>
                 {
-                    (!this.props.finished && (this.props.players[this.props.currentPlayerIndex] !== this.props.user.name)) &&
+                    (!this.props.finished && !this.props.isTurn) &&
                     <div style={disabledPage}>
                         Opponent's Turn
                     </div>
@@ -34,12 +34,32 @@ class TicTacToeComponent extends React.Component {
                 {
                     this.props.finished &&
                     <div style={disabledPage}>   
+                        {this.props.endGameText}
                         {
-                            this.props.winner !== null ?
-                            this.props.winner :
-                            'draw'
+                            this.props.resetRequestPrompt ? 
+                            <div style={styles.prompt}>
+                                Opponent has requested to play again.
+                                <div style={styles.prompt.buttonWrapper}>
+                                    <button onClick={this.props.acceptReset}>Accept</button>
+                                    <button onClick={this.props.declineReset}>Decline</button>
+                                </div>
+                            </div> :
+                            this.props.waitingResponsePrompt ?
+                            <div style={styles.prompt}>
+                                Waiting for a response
+                            </div> :
+                            this.props.declinePrompt ?
+                            <div>
+                                Request declined. Redirecting to homepage
+                                {this.props.countdown}
+                            </div> :
+                            this.props.acceptPrompt ? 
+                            <div>
+                                Request accepted. Game will start in
+                                {this.props.countdown}
+                            </div> :
+                            <button onClick={this.props.reset}>Play again</button>
                         }
-                        <button onClick={this.props.reset}>Play again</button>
                     </div>
                 }
                 {this.props.user.name}

@@ -5,23 +5,33 @@ import { roomOperations } from '../loading_room/duck';
 
 const mapStateToProps = (state) => {
     return {
-        players: state.room.players,
-        currentIcon: state.tic.game.currentIcon,
+        players: state.room.room.players,
         finished: state.tic.game.finished,
-        winner: state.tic.game.winner,
         user: state.home.auth.user,
-        opponent: state.room.opponent,
-        currentPlayerIndex: state.room.currentPlayerIndex
+        opponent: state.room.room.opponent,
+        resetRequestPrompt: state.room.ui.resetRequestPrompt,
+        waitingResponsePrompt: state.room.ui.waitingResponsePrompt,
+        isTurn: state.room.room.players[state.room.room.currentPlayerIndex] === state.home.auth.user.name,
+        endGameText: state.tic.game.winner !== null ? state.tic.game.winner === state.home.auth.user.name ? 'You win!' : `${state.tic.game.winner} won!` : 'Draw!',
+        declinePrompt: state.room.ui.declinePrompt,
+        acceptPrompt: state.room.ui.acceptPrompt,
+        countdown: state.room.room.countdown
     }
 }
 
 const mapDispatchToProps = (dispatch) => {
     return {
         reset: () => {
-            dispatch(ticOperations.reset());
+            dispatch(roomOperations.reset());
         },
         leave: () => {
             dispatch(roomOperations.leave());
+        },
+        acceptReset: () => {
+            dispatch(roomOperations.acceptReset());
+        },
+        declineReset: () => {
+            dispatch(roomOperations.declineReset());
         }
     }
 }

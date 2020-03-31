@@ -32,7 +32,9 @@ const gameReducer = (state=GAME_INITIAL_STATE, action) => {
                 finished: true
         });
         case types.RESET:
-            return GAME_INITIAL_STATE;
+            return Object.assign({}, GAME_INITIAL_STATE, {
+                boardStatus: Array.from(new Array(8), () => [0, 0])
+            });
         default:
             return state;
     }
