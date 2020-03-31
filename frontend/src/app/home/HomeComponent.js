@@ -1,25 +1,63 @@
 import React from 'react';
+import Radium from 'radium';
 import FormComponent from './FormComponent';
 import styles from './styles.Home.css';
 import gameTypes from '../../../../constants/gameTypes';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 
 class HomeComponent extends React.Component {
     constructor(props) {
         super(props);
+        this.state = {
+            scrollY: 0,
+            collapseHeader: false
+        };
+        this.collapseHeader = this.collapseHeader.bind(this);
+    }
+    
+    componentDidMount() {
+        window.addEventListener("scroll", this.collapseHeader);
+    }
+
+    componentWillUnmount() {
+        window.removeEventListener("scroll", this.collapseHeader);
+    }
+
+    collapseHeader() {
+        let y = window.scrollY;
+        console.log(y);
+        if (y > this.state.scrollY) {
+            this.setState({
+                scrollY: y,
+                collapseHeader: true
+            });
+        } else {
+            this.setState({
+                scrollY: y,
+                collapseHeader: false
+            });
+        }
     }
 
     render() {
         let isAuthenticated = this.props.auth.isAuthenticated;
+        let headerStyle = Object.assign({}, styles.header, 
+            this.state.collapseHeader && styles.headerCollapse
+        );
+        let headerButtonsBlockStyle = Object.assign({}, styles.headerButtonsBlock,
+            this.state.collapseHeader && styles.headerButtonsBlock.collapse
+        );
         return (
             <div style={styles.page}>
-                <div style={styles.header}>
+                <div style={headerStyle}>
                     {
                         isAuthenticated ? 
-                        <button onClick={this.props.logout}>Logout</button> :
-                        [
-                            <button key={"login_button"} onClick={this.props.showLoginForm}>Login</button>,
-                            <button key={"register_button"} onClick={this.props.showRegisterForm}>Register</button> 
-                        ]
+                        <FontAwesomeIcon icon={faSignOutAlt} onClick={this.props.logout} style={styles.logoutButton} /> :
+                        <div style={headerButtonsBlockStyle}>
+                            <button key={"login_button"} onClick={this.props.showLoginForm} style={styles.headerButtons}>Login</button>
+                            <button key={"register_button"} onClick={this.props.showRegisterForm} style={styles.headerButtons}>Register</button>
+                        </div> 
                     }
 
                     {
@@ -53,4 +91,5 @@ class HomeComponent extends React.Component {
     }
 }
 
+HomeComponent = Radium(HomeComponent);
 export default HomeComponent;

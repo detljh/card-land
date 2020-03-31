@@ -37,8 +37,7 @@ class FormComponent extends React.Component {
 
     render() {
         let formStyle = Object.assign({}, styles.block, 
-            this.props.form === "register" && styles.block.register,
-            this.props.form === "login" && styles.block.login
+            this.props.form === "register" && styles.block.register
         );
 
         return (
