@@ -25,8 +25,7 @@ class HomeComponent extends React.Component {
 
     collapseHeader() {
         let y = window.scrollY;
-        console.log(y);
-        if (y > 50) {
+        if (y > window.innerHeight/10) {
             this.setState({
                 collapseHeader: true
             });
@@ -34,6 +33,9 @@ class HomeComponent extends React.Component {
             this.setState({
                 collapseHeader: false
             });
+            console.log(y);
+
+            window.scrollTo(0, 0); 
         }
     }
 
@@ -45,25 +47,41 @@ class HomeComponent extends React.Component {
         let headerButtonsBlockStyle = Object.assign({}, styles.headerButtonsBlock,
             this.state.collapseHeader && styles.headerButtonsBlock.collapse
         );
+        let headerButtonsStyle = Object.assign({}, styles.headerButtonsBlock,
+            styles.headerButtons
+        );
+        let headerTextStyle = Object.assign({}, styles.headerCollapseText,
+            this.state.collapseHeader && styles.headerCollapseText.show
+        );
+        let fixedHeaderStyle = Object.assign({}, styles.fixedHeader, 
+            this.state.collapseHeader && styles.fixedHeader.show
+        );
         return (
             <div style={styles.page}>
+                
+                <div style={fixedHeaderStyle}>
+                    <div style={styles.fixedHeader.online}>Online: {this.props.usersOnline}</div>
+                    {
+                        isAuthenticated ?
+                        <div style={headerTextStyle}>Hi, <span style={styles.user}>{this.props.auth.user.name}</span></div> :
+                        <div style={headerTextStyle}>Hi, <span style={styles.user}>{this.props.auth.user.name}</span></div>
+                    }
+                    {
+                        isAuthenticated &&
+                        <div style={styles.fixedHeader.logoutButton}><FontAwesomeIcon key={"logout_icon"} icon={faSignOutAlt} onClick={this.props.logout}  /></div>
+                    }
+                </div>
+                
+                
                 <div style={headerStyle}>
                     {
                         isAuthenticated ? 
-                        <FontAwesomeIcon icon={faSignOutAlt} onClick={this.props.logout} style={styles.logoutButton} /> :
+                        <div key={"main_text_auth"} style={headerButtonsBlockStyle}>You are logged in<br /> <span style={styles.user}>{this.props.auth.user.name}</span></div> :
                         <div style={headerButtonsBlockStyle}>
-                            <button key={"login_button"} onClick={this.props.showLoginForm} style={styles.headerButtons}>Login</button>
-                            <button key={"register_button"} onClick={this.props.showRegisterForm} style={styles.headerButtons}>Register</button>
+                            <button key={"login_button"} onClick={this.props.showLoginForm} style={headerButtonsStyle}>Login</button>
+                            <button key={"register_button"} onClick={this.props.showRegisterForm} style={headerButtonsStyle}>Register</button>
                         </div> 
                     }
-
-                    {
-                        isAuthenticated ?
-                        <div>User: {this.props.auth.user.name} </div> :
-                        <div>{this.props.auth.user.name} </div>
-                    }
-
-                    <div>Users online: {this.props.usersOnline}</div>
                 </div>
 
                 {

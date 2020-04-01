@@ -14,56 +14,95 @@ let styles = {
         alignItems: 'center',
         marginTop: '0',
         transition: 'all 0.5s',
+        zIndex: '999',
         collapse: {
-            position: 'fixed',
             marginTop: '-90vh',
-            transition: 'all 0.5s',
+            transition: 'all 0.5s'
+        }
+    },
+    fixedHeader: {
+        position: 'fixed',
+        zIndex: '999',
+        width: '100%',
+        height: '50px',
+        display: 'flex',
+        justifyContent: 'space-evenly',
+        alignItems: 'center',
+        backgroundColor: 'hsla(0, 0%, 0%, 0)',
+        transition: 'all 0.5s',
+        logoutButton: {
+            fontSize: '3vw',
+            marginLeft: 'auto',
+            marginRight: '5px',
+            color: 'white',
+            cursor: 'pointer',
+            transition: 'all 0.5s ease-in-out',
+            ':hover': {
+                color: 'red',
+                transition: 'all 0.5s ease-in-out'
+            }
+        },
+        online: {
+            color: 'white',
+            marginLeft: '5px',
+            fontSize: '0.8em',
+            marginRight: 'auto'
+        },
+        show: {
+            backgroundColor: 'hsla(0, 0%, 0%, 0.9)',
+            transition: 'all 0.8s ease-in'
+        }
+    },
+    headerCollapseText: {
+        position: 'fixed',
+        color: 'white',
+        fontSize: '2vw',
+        opacity: '0',
+        transition: 'all 0.7s',
+        show: {
+            opacity: '1',
+            transition: 'all 0.7s'
         }
     },
     headerButtonsBlock: {
         display: 'flex',
         flexDirection: 'column',
+        fontSize: '2.5vw',
+        alignItems: 'center',
+        justifyContent: 'center',
+        color: 'white',
+        textAlign: 'center',
         collapse: {
             opacity: '0.1',
             transition: 'all 0.5s'
-        }
+        },
+        
     },
     headerButtons: {
         boxSizing: 'border-box',
-        width: '20vw',
-        fontSize: 'calc(20vw/7)',
-        textAlign: 'center',
+        width: '18vw',
         padding: '1.2vw',
         margin: '5px 0',
         border: 'none',
         borderRadius: '10px',
         boxShadow: '0 0 0 0 inset white, 0 0 1px 1px white',
         transition: 'all 0.5s ease-in-out',
-        color: 'white',
         backgroundColor: 'hsla(0, 0%, 0%, 0.4)',
         ':hover': {
-            boxShadow: '0 0 0px 2px inset white',
-            transition: 'all 0.5s ease-in-out'
+            boxShadow: '0 0 0px 2px inset red',
+            transition: 'all 0.5s ease-in-out',
+            color: 'red'
         },
         ':focus': {
             boxShadow: '0 0 0px 2px inset white',
             transition: 'all 0.5s ease-in-out'
         },
     },
-    logoutButton: {
-        fontSize: '4vw',
-        position: 'fixed',
-        right: '5px',
-        top: '5px',
-        color: 'white',
-        cursor: 'pointer',
-        ':hover': {
-            transform: 'scale(1.1)',
-            transition: 'all 0.5s ease-in-out'
-        }
+    user: {
+        color: 'red'
     },
     main: {
-        marginTop: '30vh',
+        marginTop: '100px',
         width: '100%',
         height: '100vh',
         left: '0'
