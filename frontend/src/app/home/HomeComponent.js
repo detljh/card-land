@@ -10,7 +10,6 @@ class HomeComponent extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            scrollY: 0,
             collapseHeader: false
         };
         this.collapseHeader = this.collapseHeader.bind(this);
@@ -27,14 +26,12 @@ class HomeComponent extends React.Component {
     collapseHeader() {
         let y = window.scrollY;
         console.log(y);
-        if (y > this.state.scrollY) {
+        if (y > 50) {
             this.setState({
-                scrollY: y,
                 collapseHeader: true
             });
         } else {
             this.setState({
-                scrollY: y,
                 collapseHeader: false
             });
         }
@@ -43,7 +40,7 @@ class HomeComponent extends React.Component {
     render() {
         let isAuthenticated = this.props.auth.isAuthenticated;
         let headerStyle = Object.assign({}, styles.header, 
-            this.state.collapseHeader && styles.headerCollapse
+            this.state.collapseHeader && styles.header.collapse
         );
         let headerButtonsBlockStyle = Object.assign({}, styles.headerButtonsBlock,
             this.state.collapseHeader && styles.headerButtonsBlock.collapse

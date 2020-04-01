@@ -1,27 +1,35 @@
 let styles = {
     page: {
-        width: '100vw',
-        minHeight: '110vh',
-        overflow: 'auto',
+        width: '100%',
+        minHeight: '100%',
+        overflow: 'auto'
     },
     header: {
-        width: '100vw',
+        width: '100%',
         height: '100vh',
-        left: '0',
-        top: '0',
         backgroundColor: 'hsla(0, 0%, 0%, 0.9)',
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center',
-        transition: 'height 0.5s',
+        marginTop: '0',
+        transition: 'all 0.5s',
+        collapse: {
+            position: 'fixed',
+            marginTop: '-90vh',
+            transition: 'all 0.5s',
+        }
     },
-    headerCollapse: {
-        marginTop: '10vh',
-        height: '20vh',
-        transition: 'height 0.5s',
+    headerButtonsBlock: {
+        display: 'flex',
+        flexDirection: 'column',
+        collapse: {
+            opacity: '0.1',
+            transition: 'all 0.5s'
+        }
     },
     headerButtons: {
+        boxSizing: 'border-box',
         width: '20vw',
         fontSize: 'calc(20vw/7)',
         textAlign: 'center',
@@ -42,15 +50,6 @@ let styles = {
             transition: 'all 0.5s ease-in-out'
         },
     },
-    headerButtonsBlock: {
-        display: 'flex',
-        flexDirection: 'column',
-        collapse: {
-            marginTop: '-20vh',
-            opacity: '0.1',
-            transition: 'all 0.5s'
-        }
-    },
     logoutButton: {
         fontSize: '4vw',
         position: 'fixed',
@@ -64,9 +63,9 @@ let styles = {
         }
     },
     main: {
+        marginTop: '30vh',
         width: '100%',
-        height: '100%',
-        top: '0',
+        height: '100vh',
         left: '0'
     },
     formWrapper: {
