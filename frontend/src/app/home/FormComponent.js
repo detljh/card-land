@@ -1,5 +1,8 @@
 import React from 'react';
 import styles from './styles.form.css';
+import Radium from 'radium';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faWindowClose } from '@fortawesome/free-solid-svg-icons';
 
 class FormComponent extends React.Component {
     constructor(props) {
@@ -43,7 +46,9 @@ class FormComponent extends React.Component {
         return (
             <div style={formStyle}>
                 <div style={styles.header}>
-                    <button style={styles.closeButton} onClick={this.props.close}>Close</button>
+                    <div style={styles.closeButton}>
+                        <FontAwesomeIcon icon={faWindowClose} onClick={this.props.close} />
+                    </div>
                 </div>
 
                 <div style={styles.form}>
@@ -55,7 +60,7 @@ class FormComponent extends React.Component {
                     <input type="password" name="password" id="password" placeholder="Enter password" style={this.getFieldStyle("password")} onChange={(e) => this.updatePassword(e)} />
                     {
                         this.props.form === "login" && 
-                        <button onClick={() => this.props.action(this.state.username, this.state.password)}>Login</button>
+                        <button style={styles.formButton} key={"login_button"} onClick={() => this.props.action(this.state.username, this.state.password)}>Login</button>
                     }
 
                     {
@@ -64,7 +69,7 @@ class FormComponent extends React.Component {
                             <label key="confirm_label" htmlFor="confirmPassword" style={styles.formLabel}>Confirm Password</label>,
                             <span key={"confirm_error"} style={styles.errorText}>{this.props.errors.confirmPassword}</span>,
                             <input key="confirm_input" type="password" name="confirmPassword" id="confirmPassword" placeholder="Confirm password" style={this.getFieldStyle("confirmPassword")} onChange={(e) => this.updateConfirmPassword(e)} />,
-                            <button key="register_button" onClick={() => this.props.action(this.state.username, this.state.password, this.state.confirmPassword)}>Register</button>
+                            <button style={styles.formButton} key="register_button" onClick={() => this.props.action(this.state.username, this.state.password, this.state.confirmPassword)}>Register</button>
                         ]
                     }
                     <span style={styles.errorText}>{this.props.errors.error}</span>
@@ -74,4 +79,4 @@ class FormComponent extends React.Component {
     }
 }
 
-export default FormComponent;
+export default Radium(FormComponent);

@@ -14,9 +14,8 @@ let styles = {
         flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center',
-        marginTop: '0',
         transition: 'all 0.5s',
-        zIndex: '999',
+        zIndex: '100',
         collapse: {
             marginTop: '-90vh',
             transition: 'all 0.5s'
@@ -24,7 +23,7 @@ let styles = {
     },
     fixedHeader: {
         position: 'fixed',
-        zIndex: '999',
+        zIndex: '-1',
         width: '100%',
         height: '8vh',
         minHeight: '30px',
@@ -45,26 +44,33 @@ let styles = {
                 transition: 'all 0.5s ease-in-out'
             },
             [global.breakPointMedium]: {
-                fontSize: '1em'
+                fontSize: '1.5em'
+            },
+            [global.breakPointLarge]: {
+                fontSize: '2em'
             }
         },
         online: {
             color: 'white',
             marginLeft: '5px',
             fontSize: '0.8em',
-            marginRight: 'auto'
+            marginRight: 'auto',
+            [global.breakPointMedium]: {
+                fontSize: '0.6em'
+            }
         },
         show: {
             backgroundColor: 'hsla(0, 0%, 0%, 0.9)',
+            zIndex: '100',
             transition: 'all 0.8s ease-in'
-        },
+        }
 
     },
     headerCollapseText: {
-        position: 'fixed',
         color: 'white',
-        fontSize: '2vw',
+        fontSize: '1.6em',
         opacity: '0',
+        position: 'fixed',
         transition: 'all 0.7s',
         show: {
             opacity: '1',
@@ -131,10 +137,10 @@ let styles = {
         justifyContent: 'center',
         alignItems: 'center',
         position: 'fixed',
-        zIndex: '10',
+        zIndex: '999',
         top: '0',
         left: '0',
-        backgroundColor: 'hsla(0, 0%, 0%, 0.1)'
+        backgroundColor: 'hsla(0, 50%, 50%, 0.1)'
     }
 }
 

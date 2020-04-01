@@ -1,56 +1,125 @@
-const events = require('../../constants/socketEvents');
+const serverEvents = require('../../constants/serverEvents');
+const clientEvents = require('../../constants/clientEvents');
 const gameTypes = require('../../constants/gameTypes');
 
-let room = 0;
-let players = [];
+let rooms = {};
+rooms['0'] = {
+    id: 0,
+    players: [],
+    started: false,
+    currentPlayerIndex: null,
+    type: gameTypes.TIC_TAC_TOE,
+    gameState: {
+        finished: false,
+        winner: null
+    }
+};
+let players = {};
 
 let count = 0;
-let guest= 0;
 
 const disconnect = (io, socket) => {
-    players.splice(players.indexOf(socket.username), 1);
-    io.in(room).emit(events.LOAD_PLAYERS, {players: players });
-    socket.leave(room);
+    let room = players[socket.client.id].currentRoom;
+    rooms[room.id].players = room.players.filter(player => {
+        player.name !== socket.username
+    });
+    rooms[room.id].started = false;
+    io.in(room.id).emit(serverEvents.UPDATE_ROOM_STATE, { room: room });
+    socket.leave(room.id);
+    socket.emit(serverEvents.UPDATE_ROOM_STATE, { room: null });
     console.log(`${socket.username} exited tic tac toe`);
+}
+
+const resetRoom = (room) => {
+    room.currentPlayerIndex = Math.floor(Math.random() * room.players.length);
+    room.gameState = {
+        finished: false,
+        winner: null
+    };
 }
 
 module.exports = (io) => {
     io.on('connection', (socket) => {
         count++;
-        io.sockets.emit(events.USERS_ONLINE, { online: count });
-        socket.on(events.USER_AUTH, (data) => {
+        io.sockets.emit(serverEvents.USERS_ONLINE, { online: count });
+        socket.on(clientEvents.AUTH, (data) => {
             if (data.name) {
                 socket.username = data.name;
                 console.log(`${data.name} is connected`);
             } else {
-                guest++;
-                socket.username = `guest${guest}`;
+                socket.username = `guest${socket.client.id}`;
+                socket.emit(serverEvents.SET_GUEST_ID, { username: socket.username });
                 console.log(`${socket.username} is connected`);
             }
         });
         
-        socket.on(events.GET_ROOM, (data) => {
-            if (players.length === 2) {
-                room++;
-                players = [];
-            }
-            
-            socket.emit(events.ASSIGN_ROOM, { room: room, gameType: data });
+        socket.on(clientEvents.GET_ROOM, (type) => {
+            let roomIndex = Object.keys(rooms).find((key) => {
+                if (rooms[key].started === false && rooms[key].type === type) {
+                    return true; 
+                }
+            });
+            socket.emit(serverEvents.ASSIGN_ROOM, { roomId: rooms[roomIndex].id });
         });
 
-        socket.on(events.JOIN_ROOM, (data) => {
-            players.push(socket.username);
-            socket.join(room);
-
-            if (data === gameTypes.TIC_TAC_TOE) {
-                console.log(`${socket.username} joined tic tac toe`);
-                io.in(room).emit(events.LOAD_PLAYERS, { players: players });
-                if (players.length === 2) {
-                    io.in(room).emit(events.READY);
-                }
+        socket.on(clientEvents.JOIN_ROOM, (data) => {
+            let room = rooms[data.roomId];
+            let newPlayer = {
+                name: socket.username,
+                currentRoom: room
+            }
+            players[socket.client.id] = newPlayer;
+            room.players.push(socket.username);
+            socket.join(data.roomId);
+            console.log(`${socket.username} joined ${room.type}`);
+            if (room.players.length === 2) {
+                room.started = true;
+                room.currentPlayerIndex = Math.floor(Math.random() * room.players.length);
+                io.in(data.roomId).emit(serverEvents.UPDATE_ROOM_STATE, { room: room });
+                io.in(data.roomId).emit(serverEvents.READY);
             }
 
-            socket.on(events.LEAVE_ROOM, () => {
+            socket.on(clientEvents.UPDATE_GAME_STATE, (data) => {
+                let room = players[socket.client.id].currentRoom;
+                room.gameState.currentIcon = data.currentIcon;
+                room.gameState.squares = [...data.squares];
+                room.gameState.turns = data.turns;
+                room.gameState.boardStatus = [...data.boardStatus];
+                io.in(room.id).emit(serverEvents.UPDATE_GAME, { room: room.gameState });
+            });
+
+            socket.on(clientEvents.END_TURN, () => {
+                let room = players[socket.client.id].currentRoom;
+                room.currentPlayerIndex = (room.currentPlayerIndex + 1) % room.players.length;
+                io.in(room.id).emit(serverEvents.UPDATE_ROOM_STATE, { room: room });
+            });
+
+            socket.on(clientEvents.END_GAME, (data) => {
+                let room = players[socket.client.id].currentRoom;
+                room.gameState.finished = true;
+                room.gameState.winner = room.players[data.winner];
+                io.in(room.id).emit(serverEvents.UPDATE_GAME, { room: room.gameState });
+            });
+
+            socket.on(clientEvents.REQUEST_RESET, () => {
+                let room = players[socket.client.id].currentRoom;
+                socket.to(room.id).emit(serverEvents.SEND_RESET_REQUEST);
+                socket.emit(serverEvents.WAITING_RESPONSE);
+            });
+
+            socket.on(clientEvents.DECLINE_RESET, () => {
+                let room = players[socket.client.id].currentRoom;
+                io.in(room.id).emit(serverEvents.DECLINED_RESET);
+            });
+
+            socket.on(clientEvents.ACCEPT_RESET, () => {
+                let room = players[socket.client.id].currentRoom;
+                resetRoom(room);
+                io.in(room.id).emit(serverEvents.UPDATE_ROOM_STATE, { room: room });
+                io.in(room.id).emit(serverEvents.ACCEPTED_RESET);
+            });
+
+            socket.on(clientEvents.LEAVE_ROOM, () => {
                 disconnect(io, socket);
             });
                 

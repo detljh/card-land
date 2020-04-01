@@ -56,7 +56,6 @@ class HomeComponent extends React.Component {
         );
         return (
             <div style={styles.page}>
-                
                 <div style={fixedHeaderStyle}>
                     <div style={styles.fixedHeader.online}>Online: {this.props.usersOnline}</div>
                     {

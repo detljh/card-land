@@ -1,4 +1,6 @@
 module.exports = {
     mainColor: 'red',
-    breakPointMedium: '@media screen and (max-width: 700px)' 
+    highlightColor: 'hsla(0, 100%, 70%)',
+    breakPointMedium: '@media screen and (max-width: 700px)',
+    breakPointLarge: '@media screen and (min-width: 700px)' 
 }
