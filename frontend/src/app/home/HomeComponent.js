@@ -1,6 +1,6 @@
 import React from 'react';
-import Radium from 'radium';
 import FormComponent from './FormComponent';
+import Radium from 'radium';
 import styles from './styles.Home.css';
 import gameTypes from '../../../../constants/gameTypes';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -33,8 +33,6 @@ class HomeComponent extends React.Component {
             this.setState({
                 collapseHeader: false
             });
-            console.log(y);
-
             window.scrollTo(0, 0); 
         }
     }
@@ -106,5 +104,4 @@ class HomeComponent extends React.Component {
     }
 }
 
-HomeComponent = Radium(HomeComponent);
-export default HomeComponent;
+export default Radium(HomeComponent);

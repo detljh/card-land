@@ -7,6 +7,7 @@ let styles = {
         border: '1px solid',
         height: '300px',
         width: '30%',
+        minWidth: '200px',
         backgroundColor: 'white',
         marginBottom: '80px',
         register: {

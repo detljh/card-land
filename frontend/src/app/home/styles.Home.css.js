@@ -1,3 +1,5 @@
+import global from '../styles.global.css';
+
 let styles = {
     page: {
         width: '100%',
@@ -24,7 +26,8 @@ let styles = {
         position: 'fixed',
         zIndex: '999',
         width: '100%',
-        height: '50px',
+        height: '8vh',
+        minHeight: '30px',
         display: 'flex',
         justifyContent: 'space-evenly',
         alignItems: 'center',
@@ -38,8 +41,11 @@ let styles = {
             cursor: 'pointer',
             transition: 'all 0.5s ease-in-out',
             ':hover': {
-                color: 'red',
+                color: global.mainColor,
                 transition: 'all 0.5s ease-in-out'
+            },
+            [global.breakPointMedium]: {
+                fontSize: '1em'
             }
         },
         online: {
@@ -51,7 +57,8 @@ let styles = {
         show: {
             backgroundColor: 'hsla(0, 0%, 0%, 0.9)',
             transition: 'all 0.8s ease-in'
-        }
+        },
+
     },
     headerCollapseText: {
         position: 'fixed',
@@ -62,6 +69,9 @@ let styles = {
         show: {
             opacity: '1',
             transition: 'all 0.7s'
+        },
+        [global.breakPointMedium]: {
+            fontSize: '1em'
         }
     },
     headerButtonsBlock: {
@@ -76,7 +86,9 @@ let styles = {
             opacity: '0.1',
             transition: 'all 0.5s'
         },
-        
+        [global.breakPointMedium]: {
+            fontSize: '1em'
+        }
     },
     headerButtons: {
         boxSizing: 'border-box',
@@ -89,20 +101,25 @@ let styles = {
         transition: 'all 0.5s ease-in-out',
         backgroundColor: 'hsla(0, 0%, 0%, 0.4)',
         ':hover': {
-            boxShadow: '0 0 0px 2px inset red',
+            boxShadow: '0 0 0px 2px inset', 
             transition: 'all 0.5s ease-in-out',
-            color: 'red'
+            color: global.mainColor
         },
         ':focus': {
             boxShadow: '0 0 0px 2px inset white',
             transition: 'all 0.5s ease-in-out'
         },
+        [global.breakPointMedium]: {
+            fontSize: '1em',
+            width: '7em',
+            padding: '10px'
+        }
     },
     user: {
-        color: 'red'
+        color: global.mainColor
     },
     main: {
-        marginTop: '100px',
+        marginTop: '80px',
         width: '100%',
         height: '100vh',
         left: '0'
