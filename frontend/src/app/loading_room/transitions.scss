@@ -1,8 +1,8 @@
-.slideLeft-enter {
+.slideLeft-enter, .slideLeft-appear {
     transform: translateX(-100vw);
 }
 
-.slideLeft-enter-active {
+.slideLeft-enter-active, .slideLeft-appear-active {
     transform: translateX((0));
     transition: all 300ms linear;
 }
@@ -12,7 +12,7 @@
 }
 
 .slideLeft-exit-active {
-    transform: translateX(100vw);
+    transform: translateX(-100vw);
     transition: all 300ms linear;
 }
 
