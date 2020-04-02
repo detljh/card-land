@@ -7,6 +7,7 @@ const ROOM_INITIAL_STATE = {
     opponent: null,
     countdown: 5,
     started: false,
+    ready: false,
     type: null
 }
 
@@ -21,9 +22,16 @@ const roomReducer = (state=ROOM_INITIAL_STATE, action) => {
                 currentPlayerIndex: action.payload.currentPlayerIndex,
                 opponent: action.payload.opponent,
                 started: action.payload.started,
+                ready: action.payload.ready,
                 players: action.payload.players,
                 type: action.payload.type
-        }); 
+        });
+        case types.START_ROOM:
+            return Object.assign({}, state, {
+                started: true
+            });
+        case types.RESET_ROOM:
+            return ROOM_INITIAL_STATE; 
         default:
             return state;
     }

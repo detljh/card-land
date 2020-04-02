@@ -4,6 +4,8 @@ import Radium from 'radium';
 import history from '../../history';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSpinner } from '@fortawesome/free-solid-svg-icons';
+import { CSSTransition } from 'react-transition-group';
+import './transitions.scss';
 
 class LoadingRoomComponent extends React.Component {
     constructor(props) {
@@ -20,6 +22,7 @@ class LoadingRoomComponent extends React.Component {
     }
 
     componentWillUnmount() {
+        console.log(this.props);
         if (this.props.connected && !this.props.started) {
             this.props.leave();
         }
@@ -31,15 +34,31 @@ class LoadingRoomComponent extends React.Component {
     }
 
     render() {
+        let rightStyle = Object.assign({}, styles.right,
+            this.props.opponent !== null && styles.right.fill
+        );
         return (
             <div style={styles.page}>
                 <div style={styles.main}>
-                    <div style={styles.left}>{this.props.user.name}</div>
-                    <div style={styles.right}>
+                    <CSSTransition
+                        in={ true }
+                        appear={ true }
+                        timeout={ 600 }
+                        classNames="slideLeft">
+                        <div style={styles.left}>
+                            {this.props.user.name}
+                        </div>
+                    </CSSTransition>
+                    <CSSTransition
+                        in={ this.props.opponent !== null }
+                        timeout={ 600 }
+                        classNames="slideRight">
+                        <div style={rightStyle}>
                         {
                             this.props.opponent !== null && this.props.opponent
                         }
-                    </div>
+                        </div>
+                    </CSSTransition>
                 </div>
                 <div style={styles.displayState}>
                     {

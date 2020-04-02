@@ -20,10 +20,15 @@ const updateRoomState = (payload) => {
     }
 }
 
-const startGame = (currentPlayerIndex) => {
+const resetRoom = () => {
     return {
-        type: types.START_GAME,
-        currentPlayerIndex: currentPlayerIndex
+        type: types.RESET_ROOM
+    }
+}
+
+const startRoom = () => {
+    return {
+        type: types.START_ROOM
     }
 }
 
@@ -61,7 +66,8 @@ export default {
     countdown,
     endTurn,
     updateRoomState,
-    startGame,
+    resetRoom,
+    startRoom,
     sendResetRequest,
     waitingResponse,
     setDeclinePrompt,

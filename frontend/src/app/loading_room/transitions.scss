@@ -1,0 +1,39 @@
+.slideLeft-enter {
+    transform: translateX(-100vw);
+}
+
+.slideLeft-enter-active {
+    transform: translateX((0));
+    transition: all 300ms linear;
+}
+
+.slideLeft-exit {
+    transform: translateX(0);
+}
+
+.slideLeft-exit-active {
+    transform: translateX(100vw);
+    transition: all 300ms linear;
+}
+
+
+
+.slideRight-enter {
+    transform: translateX(100vw);
+}
+
+.slideRight-enter-active {
+    transform: translateX(0);
+    transition: all 300ms linear;
+
+}
+
+.slideRight-exit {
+    transform: translateX(0);
+}
+
+.slideRight-exit-active {
+    transform: translateX(100vw);
+    transition: all 300ms linear;
+}
+

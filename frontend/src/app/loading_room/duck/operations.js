@@ -46,14 +46,15 @@ const leave = () => {
 const updateRoomState = (room) => {
     return (dispatch, getState) => {
         if (room === null) {
+            dispatch(Creators.resetRoom());
             return;
         }
         let user = getState().home.auth.user.name;
-        let opponent = room.started ? room.players.filter(player => player != user)[0] : null;
-
+        let opponent = room.ready ? room.players.filter(player => player != user)[0] : null;
         let payload = {
             currentPlayerIndex: room.currentPlayerIndex,
             started: room.started,
+            ready: room.ready,
             opponent: opponent,
             players: room.players,
             type: room.type
@@ -79,6 +80,8 @@ const startGame = () => {
     return (dispatch, getState) => {
         let room = getState().home.socket.room;
         let type = getState().room.room.type;
+        dispatch(Creators.startRoom());
+        dispatch(sActions.sStartGame(room));
         switch (type) {
             case gameTypes.TIC_TAC_TOE:
                 history.push(`/${room}/tic_tac_toe`);

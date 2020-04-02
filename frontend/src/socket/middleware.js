@@ -70,6 +70,7 @@ const socketMiddleware = () => {
                 case types.AUTH:
                     socket.emit(action.type, action.user);
                     break;
+                case types.START_GAME:
                 case types.JOIN_ROOM:
                     socket.emit(action.type, { roomId: action.roomId });
                     break;
@@ -81,7 +82,6 @@ const socketMiddleware = () => {
                     socket.emit(action.type, action.gameType);
                     break;
                 case types.LEAVE_ROOM:
-                case types.START_GAME:
                 case types.END_TURN:
                 case types.REQUEST_RESET:
                 case types.DECLINE_RESET:

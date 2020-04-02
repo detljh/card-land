@@ -12,16 +12,19 @@ let spin = Radium.keyframes({
 let styles = {
     page: {
         width: '100%',
-        minHeight: '100%',
+        minHeight: '100vh',
         overflow: 'auto',
         display: 'flex',
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
+        backgroundColor: 'black',
+        position: 'fixed'
     },
     main: {
         width: '100%',
         height: '100vh',
         display: 'grid',
+        position: 'fixed',
         gridTemplateColumns: 'repeat(2, minmax(0, 1fr))'
     },
     left: {
@@ -33,15 +36,17 @@ let styles = {
     },
     right: {
         gridColumn: '2 / 3',
-        backgroundColor: 'hsl(220, 80%, 60%)',
         display: 'flex',
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
+        fill: {
+            backgroundColor: 'hsl(220, 80%, 60%)'
+        }
     },
     displayState: {
         position: 'absolute',
         fontSize: '2em',
-        margin: 'auto',
+        color: 'white',
         waiting: {
             display: 'flex',
             flexDirection: 'column',

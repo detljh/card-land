@@ -25,11 +25,17 @@ class HomeComponent extends React.Component {
 
     collapseHeader() {
         let y = window.scrollY;
-        if (y > window.innerHeight/10) {
+        if (y > 30 || y > Math.floor(window.innerHeight / 100)) {
+            if (this.state.collapseHeader) {
+                return;
+            }
             this.setState({
                 collapseHeader: true
             });
         } else {
+            if (!this.state.collapseHeader) {
+                return;
+            }
             this.setState({
                 collapseHeader: false
             });

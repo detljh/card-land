@@ -35,9 +35,10 @@ const sGetRoom = (gameType) => {
     }
 }
 
-const sStartGame = () => {
+const sStartGame = (roomId) => {
     return {
-        type: clientEvents.START_GAME
+        type: clientEvents.START_GAME,
+        roomId: roomId
     }
 }
 

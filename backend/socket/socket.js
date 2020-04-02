@@ -7,6 +7,7 @@ rooms['0'] = {
     id: 0,
     players: [],
     started: false,
+    ready: false,
     currentPlayerIndex: null,
     type: gameTypes.TIC_TAC_TOE,
     gameState: {
@@ -20,12 +21,11 @@ let count = 0;
 
 const disconnect = (io, socket) => {
     let room = players[socket.client.id].currentRoom;
-    rooms[room.id].players = room.players.filter(player => {
-        player.name !== socket.username
-    });
+    rooms[room.id].players = room.players.filter(player => player != socket.username);
     rooms[room.id].started = false;
-    io.in(room.id).emit(serverEvents.UPDATE_ROOM_STATE, { room: room });
+    rooms[room.id].ready = false;
     socket.leave(room.id);
+    io.in(room.id).emit(serverEvents.UPDATE_ROOM_STATE, { room: rooms[room.id] });
     socket.emit(serverEvents.UPDATE_ROOM_STATE, { room: null });
     console.log(`${socket.username} exited tic tac toe`);
 }
@@ -55,7 +55,7 @@ module.exports = (io) => {
         
         socket.on(clientEvents.GET_ROOM, (type) => {
             let roomIndex = Object.keys(rooms).find((key) => {
-                if (rooms[key].started === false && rooms[key].type === type) {
+                if (rooms[key].ready === false && rooms[key].type === type) {
                     return true; 
                 }
             });
@@ -73,11 +73,18 @@ module.exports = (io) => {
             socket.join(data.roomId);
             console.log(`${socket.username} joined ${room.type}`);
             if (room.players.length === 2) {
-                room.started = true;
+                room.ready = true;
                 room.currentPlayerIndex = Math.floor(Math.random() * room.players.length);
                 io.in(data.roomId).emit(serverEvents.UPDATE_ROOM_STATE, { room: room });
                 io.in(data.roomId).emit(serverEvents.READY);
+            } else {
+                io.in(data.roomId).emit(serverEvents.UPDATE_ROOM_STATE, { room: room });
             }
+
+            socket.on(clientEvents.START_GAME, (data) => {
+                let room = rooms[data.roomId];
+                room.started = true;
+            });
 
             socket.on(clientEvents.UPDATE_GAME_STATE, (data) => {
                 let room = players[socket.client.id].currentRoom;

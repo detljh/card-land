@@ -17,7 +17,7 @@ let styles = {
         transition: 'all 0.5s',
         zIndex: '100',
         collapse: {
-            marginTop: '-90vh',
+            height: '0vh',
             transition: 'all 0.5s'
         }
     },
@@ -89,8 +89,8 @@ let styles = {
         color: 'white',
         textAlign: 'center',
         collapse: {
-            opacity: '0.1',
-            transition: 'all 0.5s'
+            opacity: '0',
+            transition: 'all 0.2s'
         },
         [global.breakPointMedium]: {
             fontSize: '1em'
@@ -125,10 +125,13 @@ let styles = {
         color: global.mainColor
     },
     main: {
-        marginTop: '80px',
+        marginTop: 'calc(8vh + 30px)',
         width: '100%',
         height: '100vh',
-        left: '0'
+        left: '0',
+        display: 'flex',
+        justifyContent: 'space-evenly',
+        alignItems: 'center'
     },
     formWrapper: {
         display: 'flex',
