@@ -1,6 +1,9 @@
 import React from 'react';
 import styles from './styles.LoadingRoom.css';
+import Radium from 'radium';
 import history from '../../history';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSpinner } from '@fortawesome/free-solid-svg-icons';
 
 class LoadingRoomComponent extends React.Component {
     constructor(props) {
@@ -30,15 +33,29 @@ class LoadingRoomComponent extends React.Component {
     render() {
         return (
             <div style={styles.page}>
-                {this.props.user.name}
-                {
-                    this.props.opponent !== null && this.props.opponent
-                }
-                <br />
-                {this.props.countdown}
+                <div style={styles.main}>
+                    <div style={styles.left}>{this.props.user.name}</div>
+                    <div style={styles.right}>
+                        {
+                            this.props.opponent !== null && this.props.opponent
+                        }
+                    </div>
+                </div>
+                <div style={styles.displayState}>
+                    {
+                        this.props.opponent === null ? 
+                        <div style={styles.displayState.waiting}>
+                            <div style={styles.displayState.waiting.icon}><FontAwesomeIcon icon={faSpinner} /></div>
+                            <div style={styles.displayState.waiting.text}>
+                                Finding an opponent...
+                            </div>
+                        </div> :
+                        <div style={styles.displayState.countdown}>{this.props.countdown}</div>
+                    }
+                </div>
             </div>
         )
     }
 }
 
-export default LoadingRoomComponent;
+export default Radium(LoadingRoomComponent);
