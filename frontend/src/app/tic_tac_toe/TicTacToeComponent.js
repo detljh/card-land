@@ -2,10 +2,19 @@ import React from 'react';
 import styles from './styles.TicTacToe.css';
 import history from '../../history';
 import Square from './SquareContainer';
+import PlayerInfoComponent from './PlayerInfoComponent';
+import Radium from 'radium';
+import ExpireComponent from '../utils/ExpireComponent';
+import { CSSTransition } from 'react-transition-group';
+import './transitions.scss';
 
 class TicTacToeComponent extends React.Component {
     constructor(props) {
         super(props);
+        this.state = {
+            clicked: false
+        }
+        this.handleClick = this.handleClick.bind(this);
     }
 
     componentDidMount() {
@@ -15,7 +24,20 @@ class TicTacToeComponent extends React.Component {
     }
 
     componentWillUnmount() {
-       // this.props.leave();
+       //this.props.leave();
+    }
+
+    handleClick() {
+        if (!this.props.isTurn) {
+            this.setState({
+                clicked: true
+            });
+            setTimeout(() => {
+                this.setState({
+                    clicked: false
+                });
+            }, 1000);
+        }
     }
 
     render() {
@@ -27,8 +49,17 @@ class TicTacToeComponent extends React.Component {
             <div style={styles.page}>
                 {
                     (!this.props.finished && !this.props.isTurn) &&
-                    <div style={disabledPage}>
-                        Opponent's Turn
+                    <div style={disabledPage} onClick={() => this.handleClick()}>
+                        <ExpireComponent delay={ 1000 }>
+                            <CSSTransition
+                                in={ this.state.clicked }
+                                appear={ true }
+                                timeout={ 1000 }
+                                classNames="fade"
+                                unmountOnExit>
+                                <span>Opponent's Turn</span>
+                            </CSSTransition>
+                        </ExpireComponent>
                     </div>
                 }
                 {
@@ -62,22 +93,26 @@ class TicTacToeComponent extends React.Component {
                         }
                     </div>
                 }
-                {this.props.user.name}
-                <div style={styles.game}>
-                    <Square id="0" />
-                    <Square id="1" />
-                    <Square id="2" />
-                    <Square id="3" />
-                    <Square id="4" />
-                    <Square id="5" />
-                    <Square id="6" />
-                    <Square id="7" />
-                    <Square id="8" />
+                <div style={styles.header}>
+                    <PlayerInfoComponent name={this.props.user.name} isTurn={this.props.isTurn }/>
+                    {/* <PlayerInfoComponent name={this.props.opponent.name} isTurn={!this.props.isTurn}/> */}
                 </div>
-                {this.props.opponent.name}
+                <div style={styles.main}>
+                    <div style={styles.game}>
+                        <Square id="0" />
+                        <Square id="1" />
+                        <Square id="2" />
+                        <Square id="3" />
+                        <Square id="4" />
+                        <Square id="5" />
+                        <Square id="6" />
+                        <Square id="7" />
+                        <Square id="8" />
+                    </div>
+                </div>
             </div>
         )
     }
 }
 
-export default TicTacToeComponent;
+export default Radium(TicTacToeComponent);

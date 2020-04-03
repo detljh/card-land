@@ -12,7 +12,8 @@ let styles = {
         justifyContent: 'center',
         alignItems: 'center',
         fontSize: 'calc(35vw/3)',
-        overflow: 'hidden'
+        overflow: 'hidden',
+        border: '1px solid black',
     }
 }
 

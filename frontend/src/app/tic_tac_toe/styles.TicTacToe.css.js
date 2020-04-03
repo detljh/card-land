@@ -1,16 +1,11 @@
 let styles = {
     page: {
         width: '100%',
-        minHeight: '100%',
-        overflow: 'auto',
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center'
+        height: '100vh',
     },
     disabledPage: {
         width: '100%',
-        minHeight: '100%',
-        overflow: 'auto',
+        height: '100vh',
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
@@ -31,13 +26,31 @@ let styles = {
             }
         }
     },
+    main: {
+        height: '100vh',
+        width: '100%',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        paddingTop: '50px',
+    },
     game: {
+        margin: 'auto',
         width: '35vw',
         height: 'calc(35vw)',
         display: 'grid',
         gridTemplate: 'repeat(3, minmax(0, 1fr)) / repeat(3, minmax(0, 1fr))',
-        gridGap: '1px',
-        backgroundColor: 'black',
+    },
+    header: {
+        width: '100%',
+        height: '50px',
+        position: 'fixed',
+        top: '0',
+        left: '0',
+        display: 'flex',
+        justifyContent: 'space-evenly',
+        padding: '5px',
+        backgroundColor: 'hsl(0, 10%, 90%)'
     }
 }
 
