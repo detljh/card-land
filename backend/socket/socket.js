@@ -20,8 +20,9 @@ let players = {};
 let count = 0;
 
 const disconnect = (io, socket) => {
-    let room = players[socket.client.id].currentRoom;
-    rooms[room.id].players = room.players.filter(player => player != socket.username);
+    let player = players[socket.client.id];
+    let room = player.currentRoom;
+    rooms[room.id].players = room.players.filter(p => p.id != player.id);
     rooms[room.id].started = false;
     rooms[room.id].ready = false;
     socket.leave(room.id);
@@ -47,7 +48,7 @@ module.exports = (io) => {
                 socket.username = data.name;
                 console.log(`${data.name} is connected`);
             } else {
-                socket.username = `guest${socket.client.id}`;
+                socket.username = `guest${socket.client.id}`.slice(0, 15);
                 socket.emit(serverEvents.SET_GUEST_ID, { username: socket.username });
                 console.log(`${socket.username} is connected`);
             }
@@ -65,13 +66,14 @@ module.exports = (io) => {
         socket.on(clientEvents.JOIN_ROOM, (data) => {
             let room = rooms[data.roomId];
             let newPlayer = {
+                id: socket.client.id,
                 name: socket.username,
                 currentRoom: room
             }
             players[socket.client.id] = newPlayer;
-            room.players.push(socket.username);
+            room.players.push({ id: newPlayer.id, name: newPlayer.name });
             socket.join(data.roomId);
-            console.log(`${socket.username} joined ${room.type}`);
+            console.log(`${newPlayer.name} joined ${room.type}`);
             if (room.players.length === 2) {
                 room.ready = true;
                 room.currentPlayerIndex = Math.floor(Math.random() * room.players.length);

@@ -50,7 +50,7 @@ const updateRoomState = (room) => {
             return;
         }
         let user = getState().home.auth.user.name;
-        let opponent = room.ready ? room.players.filter(player => player != user)[0] : null;
+        let opponent = room.ready ? room.players.filter(player => player.name != user)[0] : null;
         let payload = {
             currentPlayerIndex: room.currentPlayerIndex,
             started: room.started,

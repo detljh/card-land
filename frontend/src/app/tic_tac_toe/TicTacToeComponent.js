@@ -10,12 +10,12 @@ class TicTacToeComponent extends React.Component {
 
     componentDidMount() {
         if (!this.props.players.length) {
-            history.push('/');
+            //history.push('/');
         }
     }
 
     componentWillUnmount() {
-        this.props.leave();
+       // this.props.leave();
     }
 
     render() {
@@ -74,7 +74,7 @@ class TicTacToeComponent extends React.Component {
                     <Square id="7" />
                     <Square id="8" />
                 </div>
-                {this.props.opponent}
+                {this.props.opponent.name}
             </div>
         )
     }

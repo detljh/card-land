@@ -55,7 +55,7 @@ class LoadingRoomComponent extends React.Component {
                         classNames="slideRight">
                         <div style={rightStyle}>
                         {
-                            this.props.opponent !== null && this.props.opponent
+                            this.props.opponent !== null && this.props.opponent.name
                         }
                         </div>
                     </CSSTransition>

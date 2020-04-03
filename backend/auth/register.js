@@ -3,6 +3,8 @@ module.exports = validateRegisterInput = (data) => {
 
     if (!data.username) {
         errors.username = "Username field is required";
+    } else if (data.username.length > 15) {
+        errors.username = "Username must be between 0 - 15 characters";
     }
 
     if (!data.password) {
