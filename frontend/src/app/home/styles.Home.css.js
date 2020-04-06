@@ -125,13 +125,13 @@ let styles = {
         color: global.mainColor
     },
     main: {
-        marginTop: 'calc(8vh + 30px)',
+        marginTop: 'calc(8vh + 100px)',
         width: '100%',
         height: '100vh',
         left: '0',
         display: 'flex',
-        justifyContent: 'space-evenly',
-        alignItems: 'center'
+        padding: '10px 40px',
+        justifyContent: 'flex-start'
     },
     formWrapper: {
         display: 'flex',
@@ -142,6 +142,18 @@ let styles = {
         top: '0',
         left: '0',
         backgroundColor: 'hsla(0, 50%, 50%, 0.1)'
+    },
+    icon: {
+        width: '70px',
+        height: '70px',
+        opacity: '1',
+        transition: 'all 0.5s ease-in-out',
+        ':hover': {
+            cursor: 'pointer',
+            opacity: '0.5',
+            transform: 'scale(1.2)',
+            transition: 'all 0.5s ease-in-out'
+        }
     }
 }
 

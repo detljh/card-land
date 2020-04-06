@@ -9,7 +9,7 @@ let style = {
         justifyContent: 'flex-start',
         alignItems: 'center',
         padding: '10px',
-        opacity: '1',
+        opacity: '0.5',
         transition: 'all 0.5s',
         turn: {
             opacity: '1',

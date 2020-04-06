@@ -5,6 +5,7 @@ import styles from './styles.Home.css';
 import gameTypes from '../../../../constants/gameTypes';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
+import ticIcon from '../../../public/icon/tictactoe_icon.PNG';
 
 class HomeComponent extends React.Component {
     constructor(props) {
@@ -102,7 +103,7 @@ class HomeComponent extends React.Component {
                 }
                 
                 <div style={styles.main}>
-                    <button onClick={() => this.props.getRoom(gameTypes.TIC_TAC_TOE)}>Tic Tac Toe</button>
+                    <img src={ticIcon} alt="tic_tac_toe" style={styles.icon} onClick={() => this.props.getRoom(gameTypes.TIC_TAC_TOE)} />
                 </div>
             </div>
         )

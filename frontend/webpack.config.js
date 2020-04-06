@@ -30,6 +30,13 @@ module.exports = {
             exclude: /node_modules/,
             include: path.resolve(__dirname, "src/"),
             use: ["style-loader", "css-loader", "sass-loader"]
+        },{
+            test: /\.(jpe?g|gif|png|svg)$/i,
+            exclude: /node_modules/,
+            loader: 'url-loader',
+            options: {
+                limit: 1000
+            }
         }]
     },
     output: {

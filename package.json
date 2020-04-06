@@ -9,6 +9,8 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "concurrently": "^5.1.0"
+    "concurrently": "^5.1.0",
+    "file-loader": "^6.0.0",
+    "url-loader": "^4.0.0"
   }
 }
