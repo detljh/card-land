@@ -57,7 +57,9 @@ class TicTacToeComponent extends React.Component {
                                 timeout={ 1000 }
                                 classNames="fade"
                                 unmountOnExit>
-                                <span>Opponent's Turn</span>
+                                <div style={styles.displayAlert}>
+                                    <span>Opponent's Turn</span>
+                                </div>
                             </CSSTransition>
                         </ExpireComponent>
                     </div>

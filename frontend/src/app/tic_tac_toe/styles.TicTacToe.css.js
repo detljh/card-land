@@ -55,6 +55,14 @@ let styles = {
         justifyContent: 'space-evenly',
         padding: '5px',
         backgroundColor: 'hsl(0, 10%, 90%)'
+    },
+    displayAlert: {
+        fontSize: '1.7em',
+        width: '100%',
+        padding: '5px',
+        textAlign: 'center',
+        backgroundColor: 'hsla(0, 0%, 100%, 0.7)',
+        margin: 'auto'
     }
 }
 

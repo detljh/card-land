@@ -42,7 +42,7 @@ class ExpireComponent extends React.Component {
     render() {
         return (
             this.state.visible &&
-            <div>{this.props.children}</div>
+            <div style={{width: '100%', height: '100%', display: 'flex'}}>{this.props.children}</div>
         )
     }
 }

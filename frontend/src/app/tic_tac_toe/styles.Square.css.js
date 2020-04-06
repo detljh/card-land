@@ -25,8 +25,9 @@ let styles = {
         borderTopLeftRadius: borderRadius
     },
     square1: {
-        border: border,
-        borderTop: 'none'
+        borderBottom: border,
+        borderRight: border,
+        borderLeft: border
     },
     square2: {
         borderBottom: border,
@@ -34,15 +35,17 @@ let styles = {
         borderLeft: border
     },
     square3: {
-        border: border,
-        borderLeft: 'none'
+        borderBottom: border,
+        borderRight: border,
+        borderTop: border
     },
     square4: {
-        border: border,
+        border: border
     },
     square5: {
-        border: border,
-        borderRight: 'none'
+        borderBottom: border,
+        borderLeft: border,
+        borderTop: border
     },
     square6: {
         borderRight: border,
@@ -50,8 +53,9 @@ let styles = {
         borderBottomLeftRadius: borderRadius
     },
     square7: {
-        border: border,
-        borderBottom: 'none'
+        borderLeft: border,
+        borderTop: border,
+        borderRight: border
     },
     square8: {
         borderLeft: border,
