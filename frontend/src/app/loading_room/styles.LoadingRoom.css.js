@@ -20,7 +20,7 @@ let styles = {
     },
     left: {
         gridColumn: '1 / 2',
-        backgroundColor: 'hsl(0, 100%, 70%)',
+        backgroundColor: global.playerOneColor,
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center'
@@ -31,7 +31,7 @@ let styles = {
         justifyContent: 'center',
         alignItems: 'center',
         fill: {
-            backgroundColor: 'hsl(220, 80%, 60%)'
+            backgroundColor: global.playerTwoColor
         }
     },
     displayState: {

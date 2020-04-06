@@ -58,6 +58,8 @@ let alert = {
     textAlign: 'center',
     backgroundColor: 'hsla(0, 0%, 100%, 0.7)',
 }
+let playerOneColor = 'hsl(0, 100%, 70%)';
+let playerTwoColor = 'hsl(220, 80%, 60%)';
 
 export default {
     mainColor,
@@ -68,5 +70,7 @@ export default {
     spinner,
     popupBlock,
     popupButtons,
-    alert
+    alert,
+    playerOneColor,
+    playerTwoColor
 }

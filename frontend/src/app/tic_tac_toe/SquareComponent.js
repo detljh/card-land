@@ -32,7 +32,10 @@ class SquareComponent extends React.Component {
     }
 
     render() {
-        let squareStyle = Object.assign({}, styles.square, styles[`square${this.props.id}`]);
+        let squareStyle = Object.assign({}, styles.square, 
+            styles[`square${this.props.id}`],
+            this.props.squares[this.props.id] === 'x' && styles.squarePlayerOne,
+            this.props.squares[this.props.id] === 'o' && styles.squarePlayerTwo);
         return (
             <div style={squareStyle} onMouseEnter={() => this.setHover(true)} onMouseLeave={() => this.setHover(false)} onClick = {() => this.click()}>
                 {

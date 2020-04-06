@@ -66,7 +66,15 @@ let styles = {
         opacity: '0.3'
     },
     iconPlaced: {
-
+        color: 'white'
+    },
+    squarePlayerOne: {
+        backgroundImage: 'none',
+        backgroundColor: global.playerOneColor
+    },
+    squarePlayerTwo: {
+        backgroundImage: 'none',
+        backgroundColor: global.playerTwoColor
     }
 }
 
