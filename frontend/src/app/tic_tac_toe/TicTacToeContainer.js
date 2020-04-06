@@ -15,7 +15,8 @@ const mapStateToProps = (state) => {
         endGameText: state.tic.game.winner ? state.tic.game.winner.name === state.home.auth.user.name ? 'You win!' : `${state.tic.game.winner.name} won!` : 'Draw!',
         declinePrompt: state.room.ui.declinePrompt,
         acceptPrompt: state.room.ui.acceptPrompt,
-        countdown: state.room.room.countdown
+        countdown: state.room.room.countdown,
+        currentIcon: state.tic.game.currentIcon
     }
 }
 

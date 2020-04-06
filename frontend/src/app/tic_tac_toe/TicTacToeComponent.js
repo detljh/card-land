@@ -101,8 +101,8 @@ class TicTacToeComponent extends React.Component {
                     </div>
                 }
                 <div style={styles.header}>
-                    <PlayerInfoComponent name={this.props.user.name} isTurn={this.props.isTurn }/>
-                    <PlayerInfoComponent name={this.props.opponent ? this.props.opponent.name : null} isTurn={!this.props.isTurn}/>
+                    <PlayerInfoComponent name={this.props.user.name} isTurn={this.props.isTurn } currentIcon={this.props.currentIcon}/>
+                    <PlayerInfoComponent name={this.props.opponent ? this.props.opponent.name : null} isTurn={!this.props.isTurn} currentIcon={this.props.currentIcon}/>
                 </div>
                 <div style={styles.main}>
                     <div style={styles.game}>

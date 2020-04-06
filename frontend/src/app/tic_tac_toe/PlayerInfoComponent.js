@@ -11,7 +11,9 @@ class PlayerInfoComponent extends React.Component {
         let playerInfoStyle = Object.assign({}, styles.playerInfo,
             this.props.isTurn && styles.playerInfo.turn  
         );
-
+        let turnIndicatorStyle = Object.assign({}, styles.turnIndicator,
+            (this.props.isTurn && this.props.currentIcon === 'x') ? styles.turnIndicator.playerOne : this.props.isTurn ? styles.turnIndicator.playerTwo : styles.turnIndicator.playerOne
+        );
         return (
             <div style={playerInfoStyle}>                    
                 {this.props.name}
@@ -22,7 +24,7 @@ class PlayerInfoComponent extends React.Component {
                     classNames="fade"
                     unmountOnExit>
                     {
-                        <div style={styles.turnIndicator}><FontAwesomeIcon icon={faChevronUp} /></div>
+                        <div style={turnIndicatorStyle}><FontAwesomeIcon icon={faChevronUp} /></div>
 
                     }
                 </CSSTransition>

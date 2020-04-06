@@ -14,21 +14,26 @@ const takeTurn = (id) => {
         let currentIcon = getState().tic.game.currentIcon;
         
         squares[id] = currentIcon;
-        currentIcon = currentIcon === 'x' ? 'o' : 'x';
         
         let turns = getState().tic.game.turns;
         let currentPlayer = getState().room.room.currentPlayerIndex;
         let boardStatus = [...getState().tic.game.boardStatus];
         let status = checkStatus(id, turns + 1, currentPlayer, boardStatus);
+        if (!status.end) {
+            currentIcon = currentIcon === 'x' ? 'o' : 'x';
+        }
         let payload = {
             squares: squares,
             currentIcon: currentIcon,
             turns: turns + 1,
             boardStatus: [...boardStatus]
         }
-        
+
         dispatch(sActions.sUpdateGameState(payload));
         if (status.end) {
+            if (status.winner) {
+
+            }
             dispatch(sActions.sEndGame(status));
         } else {
             dispatch(sActions.sEndTurn());
