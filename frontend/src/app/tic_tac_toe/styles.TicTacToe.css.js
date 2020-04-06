@@ -8,26 +8,21 @@ let styles = {
     disabledPage: {
         width: '100%',
         height: '100vh',
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        zIndex: '10',
+        zIndex: '999',
         position: 'absolute',
         finished: {
             backgroundColor: 'hsla(0, 0%, 50%, 0.5)',
         }
     },
-    prompt: {
-        backgroundColor: 'white',
-        width: '30%',
-        height: '30%',
+    prompt: Object.assign({}, global.popupBlock, {
+        padding: '10px',
         promptButtonWrapper: {
             display: 'flex',
-            button: {
-                cursor: 'pointer'
-            }
+            justifyContent: 'space-evenly',
+            width: '100%',
+            button: global.popupButtons
         }
-    },
+    }),
     main: {
         height: '100vh',
         width: '100%',
@@ -56,14 +51,27 @@ let styles = {
         padding: '5px',
         backgroundColor: 'hsl(0, 10%, 90%)'
     },
-    displayAlert: {
-        fontSize: '1.7em',
-        width: '100%',
-        padding: '5px',
-        textAlign: 'center',
-        backgroundColor: 'hsla(0, 0%, 100%, 0.7)',
+    displayAlert: Object.assign({}, global.alert, {
         margin: 'auto'
-    }
+    }),
+    endGameBlock: {
+        width: '100%',
+        height: '100%',
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'center',
+        textAlign: 'center',
+        position: 'relative',
+        zIndex: '1000',
+        alert: Object.assign({}, global.alert, {
+            position: 'absolute',
+            marginTop: '20vh'
+        })
+    },
+    
+    spinner: global.spinner
+
 }
 
 export default styles;

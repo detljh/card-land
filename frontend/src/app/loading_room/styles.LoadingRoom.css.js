@@ -1,13 +1,4 @@
-import Radium from 'radium';
-
-let spin = Radium.keyframes({
-    '0%': {
-        transform: 'rotate(0deg)'
-    },
-    '100%': {
-        transform: 'rotate(360deg)'
-    }
-})
+import global from '../styles.global.css';
 
 let styles = {
     page: {
@@ -52,10 +43,7 @@ let styles = {
             flexDirection: 'column',
             justifyContent: 'center',
             alignItems: 'center',
-            icon: {
-                animation: 'x 1.5s ease-in-out 0s infinite',
-                animationName: spin,
-            },
+            icon: global.spinner,
             text: {
                 fontSize: '0.4em'
             }

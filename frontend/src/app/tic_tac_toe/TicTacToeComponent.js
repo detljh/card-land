@@ -7,6 +7,8 @@ import Radium from 'radium';
 import ExpireComponent from '../utils/ExpireComponent';
 import { CSSTransition } from 'react-transition-group';
 import './transitions.scss';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSpinner } from '@fortawesome/free-solid-svg-icons';
 
 class TicTacToeComponent extends React.Component {
     constructor(props) {
@@ -66,33 +68,36 @@ class TicTacToeComponent extends React.Component {
                 }
                 {
                     this.props.finished &&
-                    <div style={disabledPage}>   
-                        {this.props.endGameText}
-                        {
-                            this.props.resetRequestPrompt ? 
-                            <div style={styles.prompt}>
-                                Opponent has requested to play again.
-                                <div style={styles.prompt.buttonWrapper}>
-                                    <button onClick={this.props.acceptReset}>Accept</button>
-                                    <button onClick={this.props.declineReset}>Decline</button>
-                                </div>
-                            </div> :
-                            this.props.waitingResponsePrompt ?
-                            <div style={styles.prompt}>
-                                Waiting for a response
-                            </div> :
-                            this.props.declinePrompt ?
-                            <div>
-                                Request declined. Redirecting to homepage
-                                {this.props.countdown}
-                            </div> :
-                            this.props.acceptPrompt ? 
-                            <div>
-                                Request accepted. Game will start in
-                                {this.props.countdown}
-                            </div> :
-                            <button onClick={this.props.reset}>Play again</button>
-                        }
+                    <div style={disabledPage}>
+                        <div style={styles.endGameBlock.alert}>{this.props.endGameText}</div>
+                        <div style={styles.endGameBlock}>   
+                            {
+                                this.props.resetRequestPrompt ? 
+                                <div style={styles.prompt}>
+                                    Opponent has requested to play again
+                                    <div style={styles.prompt.promptButtonWrapper}>
+                                        <button key={`accept_button`} style={styles.prompt.promptButtonWrapper.button} onClick={this.props.acceptReset}>Accept</button>
+                                        <button key={`decline_button`} style={styles.prompt.promptButtonWrapper.button} onClick={this.props.declineReset}>Decline</button>
+                                    </div>
+                                </div> :
+                                this.props.waitingResponsePrompt ?
+                                <div style={styles.prompt}>
+                                    Waiting for a response
+                                    <div style={styles.spinner}><FontAwesomeIcon icon={faSpinner} /></div>
+                                </div> :
+                                this.props.declinePrompt ?
+                                <div style={styles.prompt}>
+                                    Request declined. Redirecting to homepage
+                                    <div>{this.props.countdown}</div>
+                                </div> :
+                                this.props.acceptPrompt ? 
+                                <div style={styles.prompt}>
+                                    Request accepted. Game will start in
+                                    <div>{this.props.countdown}</div>
+                                </div> :
+                                <button style={styles.prompt.promptButtonWrapper.button} onClick={this.props.reset}>Play again</button>
+                            }
+                        </div>
                     </div>
                 }
                 <div style={styles.header}>

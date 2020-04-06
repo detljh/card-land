@@ -22,7 +22,6 @@ class LoadingRoomComponent extends React.Component {
     }
 
     componentWillUnmount() {
-        console.log(this.props);
         if (this.props.connected && !this.props.started) {
             this.props.leave();
         }

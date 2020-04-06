@@ -137,8 +137,6 @@ let styles = {
         display: 'flex',
         width: '100%',
         height: '100%',
-        justifyContent: 'center',
-        alignItems: 'center',
         position: 'fixed',
         zIndex: '999',
         top: '0',
