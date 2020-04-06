@@ -5,7 +5,8 @@ import { ticOperations } from './duck';
 const mapStateToProps = (state) => {
     return {
         currentIcon: state.tic.game.currentIcon,
-        squares: state.tic.game.squares
+        squares: state.tic.game.squares,
+        winSquares: state.tic.game.winSquares
     }
 }
 

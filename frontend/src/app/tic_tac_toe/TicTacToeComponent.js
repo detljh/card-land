@@ -30,16 +30,14 @@ class TicTacToeComponent extends React.Component {
     }
 
     handleClick() {
-        if (!this.props.isTurn) {
+        this.setState({
+            clicked: true
+        });
+        setTimeout(() => {
             this.setState({
-                clicked: true
+                clicked: false
             });
-            setTimeout(() => {
-                this.setState({
-                    clicked: false
-                });
-            }, 1000);
-        }
+        }, 1000);
     }
 
     render() {
@@ -50,7 +48,7 @@ class TicTacToeComponent extends React.Component {
         return (
             <div style={styles.page}>
                 {
-                    (!this.props.finished && !this.props.isTurn) &&
+                    (!this.props.opponent || (!this.props.finished && !this.props.isTurn)) &&
                     <div style={disabledPage} onClick={() => this.handleClick()}>
                         <ExpireComponent delay={ 1000 }>
                             <CSSTransition
@@ -60,14 +58,21 @@ class TicTacToeComponent extends React.Component {
                                 classNames="fade"
                                 unmountOnExit>
                                 <div style={styles.displayAlert}>
-                                    <span>Opponent's Turn</span>
+                                    {
+                                            this.props.opponent ?  
+                                            <span>Opponent's Turn</span> : 
+                                            <span>Opponent has left</span>
+                                    }
                                 </div>
                             </CSSTransition>
                         </ExpireComponent>
                     </div>
                 }
-                {
-                    this.props.finished &&
+                <CSSTransition
+                    in={ this.props.finished }
+                    timeout= { 1000 }
+                    classNames="fade"
+                    unmountOnExit>
                     <div style={disabledPage}>
                         <div style={styles.endGameBlock.alert}>{this.props.endGameText}</div>
                         <div style={styles.endGameBlock}>   
@@ -99,10 +104,13 @@ class TicTacToeComponent extends React.Component {
                             }
                         </div>
                     </div>
-                }
+                </CSSTransition>
                 <div style={styles.header}>
-                    <PlayerInfoComponent name={this.props.user.name} isTurn={this.props.isTurn } currentIcon={this.props.currentIcon}/>
-                    <PlayerInfoComponent name={this.props.opponent ? this.props.opponent.name : null} isTurn={!this.props.isTurn} currentIcon={this.props.currentIcon}/>
+                    <PlayerInfoComponent name={this.props.user.name} isTurn={this.props.isTurn } currentIcon={this.props.currentIcon} spin={false}/>
+                    {
+                        this.props.opponent &&
+                        <PlayerInfoComponent name={ this.props.opponent.name} isTurn={!this.props.isTurn} currentIcon={this.props.currentIcon} spin={true} />
+                    }
                 </div>
                 <div style={styles.main}>
                     <div style={styles.game}>

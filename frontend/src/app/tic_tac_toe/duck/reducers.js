@@ -8,7 +8,8 @@ const GAME_INITIAL_STATE = {
     finished: false,
     winner: null,
     // order is rows, columns, left diagonal, right diagonal
-    boardStatus: Array.from(new Array(8), () => [0, 0])
+    boardStatus: Array.from(new Array(8), () => [0, 0]),
+    winSquares: []
 }
 
 const gameReducer = (state=GAME_INITIAL_STATE, action) => {
@@ -20,7 +21,8 @@ const gameReducer = (state=GAME_INITIAL_STATE, action) => {
                 turns: action.payload.turns,
                 boardStatus: [...action.payload.boardStatus],
                 winner: action.payload.winner,
-                finished: action.payload.finished
+                finished: action.payload.finished,
+                winSquares: action.payload.winSquares
             });
         case types.WIN:
             return Object.assign({}, state, {

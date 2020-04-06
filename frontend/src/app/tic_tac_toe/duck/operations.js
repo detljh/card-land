@@ -26,16 +26,52 @@ const takeTurn = (id) => {
             squares: squares,
             currentIcon: currentIcon,
             turns: turns + 1,
-            boardStatus: [...boardStatus]
+            boardStatus: [...boardStatus],
+            winSquares: []
         }
 
-        dispatch(sActions.sUpdateGameState(payload));
         if (status.end) {
-            if (status.winner) {
-
+            let winSquares = [];
+            if (status.winner !== null) {
+                boardStatus.forEach((element, index) => {
+                    if (element[currentPlayer] === 3) {
+                        if (index === 0 || index === 3 || index === 6) {
+                            winSquares.push(0);
+                        } 
+                        if (index === 0 || index === 4) {
+                            winSquares.push(1);
+                        }
+                        if (index === 0 || index === 5 || index === 7) {
+                            winSquares.push(2);
+                        }
+                        if (index === 1 || index === 3) {
+                            winSquares.push(3);
+                        }
+                        if (index === 1 || index === 4 || index === 6 || index === 7) {
+                            winSquares.push(4);
+                        }
+                        if (index === 1 || index === 5) {
+                            winSquares.push(5);
+                        }
+                        if (index === 2 || index === 3 || index === 7) {
+                            winSquares.push(6);
+                        }
+                        if (index === 2 || index === 4) {
+                            winSquares.push(7);
+                        }
+                        if (index === 2 || index === 5 || index === 6) {
+                            winSquares.push(8);
+                        }
+                    }
+                });
             }
-            dispatch(sActions.sEndGame(status));
+            payload.winSquares = winSquares;
+            dispatch(sActions.sUpdateGameState(payload));
+            setTimeout(() => {
+                dispatch(sActions.sEndGame(status));
+            }, 2000);
         } else {
+            dispatch(sActions.sUpdateGameState(payload));
             dispatch(sActions.sEndTurn());
         }
     }
@@ -46,6 +82,7 @@ const checkStatus = (id, turns, currentPlayer, boardStatus) => {
     let column = 0;
     let diag = 0;
     id = String(id);
+     
     if (id === "0" || id === "1" || id === "2") {
         row = ++boardStatus[0][currentPlayer];
     } else if (id === "3" || id === "4" || id === "5") {
@@ -75,7 +112,7 @@ const checkStatus = (id, turns, currentPlayer, boardStatus) => {
     } else if (turns === 9) {
         return { end: true, winner: null };
     }
-    return { end: false, type: null };
+    return { end: false, winner: null };
 }
 
 export default {

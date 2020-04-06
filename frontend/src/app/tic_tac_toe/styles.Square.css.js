@@ -75,6 +75,10 @@ let styles = {
     squarePlayerTwo: {
         backgroundImage: 'none',
         backgroundColor: global.playerTwoColor
+    },
+    winSquare: {
+        backgroundColor: 'hsl(50, 50%, 40%)',
+        transition: 'background-color 1.5s ease-in' 
     }
 }
 

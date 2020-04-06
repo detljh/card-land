@@ -1,6 +1,6 @@
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faChevronUp } from '@fortawesome/free-solid-svg-icons';
+import { faChevronUp, faSpinner } from '@fortawesome/free-solid-svg-icons';
 import { CSSTransition } from 'react-transition-group';
 import './transitions.scss';
 import styles from './styles.PlayerInfo.css';
@@ -12,22 +12,33 @@ class PlayerInfoComponent extends React.Component {
             this.props.isTurn && styles.playerInfo.turn  
         );
         let turnIndicatorStyle = Object.assign({}, styles.turnIndicator,
-            (this.props.isTurn && this.props.currentIcon === 'x') ? styles.turnIndicator.playerOne : this.props.isTurn ? styles.turnIndicator.playerTwo : styles.turnIndicator.playerOne
+            this.props.isTurn ? this.props.currentIcon === 'x' ? styles.turnIndicator.playerOne : styles.turnIndicator.playerTwo : styles.turnIndicator.playerTwo
         );
         return (
-            <div style={playerInfoStyle}>                    
+            <div style={playerInfoStyle}>    
                 {this.props.name}
-                <CSSTransition
-                    in={ this.props.isTurn }
-                    appear={ true }
-                    timeout={ 1000 }
-                    classNames="fade"
-                    unmountOnExit>
-                    {
+                    <CSSTransition
+                        in={ this.props.isTurn }
+                        appear={ true }
+                        timeout={ 1000 }
+                        classNames="fade"
+                        unmountOnExit>
                         <div style={turnIndicatorStyle}><FontAwesomeIcon icon={faChevronUp} /></div>
+                    </CSSTransition>
+                    <CSSTransition
+                        in={ this.props.spin}
+                        appear={ true }
+                        timeout={ 1000 }
+                        classNames="fade"
+                        unmountOnExit>
+                            <div style={styles.spinner}>
+                            {
+                                this.props.isTurn && 
+                                <FontAwesomeIcon icon={faSpinner} />
 
-                    }
-                </CSSTransition>
+                            }
+                            </div>
+                    </CSSTransition>
             </div>
         )
     }

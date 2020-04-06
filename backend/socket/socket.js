@@ -94,6 +94,7 @@ module.exports = (io) => {
                 room.gameState.squares = [...data.squares];
                 room.gameState.turns = data.turns;
                 room.gameState.boardStatus = [...data.boardStatus];
+                room.gameState.winSquares = [...data.winSquares];
                 io.in(room.id).emit(serverEvents.UPDATE_GAME, { room: room.gameState });
             });
 
