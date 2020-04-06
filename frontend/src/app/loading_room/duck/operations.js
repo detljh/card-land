@@ -45,7 +45,7 @@ const leave = () => {
 
 const updateRoomState = (room) => {
     return (dispatch, getState) => {
-        if (room === null) {
+        if (!room) {
             dispatch(Creators.resetRoom());
             return;
         }

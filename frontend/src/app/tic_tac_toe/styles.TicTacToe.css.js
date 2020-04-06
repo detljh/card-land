@@ -1,3 +1,5 @@
+import global from '../styles.global.css';
+
 let styles = {
     page: {
         width: '100%',
@@ -36,10 +38,12 @@ let styles = {
     },
     game: {
         margin: 'auto',
-        width: '35vw',
-        height: 'calc(35vw)',
+        width: '40vw',
+        height: 'calc(40vw)',
         display: 'grid',
         gridTemplate: 'repeat(3, minmax(0, 1fr)) / repeat(3, minmax(0, 1fr))',
+        boxShadow: `0 0 0 2px white, 0 0 7px 4px ${global.ticTacToeShadowColor}`,
+        borderRadius: '10px'
     },
     header: {
         width: '100%',

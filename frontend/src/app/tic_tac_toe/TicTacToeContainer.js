@@ -11,8 +11,8 @@ const mapStateToProps = (state) => {
         opponent: state.room.room.opponent,
         resetRequestPrompt: state.room.ui.resetRequestPrompt,
         waitingResponsePrompt: state.room.ui.waitingResponsePrompt,
-        //isTurn: state.room.room.players[state.room.room.currentPlayerIndex].name === state.home.auth.user.name,
-        //endGameText: state.tic.game.winner !== null ? state.tic.game.winner.name === state.home.auth.user.name ? 'You win!' : `${state.tic.game.winner.name} won!` : 'Draw!',
+        isTurn: state.room.room.currentPlayerIndex !== null ? (state.room.room.players[state.room.room.currentPlayerIndex].name === state.home.auth.user.name) : false,
+        endGameText: state.tic.game.winner ? state.tic.game.winner.name === state.home.auth.user.name ? 'You win!' : `${state.tic.game.winner.name} won!` : 'Draw!',
         declinePrompt: state.room.ui.declinePrompt,
         acceptPrompt: state.room.ui.acceptPrompt,
         countdown: state.room.room.countdown

@@ -1,5 +1,6 @@
 import React from 'react';
 import styles from './styles.Square.css';
+import Radium from 'radium';
 
 class SquareComponent extends React.Component {
     constructor(props) {
@@ -31,17 +32,20 @@ class SquareComponent extends React.Component {
     }
 
     render() {
+        let squareStyle = Object.assign({}, styles.square, styles[`square${this.props.id}`]);
         return (
-            <div style={styles.square} onMouseEnter={() => this.setHover(true)} onMouseLeave={() => this.setHover(false)} onClick = {() => this.click()}>
+            <div style={squareStyle} onMouseEnter={() => this.setHover(true)} onMouseLeave={() => this.setHover(false)} onClick = {() => this.click()}>
                 {
-                    this.state.hover && this.props.currentIcon
+                    this.state.hover && 
+                    <span style={styles.iconHover}>{this.props.currentIcon}</span>
                 }
                 {
-                    this.props.squares[this.props.id] && this.props.squares[this.props.id]
+                    this.props.squares[this.props.id] && 
+                    <span style={styles.iconPlaced}>{this.props.squares[this.props.id]}</span>
                 }
             </div>
         )
     }
 }
 
-export default SquareComponent;
+export default Radium(SquareComponent);

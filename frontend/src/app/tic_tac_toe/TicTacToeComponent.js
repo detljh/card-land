@@ -19,12 +19,12 @@ class TicTacToeComponent extends React.Component {
 
     componentDidMount() {
         if (!this.props.players.length) {
-            //history.push('/');
+            history.push('/');
         }
     }
 
     componentWillUnmount() {
-       //this.props.leave();
+       this.props.leave();
     }
 
     handleClick() {
@@ -95,19 +95,15 @@ class TicTacToeComponent extends React.Component {
                 }
                 <div style={styles.header}>
                     <PlayerInfoComponent name={this.props.user.name} isTurn={this.props.isTurn }/>
-                    {/* <PlayerInfoComponent name={this.props.opponent.name} isTurn={!this.props.isTurn}/> */}
+                    <PlayerInfoComponent name={this.props.opponent ? this.props.opponent.name : null} isTurn={!this.props.isTurn}/>
                 </div>
                 <div style={styles.main}>
                     <div style={styles.game}>
-                        <Square id="0" />
-                        <Square id="1" />
-                        <Square id="2" />
-                        <Square id="3" />
-                        <Square id="4" />
-                        <Square id="5" />
-                        <Square id="6" />
-                        <Square id="7" />
-                        <Square id="8" />
+                        {
+                            Array.from(new Array(9), (e, index) => 
+                            <Square key={`square-${index}`} id={index} />
+                            )
+                        }
                     </div>
                 </div>
             </div>

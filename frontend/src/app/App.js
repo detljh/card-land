@@ -2,7 +2,7 @@ import React from 'react';
 import { Router, Switch, Route } from 'react-router-dom';
 import Home from './home';
 import LoadingRoom from './loading_room';
-import { TicTacToe } from './tic_tac_toe';
+import TicTacToe from './tic_tac_toe';
 import history from '../history';
 
 class App extends React.Component {

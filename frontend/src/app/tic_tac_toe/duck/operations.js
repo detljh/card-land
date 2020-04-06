@@ -19,16 +19,16 @@ const takeTurn = (id) => {
         let turns = getState().tic.game.turns;
         let currentPlayer = getState().room.room.currentPlayerIndex;
         let boardStatus = [...getState().tic.game.boardStatus];
-        let status = checkStatus(id, turns, currentPlayer, boardStatus);
+        let status = checkStatus(id, turns + 1, currentPlayer, boardStatus);
         let payload = {
             squares: squares,
             currentIcon: currentIcon,
             turns: turns + 1,
             boardStatus: [...boardStatus]
         }
-
+        
         dispatch(sActions.sUpdateGameState(payload));
-        if (status.status) {
+        if (status.end) {
             dispatch(sActions.sEndGame(status));
         } else {
             dispatch(sActions.sEndTurn());
@@ -40,6 +40,7 @@ const checkStatus = (id, turns, currentPlayer, boardStatus) => {
     let row = 0;
     let column = 0;
     let diag = 0;
+    id = String(id);
     if (id === "0" || id === "1" || id === "2") {
         row = ++boardStatus[0][currentPlayer];
     } else if (id === "3" || id === "4" || id === "5") {
@@ -65,11 +66,11 @@ const checkStatus = (id, turns, currentPlayer, boardStatus) => {
     }
     
     if (row === 3 || column === 3 || diag === 3) {
-        return { status: true, winner: currentPlayer };
+        return { end: true, winner: currentPlayer };
     } else if (turns === 9) {
-        return { status: true, winner: null };
+        return { end: true, winner: null };
     }
-    return { status: false, type: null };
+    return { end: false, type: null };
 }
 
 export default {
