@@ -11,6 +11,7 @@ let timer = null;
 const tick = (dispatch, getState, cb) => {
     return setInterval(() => {
         let players = getState().room.room.players;
+        let declinePrompt = getState().room.ui.declinePrompt;
         if (players.length !== 2) {
             clearInterval(timer);
             dispatch(Creators.countdown(true));
@@ -114,10 +115,6 @@ const declineReset = () => {
 const setDeclinePrompt = () => {
     return (dispatch) => {
         dispatch(Creators.setDeclinePrompt());
-        dispatch(countdown(() => {
-            dispatch(Creators.resetUI());
-            history.push('/');
-        }));
     }
 }
 

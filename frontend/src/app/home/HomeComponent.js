@@ -6,6 +6,8 @@ import gameTypes from '../../../../constants/gameTypes';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 import ticIcon from '../../../public/icon/tictactoe_icon.PNG';
+import { CSSTransition } from 'react-transition-group';
+import '../transitions.scss';
 
 class HomeComponent extends React.Component {
     constructor(props) {
@@ -30,6 +32,7 @@ class HomeComponent extends React.Component {
             if (this.state.collapseHeader) {
                 return;
             }
+            window.scrollTo(0, 50);
             this.setState({
                 collapseHeader: true
             });
@@ -49,9 +52,6 @@ class HomeComponent extends React.Component {
         let headerStyle = Object.assign({}, styles.header, 
             this.state.collapseHeader && styles.header.collapse
         );
-        let headerButtonsBlockStyle = Object.assign({}, styles.headerButtonsBlock,
-            this.state.collapseHeader && styles.headerButtonsBlock.collapse
-        );
         let headerButtonsStyle = Object.assign({}, styles.headerButtonsBlock,
             styles.headerButtons
         );
@@ -63,29 +63,44 @@ class HomeComponent extends React.Component {
         );
         return (
             <div style={styles.page}>
+                <div style={styles.fixedHeader.online}>Online: {this.props.usersOnline}</div>
                 <div style={fixedHeaderStyle}>
-                    <div style={styles.fixedHeader.online}>Online: {this.props.usersOnline}</div>
                     {
                         isAuthenticated ?
-                        <div style={headerTextStyle}>Hi, <span style={styles.user}>{this.props.auth.user.name}</span></div> :
-                        <div style={headerTextStyle}>Hi, <span style={styles.user}>{this.props.auth.user.name}</span></div>
-                    }
-                    {
-                        isAuthenticated &&
-                        <div style={styles.fixedHeader.logoutButton}><FontAwesomeIcon key={"logout_icon"} icon={faSignOutAlt} onClick={this.props.logout}  /></div>
+                        <div key={`user_greeting`} style={headerTextStyle}>Hi, <span style={styles.user}>{this.props.auth.user.name}</span></div> :
+                        <div key={`guest_greeting`} style={headerTextStyle}>Hi, <span style={styles.user}>{this.props.auth.user.name}</span></div>
                     }
                 </div>
-                
+                {
+                    isAuthenticated &&
+                    <div key={`logout_icon`} style={styles.fixedHeader.logoutButton}><FontAwesomeIcon icon={faSignOutAlt} onClick={this.props.logout} /></div>
+                }
                 
                 <div style={headerStyle}>
                     {
                         isAuthenticated ? 
-                        <div key={"main_text_auth"} style={headerButtonsBlockStyle}>You are logged in<br /> <span style={styles.user}>{this.props.auth.user.name}</span></div> :
-                        <div style={headerButtonsBlockStyle}>
-                            <button key={"login_button"} onClick={this.props.showLoginForm} style={headerButtonsStyle}>Login</button>
-                            <button key={"register_button"} onClick={this.props.showRegisterForm} style={headerButtonsStyle}>Register</button>
-                        </div> 
+                        <CSSTransition
+                        in={ !this.state.collapseHeader}
+                        appear={ true }
+                        classNames="fade500"
+                        timeout={ 500 }
+                        unmountOnExit>
+                            <div key={"main_text_auth"} style={styles.headerButtonsBlock}>You are logged in<br /> <span style={styles.user}>{this.props.auth.user.name}</span></div>
+                        </CSSTransition> :
+                        <CSSTransition
+                        in={ !this.state.collapseHeader}
+                        appear={ true }
+                        classNames="fade500"
+                        timeout={ 500 }
+                        unmountOnExit>
+                            <div key={`header_button_block`} style={styles.headerButtonsBlock}>
+                                <button key={"login_button"} onClick={this.props.showLoginForm} style={headerButtonsStyle}>Login</button>
+                                <button key={"register_button"} onClick={this.props.showRegisterForm} style={headerButtonsStyle}>Register</button>
+                            </div> 
+                        </CSSTransition>
                     }
+
+                    
                 </div>
 
                 {
@@ -103,7 +118,11 @@ class HomeComponent extends React.Component {
                 }
                 
                 <div style={styles.main}>
-                    <img src={ticIcon} alt="tic_tac_toe" style={styles.icon} onClick={() => this.props.getRoom(gameTypes.TIC_TAC_TOE)} />
+                    <div style={styles.icon} onClick={() => this.props.getRoom(gameTypes.TIC_TAC_TOE)}>
+                        <img src={ticIcon} alt="tic_tac_toe" style={styles.icon.img} />
+                        <span>Tic Tac Toe</span>
+                    </div>
+                    
                 </div>
             </div>
         )

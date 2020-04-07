@@ -1,3 +1,42 @@
+.fade-enter, .fade-appear {
+    opacity: 0;
+}
+
+.fade-enter-active, .fade-appear-active {
+    opacity: 1;
+    transition: all 500ms linear;
+
+}
+
+.fade-exit, .fade-leave-active {
+    opacity: 1;
+}
+
+.fade-exit-active, .fade-leave-active {
+    opacity: 0;
+    transition: all 500ms linear;
+}
+
+.fade500-enter, .fade500-appear {
+    opacity: 0;
+}
+
+.fade500-enter-active, .fade500-appear-active {
+    opacity: 1;
+    transition: all 250ms linear;
+
+}
+
+.fade500-exit, .fade500-leave-active {
+    opacity: 1;
+}
+
+.fade500-exit-active, .fade500-leave-active {
+    opacity: 0;
+    transition: all 250ms linear;
+}
+
+
 .slideLeft-enter, .slideLeft-appear {
     transform: translateX(-100vw);
 }
@@ -15,7 +54,6 @@
     transform: translateX(-100vw);
     transition: all 300ms linear;
 }
-
 
 
 .slideRight-enter {

@@ -12,8 +12,6 @@ let styles = {
         backgroundColor: 'hsla(0, 0%, 0%, 0.9)',
         display: 'flex',
         flexDirection: 'column',
-        justifyContent: 'center',
-        alignItems: 'center',
         transition: 'all 0.5s',
         zIndex: '100',
         collapse: {
@@ -33,9 +31,11 @@ let styles = {
         backgroundColor: 'hsla(0, 0%, 0%, 0)',
         transition: 'all 0.5s',
         logoutButton: {
+            zIndex: '999',
+            position: 'fixed',
             fontSize: '3vw',
-            marginLeft: 'auto',
-            marginRight: '5px',
+            padding: '0 5px',
+            right: '0',
             color: 'white',
             cursor: 'pointer',
             transition: 'all 0.5s ease-in-out',
@@ -51,10 +51,11 @@ let styles = {
             }
         },
         online: {
+            zIndex: '999',
+            position: 'fixed',
             color: 'white',
-            marginLeft: '5px',
             fontSize: '0.8em',
-            marginRight: 'auto',
+            padding: '5px',
             [global.breakPointMedium]: {
                 fontSize: '0.6em'
             }
@@ -88,10 +89,7 @@ let styles = {
         justifyContent: 'center',
         color: 'white',
         textAlign: 'center',
-        collapse: {
-            opacity: '0',
-            transition: 'all 0.2s'
-        },
+        margin: 'auto',
         [global.breakPointMedium]: {
             fontSize: '1em'
         }
@@ -125,12 +123,13 @@ let styles = {
         color: global.mainColor
     },
     main: {
-        marginTop: 'calc(8vh + 100px)',
+        marginTop: 'calc(8vh + 30px)',
         width: '100%',
         height: '100vh',
+        overflow: 'hidden',
         left: '0',
         display: 'flex',
-        padding: '10px 40px',
+        padding: '30px 20px',
         justifyContent: 'flex-start'
     },
     formWrapper: {
@@ -144,15 +143,24 @@ let styles = {
         backgroundColor: 'hsla(0, 50%, 50%, 0.1)'
     },
     icon: {
-        width: '70px',
-        height: '70px',
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'center',
+        textAlign: 'center',
         opacity: '1',
+        margin: '20px',
+        height: '100px',
         transition: 'all 0.5s ease-in-out',
         ':hover': {
             cursor: 'pointer',
             opacity: '0.5',
             transform: 'scale(1.2)',
             transition: 'all 0.5s ease-in-out'
+        },
+        img: {
+            width: '70px',
+            height: '70px',
         }
     }
 }

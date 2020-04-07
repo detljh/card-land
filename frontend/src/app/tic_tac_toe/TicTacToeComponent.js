@@ -6,9 +6,10 @@ import PlayerInfoComponent from './PlayerInfoComponent';
 import Radium from 'radium';
 import ExpireComponent from '../utils/ExpireComponent';
 import { CSSTransition } from 'react-transition-group';
-import './transitions.scss';
+import '../transitions.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSpinner } from '@fortawesome/free-solid-svg-icons';
+import HomeButtonComponent from '../utils/HomeButtonComponent';
 
 class TicTacToeComponent extends React.Component {
     constructor(props) {
@@ -20,7 +21,7 @@ class TicTacToeComponent extends React.Component {
     }
 
     componentDidMount() {
-        if (!this.props.players.length) {
+        if (this.props.room === null) {
             history.push('/');
         }
     }
@@ -77,6 +78,10 @@ class TicTacToeComponent extends React.Component {
                         <div style={styles.endGameBlock.alert}>{this.props.endGameText}</div>
                         <div style={styles.endGameBlock}>   
                             {
+                                !this.props.opponent && !this.props.declinePrompt ?
+                                <div style={styles.prompt}>
+                                    Opponent has left
+                                </div> :
                                 this.props.resetRequestPrompt ? 
                                 <div style={styles.prompt}>
                                     Opponent has requested to play again
@@ -92,8 +97,7 @@ class TicTacToeComponent extends React.Component {
                                 </div> :
                                 this.props.declinePrompt ?
                                 <div style={styles.prompt}>
-                                    Request declined. Redirecting to homepage
-                                    <div>{this.props.countdown}</div>
+                                    Request declined
                                 </div> :
                                 this.props.acceptPrompt ? 
                                 <div style={styles.prompt}>
@@ -105,6 +109,8 @@ class TicTacToeComponent extends React.Component {
                         </div>
                     </div>
                 </CSSTransition>
+
+                <HomeButtonComponent />
                 <div style={styles.header}>
                     <PlayerInfoComponent name={this.props.user.name} isTurn={this.props.isTurn } currentIcon={this.props.currentIcon} spin={false}/>
                     {

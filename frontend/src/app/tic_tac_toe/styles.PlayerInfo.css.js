@@ -10,6 +10,7 @@ let style = {
         alignItems: 'center',
         padding: '10px',
         opacity: '0.5',
+        width: '160px',
         transition: 'all 0.5s',
         turn: {
             opacity: '1',

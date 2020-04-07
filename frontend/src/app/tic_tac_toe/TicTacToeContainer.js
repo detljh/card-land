@@ -16,7 +16,8 @@ const mapStateToProps = (state) => {
         declinePrompt: state.room.ui.declinePrompt,
         acceptPrompt: state.room.ui.acceptPrompt,
         countdown: state.room.room.countdown,
-        currentIcon: state.tic.game.currentIcon
+        currentIcon: state.tic.game.currentIcon,
+        room: state.home.socket.room
     }
 }
 

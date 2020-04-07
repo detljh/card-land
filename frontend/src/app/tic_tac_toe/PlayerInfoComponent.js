@@ -2,7 +2,7 @@ import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronUp, faSpinner } from '@fortawesome/free-solid-svg-icons';
 import { CSSTransition } from 'react-transition-group';
-import './transitions.scss';
+import '../transitions.scss';
 import styles from './styles.PlayerInfo.css';
 import Radium from 'radium';
 

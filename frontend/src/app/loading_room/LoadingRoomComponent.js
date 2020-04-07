@@ -5,7 +5,7 @@ import history from '../../history';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSpinner } from '@fortawesome/free-solid-svg-icons';
 import { CSSTransition } from 'react-transition-group';
-import './transitions.scss';
+import '../transitions.scss';
 
 class LoadingRoomComponent extends React.Component {
     constructor(props) {
