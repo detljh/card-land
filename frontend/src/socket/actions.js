@@ -15,10 +15,10 @@ const sAuth = (user) => {
     }
 }
 
-const sJoinRoom = (roomId) => {
+const sJoinRoom = (payload) => {
     return {
         type: clientEvents.JOIN_ROOM,
-        roomId: roomId
+        payload
     }
 }
 

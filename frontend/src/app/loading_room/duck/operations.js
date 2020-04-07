@@ -11,7 +11,6 @@ let timer = null;
 const tick = (dispatch, getState, cb) => {
     return setInterval(() => {
         let players = getState().room.room.players;
-        let declinePrompt = getState().room.ui.declinePrompt;
         if (players.length !== 2) {
             clearInterval(timer);
             dispatch(Creators.countdown(true));
@@ -50,8 +49,8 @@ const updateRoomState = (room) => {
             dispatch(Creators.resetRoom());
             return;
         }
-        let user = getState().home.auth.user.name;
-        let opponent = room.ready ? room.players.filter(player => player.name != user)[0] : null;
+        let user = getState().home.auth.user.username;
+        let opponent = room.ready ? room.players.filter(player => player.username != user)[0] : null;
         let payload = {
             currentPlayerIndex: room.currentPlayerIndex,
             started: room.started,

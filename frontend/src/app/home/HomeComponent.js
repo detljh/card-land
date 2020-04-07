@@ -67,8 +67,8 @@ class HomeComponent extends React.Component {
                 <div style={fixedHeaderStyle}>
                     {
                         isAuthenticated ?
-                        <div key={`user_greeting`} style={headerTextStyle}>Hi, <span style={styles.user}>{this.props.auth.user.name}</span></div> :
-                        <div key={`guest_greeting`} style={headerTextStyle}>Hi, <span style={styles.user}>{this.props.auth.user.name}</span></div>
+                        <div key={`user_greeting`} style={headerTextStyle}>Hi, <span style={styles.user}>{this.props.auth.user.username}</span></div> :
+                        <div key={`guest_greeting`} style={headerTextStyle}>Hi, <span style={styles.user}>{this.props.auth.user.username}</span></div>
                     }
                 </div>
                 {
@@ -85,7 +85,7 @@ class HomeComponent extends React.Component {
                         classNames="fade500"
                         timeout={ 500 }
                         unmountOnExit>
-                            <div key={"main_text_auth"} style={styles.headerButtonsBlock}>You are logged in<br /> <span style={styles.user}>{this.props.auth.user.name}</span></div>
+                            <div key={"main_text_auth"} style={styles.headerButtonsBlock}>You are logged in<br /> <span style={styles.user}>{this.props.auth.user.username}</span></div>
                         </CSSTransition> :
                         <CSSTransition
                         in={ !this.state.collapseHeader}

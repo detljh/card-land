@@ -112,10 +112,10 @@ class TicTacToeComponent extends React.Component {
 
                 <HomeButtonComponent />
                 <div style={styles.header}>
-                    <PlayerInfoComponent name={this.props.user.name} isTurn={this.props.isTurn } currentIcon={this.props.currentIcon} spin={false}/>
+                    <PlayerInfoComponent name={this.props.user.username} isTurn={this.props.isTurn } currentIcon={this.props.currentIcon} spin={false}/>
                     {
                         this.props.opponent &&
-                        <PlayerInfoComponent name={ this.props.opponent.name} isTurn={!this.props.isTurn} currentIcon={this.props.currentIcon} spin={true} />
+                        <PlayerInfoComponent name={ this.props.opponent.username} isTurn={!this.props.isTurn} currentIcon={this.props.currentIcon} spin={true} />
                     }
                 </div>
                 <div style={styles.main}>

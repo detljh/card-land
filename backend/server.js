@@ -36,7 +36,11 @@ app.use(helmet());
 app.use(passport.initialize());
 require('./config/auth')(passport);
 
-mongoose.connect(config.db, { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect(config.db, { useNewUrlParser: true, useUnifiedTopology: true })
+  .then(() => {
+    mongoose.connection.collections['players'].deleteMany();
+    mongoose.connection.collections['rooms'].deleteMany();
+  });
 
 app.use(express.static(path.join(__dirname, '../frontend/public')));
 

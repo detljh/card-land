@@ -74,16 +74,16 @@ const getRoom = (type) => {
 }
 
 const assignRoom = (roomId) => {
-    return (dispatch) => {
+    return (dispatch, getState) => {
         dispatch(Creators.updateRoom(roomId));
-        dispatch(sActions.sJoinRoom(roomId));
+        dispatch(sActions.sJoinRoom({ roomId: roomId, username: getState().home.auth.user.username }));
         history.push(`/${roomId}`);
     }
 }
 
 const setGuestId = (username) => {
     return (dispatch) => {
-        dispatch(Creators.setCurrentUser({ name: username }, false));
+        dispatch(Creators.setCurrentUser({ username: username }, false));
     }
 }
 

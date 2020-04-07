@@ -16,7 +16,7 @@ class PlayerInfoComponent extends React.Component {
         );
         return (
             <div style={playerInfoStyle}>    
-                {this.props.name}
+                {this.props.username}
                     <CSSTransition
                         in={ this.props.isTurn }
                         appear={ true }
