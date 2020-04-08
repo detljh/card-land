@@ -8,7 +8,7 @@ const ROOM_INITIAL_STATE = {
     countdown: 5,
     started: false,
     ready: false,
-    type: null
+    gameType: null
 }
 
 const roomReducer = (state=ROOM_INITIAL_STATE, action) => {
@@ -24,7 +24,7 @@ const roomReducer = (state=ROOM_INITIAL_STATE, action) => {
                 started: action.payload.started,
                 ready: action.payload.ready,
                 players: action.payload.players,
-                type: action.payload.type
+                gameType: action.payload.gameType
         });
         case types.START_ROOM:
             return Object.assign({}, state, {

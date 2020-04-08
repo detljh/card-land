@@ -67,9 +67,9 @@ const logout = () => {
     }
 }
 
-const getRoom = (type) => {
+const getRoom = (gameType) => {
     return (dispatch) => {
-        dispatch(sActions.sGetRoom(type));
+        dispatch(sActions.sGetRoom(gameType));
     }   
 }
 

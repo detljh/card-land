@@ -16,7 +16,7 @@ const endTurn = () => {
 const updateRoomState = (payload) => {
     return {
         type: types.UPDATE_ROOM_STATE,
-        payload: payload
+        payload
     }
 }
 

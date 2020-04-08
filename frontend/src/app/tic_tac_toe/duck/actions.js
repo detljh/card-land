@@ -8,19 +8,6 @@ const takeTurn = (squares, currentIcon) => {
     }
 }
 
-const win = (winner) => {
-    return {
-        type: types.WIN,
-        winner: winner
-    }
-}
-
-const draw = () => {
-    return {
-        type: types.DRAW
-    }
-}
-
 const reset = () => {
     return {
         type: types.RESET
@@ -36,8 +23,6 @@ const setGameState = (payload) => {
 
 export default {
     takeTurn,
-    win,
-    draw,
     reset,
     setGameState
 }

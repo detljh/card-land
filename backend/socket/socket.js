@@ -10,7 +10,7 @@ module.exports = (io) => {
         count++;
         io.sockets.emit(serverEvents.USERS_ONLINE, { online: count });
         socket.on(clientEvents.AUTH, (data) => {
-            let username = data.name;
+            let username = data.username;
             if (!username) {
                 username = `guest${socket.client.id}`.slice(0, 15);
                 socket.emit(serverEvents.SET_GUEST_ID, { username: username });

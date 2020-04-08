@@ -15,24 +15,15 @@ const GAME_INITIAL_STATE = {
 const gameReducer = (state=GAME_INITIAL_STATE, action) => {
     switch (action.type) {
         case types.SET_GAME_STATE:
-            return Object.assign({}, state, {
-                currentIcon: action.payload.currentIcon,
-                squares: [...action.payload.squares],
-                turns: action.payload.turns,
-                boardStatus: [...action.payload.boardStatus],
-                winner: action.payload.winner,
-                finished: action.payload.finished,
-                winSquares: action.payload.winSquares
-            });
-        case types.WIN:
-            return Object.assign({}, state, {
-                winner: action.winner,
-                finished: true
-            });
-        case types.DRAW:
-            return Object.assign({}, state, {
-                finished: true
-        });
+            return Object.assign({}, state,
+                action.payload.currentIcon !== undefined && {currentIcon: action.payload.currentIcon},
+                action.payload.squares !== undefined && {squares: [...action.payload.squares]},
+                action.payload.turns !== undefined && {turns: action.payload.turns},
+                action.payload.boardStatus !== undefined && {boardStatus: [...action.payload.boardStatus]},
+                action.payload.winner !== undefined && {winner: action.payload.winner},
+                action.payload.finished !== undefined && {finished: action.payload.finished},
+                action.payload.winSquares !== undefined && {winSquares: action.payload.winSquares}
+            );
         case types.RESET:
             return Object.assign({}, GAME_INITIAL_STATE, {
                 boardStatus: Array.from(new Array(8), () => [0, 0])

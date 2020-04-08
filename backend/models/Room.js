@@ -17,6 +17,14 @@ const RoomSchema = mongoose.Schema({
     gameType: {
         type: String,
         default: null
+    },
+    finished: {
+        type: Boolean,
+        default: false
+    },
+    winner: {
+        type: Object,
+        default: null
     }
 });
 

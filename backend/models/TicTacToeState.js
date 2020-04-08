@@ -5,25 +5,34 @@ const TicTacToeStateSchema = mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Room'
     },
-    finished: {
-        type: Boolean,
-        default: false
-    },
-    winner: {
-        type: String,
-        default: null
-    },
     currentIcon: {
         type: String,
         default: null
     },
-    squares: [String],
+    squares: Array,
     turns: {
         type: Number,
         default: 0
     },
-    boardStatus: [String],
-    winSquares: [String]
+    boardStatus: Array,
+    winSquares: Array
 });
 
-const TicTacToeState = mongoose.model('TictacToeState', TicTacToeStateSchema);
+TicTacToeStateSchema.statics.findByRoom = function(id, cb) {
+    return this.findOne({
+        room: id
+    }, cb);
+}
+
+TicTacToeStateSchema.statics.createState = function(room, currentIcon, squares, turns, boardStatus, winSquares, cb) {
+    return this.create({
+        room: room,
+        currentIcon: currentIcon,
+        squares: squares,
+        turns: turns,
+        boardStatus: boardStatus,
+        winSquares: winSquares
+    }, cb);
+}
+
+const TicTacToeState = mongoose.model('TicTacToeState', TicTacToeStateSchema);

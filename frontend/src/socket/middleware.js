@@ -4,7 +4,6 @@ import io from 'socket.io-client';
 import events from '../../../constants/serverEvents'; 
 import { homeOperations } from '../app/home/duck';
 import { roomOperations } from '../app/loading_room/duck';
-import { ticOperations } from '../app/tic_tac_toe/duck';
 
 const socketMiddleware = () => {
     let socket = null;

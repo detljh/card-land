@@ -57,7 +57,7 @@ const updateRoomState = (room) => {
             ready: room.ready,
             opponent: opponent,
             players: room.players,
-            type: room.type
+            gameType: room.gameType
         }
         dispatch(Creators.updateRoomState(payload));
     }
@@ -65,8 +65,8 @@ const updateRoomState = (room) => {
 
 const updateGame = (data) => {
     return (dispatch, getState) => {
-        let type = getState().room.room.type;
-        switch (type) {
+        let gameType = getState().room.room.gameType;
+        switch (gameType) {
             case gameTypes.TIC_TAC_TOE:
                 dispatch(ticOperations.setGameState(data.room));
                 break;
@@ -79,10 +79,10 @@ const updateGame = (data) => {
 const startGame = () => {
     return (dispatch, getState) => {
         let room = getState().home.socket.room;
-        let type = getState().room.room.type;
+        let gameType = getState().room.room.gameType;
         dispatch(Creators.startRoom());
         dispatch(sActions.sStartGame(room));
-        switch (type) {
+        switch (gameType) {
             case gameTypes.TIC_TAC_TOE:
                 history.push(`/${room}/tic_tac_toe`);
                 break;
@@ -120,10 +120,10 @@ const setDeclinePrompt = () => {
 const setAcceptPrompt = () => {
     return (dispatch, getState) => {
         dispatch(Creators.setAcceptPrompt());
-        let type = getState().room.room.type;
+        let gameType = getState().room.room.gameType;
         dispatch(countdown(() => {
             dispatch(Creators.resetUI());
-            switch (type) {
+            switch (gameType) {
                 case gameTypes.TIC_TAC_TOE:
                     dispatch(ticOperations.reset());
                     break;

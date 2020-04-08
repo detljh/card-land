@@ -104,7 +104,7 @@ class TicTacToeComponent extends React.Component {
                                     Request accepted. Game will start in
                                     <div>{this.props.countdown}</div>
                                 </div> :
-                                <button style={styles.prompt.promptButtonWrapper.button} onClick={this.props.reset}>Play again</button>
+                                this.props.finished && <button style={styles.prompt.promptButtonWrapper.button} onClick={this.props.reset}>Play again</button>
                             }
                         </div>
                     </div>
@@ -112,10 +112,10 @@ class TicTacToeComponent extends React.Component {
 
                 <HomeButtonComponent />
                 <div style={styles.header}>
-                    <PlayerInfoComponent name={this.props.user.username} isTurn={this.props.isTurn } currentIcon={this.props.currentIcon} spin={false}/>
+                    <PlayerInfoComponent username={this.props.user.username} isTurn={this.props.isTurn } currentIcon={this.props.currentIcon} spin={false}/>
                     {
                         this.props.opponent &&
-                        <PlayerInfoComponent name={ this.props.opponent.username} isTurn={!this.props.isTurn} currentIcon={this.props.currentIcon} spin={true} />
+                        <PlayerInfoComponent username={ this.props.opponent.username} isTurn={!this.props.isTurn} currentIcon={this.props.currentIcon} spin={true} />
                     }
                 </div>
                 <div style={styles.main}>
