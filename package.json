@@ -4,7 +4,8 @@
   "description": "Online card game",
   "main": "index.js",
   "scripts": {
-    "dev": "concurrently \"cd backend && npm run dev\" \"cd frontend && npm run dev\" "
+    "dev": "concurrently \"cd backend && npm run dev\" \"cd frontend && npm run dev\" ",
+    "start": "\"cd backend && npm run start \""
   },
   "author": "",
   "license": "ISC",
