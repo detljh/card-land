@@ -1,6 +1,5 @@
 'use strict';
 
-require('dotenv').config();
 const path = require('path');
 const fs = require('fs');
 const express = require('express');
@@ -16,6 +15,7 @@ let config = {
   port: 5000
 }
 if (env != 'production') {
+  require('dotenv').config();
   config = require('./config/config.js')[env];
 }
 
