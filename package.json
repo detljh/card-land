@@ -1,8 +1,8 @@
 {
-  "name": "card-land",
+  "name": "minigames-online",
   "version": "1.0.0",
-  "description": "Online card game",
-  "main": "index.js",
+  "description": "Online minigames",
+  "main": "backend/server.js",
   "scripts": {
     "dev": "concurrently \"cd backend && npm run dev\" \"cd frontend && npm run dev\" ",
     "start": "node backend/server.js"
@@ -13,6 +13,6 @@
     "concurrently": "^5.1.0"
   },
   "engines": {
-		"node": "^6.9.1"
+		"node": "^13.6.0"
 	}
 }
