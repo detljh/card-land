@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from './styles.form.css';
+import styles from './styles.Form.css';
 import Radium from 'radium';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faWindowClose } from '@fortawesome/free-solid-svg-icons';
