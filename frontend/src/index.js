@@ -8,7 +8,7 @@ import SocketConnection from './socket/SocketConnection';
 
 ReactDOM.render(
     <Provider store={store}>
-        <SocketConnection host={`http://localhost:5000`}>
+        <SocketConnection>
             <App />
         </SocketConnection>
     </Provider>

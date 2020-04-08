@@ -1,9 +1,8 @@
 import clientEvents from '../../../constants/clientEvents';
 
-const sConnect = (host, user) => {
+const sConnect = (user) => {
     return {
         type: clientEvents.CONNECT,
-        host: host,
         user: user
     }
 }

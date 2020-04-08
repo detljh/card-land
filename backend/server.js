@@ -13,7 +13,7 @@ const passport = require('passport');
 const env = process.env.NODE_ENV || 'production';
 let config = {
   db: process.env.DATABASE,
-  port: 5000
+  port: process.env.PORT
 }
 if (env != 'production') {
   config = require('./config/config.js')[env];

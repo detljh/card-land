@@ -8,7 +8,7 @@ import actions from './actions';
 
 class WebSocketConnection extends React.Component {
     componentDidMount() {
-        const { dispatch, host } = this.props;
+        const { dispatch } = this.props;
         let user = {};
         if (localStorage.jwtToken) {
             const token = localStorage.jwtToken;
@@ -23,7 +23,7 @@ class WebSocketConnection extends React.Component {
             }
         }
 
-        dispatch(actions.sConnect(host, user));
+        dispatch(actions.sConnect(user));
     }
 
     render() {

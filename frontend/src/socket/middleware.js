@@ -60,7 +60,7 @@ const socketMiddleware = () => {
                         socket.close();
                     }
 
-                    socket = io(action.host);
+                    socket = io();
                     store.dispatch(homeOperations.setConnection(true));
                     socket.emit(types.AUTH, action.user);
 
