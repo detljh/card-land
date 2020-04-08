@@ -46,7 +46,7 @@ module.exports = {
     },
     plugins: [
         new HtmlWebpackPlugin({
-          title: 'Card Land',
+          title: 'Minigames online',
           template: 'public/index.html',
         })
     ],
