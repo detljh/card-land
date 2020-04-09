@@ -13,12 +13,12 @@ const updateGame = (io, data, room) => {
             state.winSquares = data.winSquares;
             state.save((err, state) => {
                 if (err) return console.log(err);
-                io.in(room._id).emit(serverEvents.UPDATE_GAME, { room: state });
+                io.in(room._id).emit(serverEvents.UPDATE_GAME, { state: state });
             });
         } else {
             TicTacToeState.createState(room._id, data.currentIcon, data.squares, data.turns, data.boardStatus, data.winSquares, (err, state) => {
                 if (err) return console.log(err);
-                io.in(room._id).emit(serverEvents.UPDATE_GAME, { room: state });
+                io.in(room._id).emit(serverEvents.UPDATE_GAME, { state: state });
             });
         }
     });

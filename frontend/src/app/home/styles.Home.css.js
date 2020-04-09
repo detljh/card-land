@@ -23,8 +23,7 @@ let styles = {
         position: 'fixed',
         zIndex: '-1',
         width: '100%',
-        height: '8vh',
-        minHeight: '30px',
+        height: '50px',
         display: 'flex',
         justifyContent: 'space-evenly',
         alignItems: 'center',
@@ -123,7 +122,7 @@ let styles = {
         color: global.mainColor
     },
     main: {
-        marginTop: 'calc(8vh + 30px)',
+        marginTop: '50px',
         width: '100%',
         height: '100vh',
         overflow: 'hidden',

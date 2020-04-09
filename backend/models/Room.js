@@ -31,7 +31,8 @@ const RoomSchema = mongoose.Schema({
 RoomSchema.statics.getRoom = function(gameType, cb) {
     return this.findOne({
         gameType: gameType,
-        ready: false
+        ready: false,
+        started: false
     }, cb);
 }
 

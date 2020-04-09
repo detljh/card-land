@@ -41,9 +41,10 @@ const sStartGame = (roomId) => {
     }
 }
 
-const sEndTurn = () => {
+const sEndTurn = (payload) => {
     return {
-        type: clientEvents.END_TURN
+        type: clientEvents.END_TURN,
+        payload
     }
 }
 
@@ -61,21 +62,24 @@ const sEndGame = (payload) => {
     }
 }
 
-const sRequestReset = () => {
+const sRequestReset = (payload) => {
     return {
-        type: clientEvents.REQUEST_RESET
+        type: clientEvents.REQUEST_RESET,
+        payload
     }
 }
 
-const sDeclineReset = () => {
+const sDeclineReset = (payload) => {
     return {
-        type: clientEvents.DECLINE_RESET
+        type: clientEvents.DECLINE_RESET,
+        payload
     }
 }
 
-const sAcceptReset = () => {
+const sAcceptReset = (payload) => {
     return {
-        type: clientEvents.ACCEPT_RESET
+        type: clientEvents.ACCEPT_RESET,
+        payload
     }
 }
 

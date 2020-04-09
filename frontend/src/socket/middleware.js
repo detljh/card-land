@@ -1,4 +1,3 @@
-import gameTypes from '../../../constants/gameTypes';
 import types from '../../../constants/clientEvents';
 import io from 'socket.io-client';
 import events from '../../../constants/serverEvents'; 
@@ -60,7 +59,7 @@ const socketMiddleware = () => {
                         socket.close();
                     }
 
-                    socket = io();
+                    socket = io(process.env.NODE_ENV !== 'production' && 'http://localhost:5000');
                     store.dispatch(homeOperations.setConnection(true));
                     socket.emit(types.AUTH, action.user);
 
@@ -74,6 +73,10 @@ const socketMiddleware = () => {
                     break;
                 case types.JOIN_ROOM:
                 case types.UPDATE_GAME_STATE:
+                case types.REQUEST_RESET:
+                case types.DECLINE_RESET:
+                case types.ACCEPT_RESET:
+                case types.END_TURN:
                 case types.END_GAME:
                     socket.emit(action.type, action.payload);
                     break;
@@ -81,10 +84,6 @@ const socketMiddleware = () => {
                     socket.emit(action.type, action.gameType);
                     break;
                 case types.LEAVE_ROOM:
-                case types.END_TURN:
-                case types.REQUEST_RESET:
-                case types.DECLINE_RESET:
-                case types.ACCEPT_RESET:
                     socket.emit(action.type);
                     break;
                 default:

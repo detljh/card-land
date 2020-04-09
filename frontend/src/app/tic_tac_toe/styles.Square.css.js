@@ -16,8 +16,11 @@ let styles = {
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
-        fontSize: 'calc(35vw/3)',
+        fontSize: 'calc(60vw/3)',
         overflow: 'hidden',
+        [global.breakPointLarge]: {
+            fontSize: '130px'
+        }
     },
     square0: {
         borderBottom: border,
@@ -78,7 +81,7 @@ let styles = {
     },
     winSquare: {
         backgroundColor: 'hsl(50, 50%, 40%)',
-        transition: 'background-color 1.5s ease-in' 
+        transition: 'background-color 0.7s ease-in' 
     }
 }
 

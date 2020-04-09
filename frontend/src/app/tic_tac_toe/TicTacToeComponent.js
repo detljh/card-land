@@ -69,13 +69,18 @@ class TicTacToeComponent extends React.Component {
                         </ExpireComponent>
                     </div>
                 }
+                
                 <CSSTransition
                     in={ this.props.finished }
+                    appear={ true }
                     timeout= { 1000 }
                     classNames="fade"
                     unmountOnExit>
                     <div style={disabledPage}>
-                        <div style={styles.endGameBlock.alert}>{this.props.endGameText}</div>
+                        {
+                             this.props.finished && 
+                             <div style={styles.endGameBlock.alert}>{this.props.endGameText}</div>
+                        }
                         <div style={styles.endGameBlock}>   
                             {
                                 !this.props.opponent && !this.props.declinePrompt ?

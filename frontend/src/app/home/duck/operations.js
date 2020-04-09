@@ -76,6 +76,9 @@ const getRoom = (gameType) => {
 const assignRoom = (roomId) => {
     return (dispatch, getState) => {
         dispatch(Creators.updateRoom(roomId));
+        if (roomId === null) {
+            return;
+        }
         dispatch(sActions.sJoinRoom({ roomId: roomId, username: getState().home.auth.user.username }));
         history.push(`/${roomId}`);
     }

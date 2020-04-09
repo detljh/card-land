@@ -15,6 +15,7 @@ const takeTurn = (id) => {
         
         squares[id] = currentIcon;
         
+        let roomId = getState().home.socket.room;
         let turns = getState().tic.game.turns;
         let currentPlayer = getState().room.room.currentPlayerIndex;
         let boardStatus = [...getState().tic.game.boardStatus];
@@ -23,6 +24,7 @@ const takeTurn = (id) => {
             currentIcon = currentIcon === 'x' ? 'o' : 'x';
         }
         let payload = {
+            roomId: roomId,
             squares: squares,
             currentIcon: currentIcon,
             turns: turns + 1,
@@ -67,12 +69,11 @@ const takeTurn = (id) => {
             }
             payload.winSquares = winSquares;
             dispatch(sActions.sUpdateGameState(payload));
-            setTimeout(() => {
-                dispatch(sActions.sEndGame(status));
-            }, 2000);
+            status.roomId = roomId;
+            dispatch(sActions.sEndGame(status));
         } else {
             dispatch(sActions.sUpdateGameState(payload));
-            dispatch(sActions.sEndTurn());
+            dispatch(sActions.sEndTurn({ roomId: roomId }));
         }
     }
 }

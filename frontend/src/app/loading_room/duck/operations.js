@@ -36,6 +36,19 @@ const countdown = (cb) => {
     }
 }
 
+const resetAll = (gameType) => {
+    return (dispatch) => {
+        dispatch(Creators.resetUI());
+        switch (gameType) {
+            case gameTypes.TIC_TAC_TOE:
+                dispatch(ticOperations.reset());
+                break;
+            default:
+                return;
+        }
+    }
+}
+
 const leave = () => {
     return (dispatch) => {
         history.push('/');
@@ -52,6 +65,7 @@ const updateRoomState = (room) => {
         let user = getState().home.auth.user.username;
         let opponent = room.ready ? room.players.filter(player => player.username != user)[0] : null;
         let payload = {
+            roomId: getState().home.socket.room,
             currentPlayerIndex: room.currentPlayerIndex,
             started: room.started,
             ready: room.ready,
@@ -65,10 +79,15 @@ const updateRoomState = (room) => {
 
 const updateGame = (data) => {
     return (dispatch, getState) => {
+        if (!data.state) {
+            dispatch(resetAll(data.gameType));
+            return;
+        }
+
         let gameType = getState().room.room.gameType;
         switch (gameType) {
             case gameTypes.TIC_TAC_TOE:
-                dispatch(ticOperations.setGameState(data.room));
+                dispatch(ticOperations.setGameState(data.state));
                 break;
             default:
                 return;
@@ -93,27 +112,31 @@ const startGame = () => {
 }
 
 const reset = () => {
-    return (dispatch) => {
-        dispatch(sActions.sRequestReset());
+    return (dispatch, getState) => {
+        let roomId = getState().home.socket.room;
+        dispatch(sActions.sRequestReset({ roomId: roomId }));
     }
 }
 
 const acceptReset = () => {
-    return (dispatch) => {
-        dispatch(sActions.sAcceptReset());
+    return (dispatch, getState) => {
+        let roomId = getState().home.socket.room;
+        dispatch(sActions.sAcceptReset({ roomId: roomId }));
     }
         
 }
 
 const declineReset = () => {
-    return (dispatch) => {
-        dispatch(sActions.sDeclineReset());
+    return (dispatch, getState) => {
+        let roomId = getState().home.socket.room;
+        dispatch(sActions.sDeclineReset({ roomId: roomId }));
     }
 }
 
 const setDeclinePrompt = () => {
-    return (dispatch) => {
-        dispatch(Creators.setDeclinePrompt());
+    return (dispatch, getState) => {
+        let roomId = getState().home.socket.room;
+        dispatch(Creators.setDeclinePrompt({ roomId: roomId }));
     }
 }
 
@@ -122,14 +145,7 @@ const setAcceptPrompt = () => {
         dispatch(Creators.setAcceptPrompt());
         let gameType = getState().room.room.gameType;
         dispatch(countdown(() => {
-            dispatch(Creators.resetUI());
-            switch (gameType) {
-                case gameTypes.TIC_TAC_TOE:
-                    dispatch(ticOperations.reset());
-                    break;
-                default:
-                    return;
-            }
+            dispatch(resetAll(gameType));
         }));
     }
 }

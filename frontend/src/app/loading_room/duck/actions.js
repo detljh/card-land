@@ -7,12 +7,6 @@ const countdown = (reset) => {
     }
 }
 
-const endTurn = () => {
-    return {
-        type: types.END_TURN,
-    }
-}
-
 const updateRoomState = (payload) => {
     return {
         type: types.UPDATE_ROOM_STATE,
@@ -64,7 +58,6 @@ const resetUI = () => {
 
 export default {
     countdown,
-    endTurn,
     updateRoomState,
     resetRoom,
     startRoom,

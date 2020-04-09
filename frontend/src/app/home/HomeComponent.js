@@ -32,7 +32,7 @@ class HomeComponent extends React.Component {
             if (this.state.collapseHeader) {
                 return;
             }
-            window.scrollTo(0, 50);
+            window.scrollTo(0, 30);
             this.setState({
                 collapseHeader: true
             });
