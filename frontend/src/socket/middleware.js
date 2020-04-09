@@ -58,8 +58,11 @@ const socketMiddleware = () => {
                     if (socket != null) {
                         socket.close();
                     }
-
-                    socket = io(process.env.NODE_ENV !== 'production' && 'http://localhost:5000');
+                    if (process.env.NODE_ENV != 'production') {
+                        socket = io('http://localhost:5000');
+                    } else {
+                        socket = io();
+                    }
                     store.dispatch(homeOperations.setConnection(true));
                     socket.emit(types.AUTH, action.user);
 
