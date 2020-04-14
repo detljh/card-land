@@ -16,6 +16,7 @@ const disconnect = (io, socket) => {
         player.destroy((err) => {
             if (err) return console.log(err);
             room.players = room.players.filter(p => p.socket != player.socketId);
+            room.playersLength -= 1;
 
             if (room.players.length === 0) {
                 room.destroy((err) => {
@@ -189,4 +190,5 @@ module.exports = (io, socket) => {
     socket.on('disconnect', () => {
         disconnect(io, socket);
     });
+
 }
