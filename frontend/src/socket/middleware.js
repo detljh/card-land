@@ -21,7 +21,7 @@ const socketMiddleware = () => {
                 store.dispatch(homeOperations.assignRoom(data.roomId));
             });
 
-            socket.on(events.UPDATE_ROOM_STATE, (data) => {
+            socket.on(events.UPDATE_ROOM, (data) => {
                 store.dispatch(roomOperations.updateRoomState(data.room));
             });
 

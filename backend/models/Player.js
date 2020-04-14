@@ -28,7 +28,7 @@ PlayerSchema.statics.getRoom = function(id, cb) {
 }
 
 PlayerSchema.methods.destroy = function(cb) {
-    this.remove(cb);
+    return this.remove(cb);
 }
 
 const Player = mongoose.model('Player', PlayerSchema);

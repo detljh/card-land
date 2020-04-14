@@ -24,6 +24,13 @@ const updateGame = (io, data, room) => {
     });
 }
 
+const destroy = (room) => {
+    TicTacToeState.destroy(room._id, (err) => {
+        if (err) return console.log(err);
+    });
+}
+
 module.exports = {
-    updateGame
+    updateGame,
+    destroy
 }

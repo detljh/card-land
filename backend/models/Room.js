@@ -50,11 +50,11 @@ RoomSchema.statics.findById = function(id, cb) {
 
 RoomSchema.methods.addPlayer = function(username, socket, cb) {
     this.players.push({ username:username, socket: socket });
-    this.save(cb);
+    return this.save(cb);
 }
 
 RoomSchema.methods.destroy = function(cb) {
-    this.remove(cb);
+    return this.remove(cb);
 }
 
 const Room = mongoose.model('Room', RoomSchema);

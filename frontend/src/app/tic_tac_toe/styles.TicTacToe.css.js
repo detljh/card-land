@@ -3,13 +3,14 @@ import global from '../styles.global.css';
 let styles = {
     page: {
         width: '100%',
-        height: '100vh',
+        minHeight: '100vh',
+        display: 'flex'
     },
     disabledPage: {
         width: '100%',
         height: '100vh',
         zIndex: '999',
-        position: 'absolute',
+        position: 'fixed',
         finished: {
             backgroundColor: 'hsla(0, 0%, 50%, 0.5)',
         }
@@ -24,12 +25,12 @@ let styles = {
         }
     }),
     main: {
-        height: '100vh',
         width: '100%',
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
-        paddingTop: '60px',
+        marginTop: '60px',
+        padding: '20px 5px'
     },
     game: {
         margin: 'auto',
@@ -53,6 +54,7 @@ let styles = {
         display: 'flex',
         justifyContent: 'space-evenly',
         padding: '5px',
+        zIndex: '99',
         backgroundColor: 'hsl(0, 10%, 90%)'
     },
     displayAlert: Object.assign({}, global.alert, {

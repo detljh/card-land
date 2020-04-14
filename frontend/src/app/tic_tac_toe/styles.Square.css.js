@@ -69,15 +69,18 @@ let styles = {
         opacity: '0.3'
     },
     iconPlaced: {
-        color: 'white'
+        color: 'white',
+        transition: 'all 0.2s ease-in'
     },
     squarePlayerOne: {
         backgroundImage: 'none',
-        backgroundColor: global.playerOneColor
+        backgroundColor: global.playerOneColor,
+        transition: 'all 0.2s ease-in'
     },
     squarePlayerTwo: {
         backgroundImage: 'none',
-        backgroundColor: global.playerTwoColor
+        backgroundColor: global.playerTwoColor,
+        transition: 'all 0.2s ease-in'
     },
     winSquare: {
         backgroundColor: 'hsl(50, 50%, 40%)',

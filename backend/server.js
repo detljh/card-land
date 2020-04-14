@@ -38,6 +38,7 @@ mongoose.connect(config.db, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => {
     mongoose.connection.collections['players'].deleteMany();
     mongoose.connection.collections['rooms'].deleteMany();
+    mongoose.connection.collections['tictactoestates'].deleteMany();
   });
 
 app.use(express.static(path.join(__dirname, '../frontend/build')));

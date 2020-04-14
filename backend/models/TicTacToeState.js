@@ -3,7 +3,6 @@ const mongoose = require('mongoose');
 const TicTacToeStateSchema = mongoose.Schema({
     room: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Room'
     },
     currentIcon: {
         type: String,
@@ -32,6 +31,12 @@ TicTacToeStateSchema.statics.createState = function(room, currentIcon, squares, 
         turns: turns,
         boardStatus: boardStatus,
         winSquares: winSquares
+    }, cb);
+}
+
+TicTacToeStateSchema.statics.destroy = function(room, cb) {
+    return this.deleteOne({
+        room: room
     }, cb);
 }
 
