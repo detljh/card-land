@@ -1,6 +1,5 @@
 const READY = "READY";
 const USERS_ONLINE = "USERS_ONLINE";
-const ASSIGN_ROOM = "ASSIGN_ROOM";
 const SET_GUEST_ID = "SET_GUEST_ID"; 
 const UPDATE_ROOM = "UPDATE_ROOM";
 const UPDATE_GAME = "UPDATE_GAME";
@@ -13,7 +12,6 @@ const REJOIN_QUEUE = "REJOIN_QUEUE";
 module.exports = {
     READY,
     USERS_ONLINE,
-    ASSIGN_ROOM,
     SET_GUEST_ID,
     UPDATE_ROOM,
     UPDATE_GAME,

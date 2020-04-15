@@ -1,6 +1,5 @@
 const CONNECT = "CONNECT";
 const AUTH = "AUTH";
-const JOIN_ROOM = "JOIN_ROOM";
 const LEAVE_ROOM = "LEAVE_ROOM";
 const JOIN_QUEUE = "JOIN_QUEUE";
 const START_GAME = "START_GAME";
@@ -14,7 +13,6 @@ const ACCEPT_RESET = "ACCEPT_RESET";
 module.exports = {
     CONNECT,
     AUTH,
-    JOIN_ROOM,
     LEAVE_ROOM,
     JOIN_QUEUE,
     START_GAME,

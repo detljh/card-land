@@ -1,6 +1,5 @@
 import { connect } from 'react-redux';
 import TicTacToeComponent from './TicTacToeComponent';
-import { ticOperations } from './duck';
 import { roomOperations } from '../loading_room/duck';
 
 const mapStateToProps = (state) => {

@@ -73,7 +73,6 @@ const socketMiddleware = () => {
                     break;
                 case types.START_GAME:
                 case types.JOIN_QUEUE:
-                case types.JOIN_ROOM:
                 case types.UPDATE_GAME_STATE:
                 case types.END_GAME:
                     socket.emit(action.type, action.payload);
