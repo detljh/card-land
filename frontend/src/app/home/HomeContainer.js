@@ -35,8 +35,8 @@ const mapDispatchToProps = (dispatch) => {
         logout: () => {
             dispatch(homeOperations.logout());
         },
-        getRoom: (type) => {
-            dispatch(homeOperations.getRoom(type));
+        joinQueue: (type) => {
+            dispatch(homeOperations.joinQueue(type));
         }
     }
 }

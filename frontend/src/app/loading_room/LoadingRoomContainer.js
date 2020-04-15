@@ -8,7 +8,7 @@ const mapStateToProps = (state) => {
         players: state.room.room.players,
         countdown: state.room.room.countdown,
         started: state.room.room.started,
-        room: state.home.socket.room,
+        queued: state.home.socket.queued,
         user: state.home.auth.user,
         opponent: state.room.room.opponent
     }
@@ -16,9 +16,6 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        join: () => {
-            dispatch(roomOperations.join());
-        },
         leave: () => {
             dispatch(roomOperations.leave());
         }

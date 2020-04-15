@@ -41,9 +41,12 @@ RoomSchema.statics.getRoom = function(gameType, cb) {
     }, cb);
 }
 
-RoomSchema.statics.createRoom = function(gameType, cb) {
+RoomSchema.statics.createRoom = function(gameType, players, cb) {
     return this.create({
-        gameType: gameType
+        gameType: gameType,
+        players: players,
+        ready: true,
+        currentPlayerIndex: Math.floor(Math.random() * players.length)
     }, cb);
 }
 

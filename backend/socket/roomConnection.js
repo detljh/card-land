@@ -11,42 +11,54 @@ const disconnect = (io, socket) => {
         if (err) return console.log(err);
         if (!player) return;
         let room = player.currentRoom;
-        if (!room) return;
 
         player.destroy((err) => {
             if (err) return console.log(err);
-            room.players = room.players.filter(p => p.socket != player.socketId);
-            room.playersLength -= 1;
-
-            if (room.players.length === 0) {
-                room.destroy((err) => {
-                    if (err) return console.log(err);
-                    socket.leave(room._id);
-                    socket.emit(serverEvents.UPDATE_ROOM, { room: null });
-                    socket.emit(serverEvents.UPDATE_GAME, { state: null, gameType: room.gameType });
-                    socket.emit(serverEvents.ASSIGN_ROOM, { roomId: null });
-                    switch(room.gameType) {
-                        case gameTypes.TIC_TAC_TOE:
-                            tictactoe.destroy(room);
-                            break;
-                        default:
-                            return;
-                    }
-                    console.log(`${socket.client.id} exited ${room.gameType}`)
-                });
+            if (!room) {
+                queue[player.gameType] = queue[player.gameType].filter(p => p.socket.client.id != player.socketId);
             } else {
-                room.ready = false;
+                room.players = room.players.filter(p => p.socket != player.socketId);
+                socket.leave(room._id);
+                socket.emit(serverEvents.UPDATE_ROOM, { room: null });
+                socket.emit(serverEvents.UPDATE_GAME, { state: null, gameType: room.gameType });
                 room.save((err, room) => {
                     if (err) return console.log(err);
-                    socket.leave(room._id);
-                    io.in(room._id).emit(serverEvents.UPDATE_ROOM, { room: room });
-                    socket.emit(serverEvents.UPDATE_ROOM, { room: null });
-                    socket.emit(serverEvents.UPDATE_GAME, { state: null, gameType: room.gameType });
-                    socket.emit(serverEvents.ASSIGN_ROOM, { roomId: null });
-                    console.log(`${socket.client.id} exited ${room.gameType}`)
+                    if (!room.started) {
+                        io.in(room._id).emit(serverEvents.UPDATE_ROOM, { room: null });
+                        room.destroy((err) => {
+                            if (err) return console.log(err);
+                            io.of('/').in(room._id).clients((err, sockets) => {
+                                if (err) return console.log(err);
+                                sockets.forEach(socketId => {
+                                    Player.findBySocket(socketId, (err, player) => {
+                                        if (err) return console.log(err);
+                                        player.destroy((err) => {
+                                            if (err) return console.log(err);
+                                            io.sockets.sockets[socketId].leave(room._id);
+                                            io.sockets.sockets[socketId].emit(serverEvents.REJOIN_QUEUE, { gameType: room.gameType });
+                                        });
+                                    });
+                                    
+                                });
+                            });
+                        });
+                    } else if (room.players.length === 0) {
+                        room.destroy((err) => {
+                            if (err) return console.log(err);
+                            switch(room.gameType) {
+                                case gameTypes.TIC_TAC_TOE:
+                                    tictactoe.destroy(room);
+                                    break;
+                                default:
+                                    return;
+                            }
+                        });
+                    } else {
+                        io.in(room._id).emit(serverEvents.UPDATE_ROOM, { room: room });
+                    }
                 });
             }
-        });
+        }); 
     });
 }
 
@@ -61,67 +73,58 @@ const resetRoom = (room, cb) => {
     room.save(cb);
 }
 
+let queue = {};
 module.exports = (io, socket) => {
-    socket.on(clientEvents.GET_ROOM, (gameType) => {
-        Room.getRoom(gameType, (err, room) => {
+    socket.on(clientEvents.JOIN_QUEUE, (data) => {
+        if (!queue[data.gameType]) {
+            queue[data.gameType] = [{ socket: socket, username: data.username }];
+        } else {
+            queue[data.gameType].push({ socket: socket, username: data.username });
+        }
+
+        Player.createPlayer(socket.client.id, null, data.gameType, (err) => {
             if (err) return console.log(err);
-            if (room) {
-                Player.createPlayer(socket.client.id, room._id, (err, player) => {
+            if (queue[data.gameType].length >= 2) {
+                let p1 = queue[data.gameType].pop();
+                let p2 = queue[data.gameType].pop();
+                let players = [{ socket: p1.socket.client.id, username: p1.username },
+                    { socket: p2.socket.client.id, username: p2.username }];
+                Room.createRoom(data.gameType, players, (err, room) => {
                     if (err) return console.log(err);
-                    if (!player) return;
-                    socket.emit(serverEvents.ASSIGN_ROOM, { roomId: room._id });
-                });
-            } else {
-                Room.createRoom(gameType, (err, room) => {
-                    if (err) return console.log(err);
-                    Player.createPlayer(socket.client.id, room._id, (err, player) => {
+                    Player.assignRoom(p1.socket.client.id, room._id, (err) => {
                         if (err) return console.log(err);
-                        if (!player) return;
-                        socket.emit(serverEvents.ASSIGN_ROOM, { roomId: room._id });
+                        Player.assignRoom(p2.socket.client.id, room._id, (err) => {
+                            if (err) return console.log(err);
+                            p1.socket.join(room._id);
+                            p2.socket.join(room._id);
+                            io.in(room._id).emit(serverEvents.UPDATE_ROOM, { room: room });
+                            io.in(room._id).emit(serverEvents.READY);
+                        });
                     });
                 });
             }
         });
     });
 
-    socket.on(clientEvents.JOIN_ROOM, (data) => {
-        Room.findById(data.roomId, (err, room) => {
+    socket.on(clientEvents.START_GAME, () => {
+        Player.getRoom(socket.client.id, (err, player) => {
             if (err) return console.log(err);
-            if (!room) return;
-            room.addPlayer(data.username, socket.client.id, (err, room) => {
-                if (err) return console.log(err);
-                socket.join(room._id);
-                if (room.players.length === 2) {
-                    room.ready = true;
-                    room.currentPlayerIndex = Math.floor(Math.random() * room.players.length);
-                    room.save((err, room) => {
+            if (player) {
+                let room = player.currentRoom;
+                if (room) {
+                    room.started = true;
+                    room.save((err) => {
                         if (err) return console.log(err);
-                        io.in(room._id).emit(serverEvents.UPDATE_ROOM, { room: room });
-                        io.in(room._id).emit(serverEvents.READY);
                     });
-                } else {
-                    io.in(room._id).emit(serverEvents.UPDATE_ROOM, { room: room });
                 }
-                console.log(`${socket.client.id} joined ${room.gameType}`);
-            });
-        });
-    });
-
-    socket.on(clientEvents.START_GAME, (data) => {
-        Room.findById(data.roomId, (err, room) => {
-            if (err) return console.log(err);
-            if (room) {
-                room.started = true;
-                room.save((err) => {
-                    if (err) return console.log(err);
-                });
             }
         });
     });
 
     socket.on(clientEvents.UPDATE_GAME_STATE, (data) => {
-        Room.findById(data.roomId, (err, room) => {
+        Player.getRoom(socket.client.id, (err, player) => {
             if (err) return console.log(err);
+            let room = player.currentRoom;
             if (room) {
                 switch(room.gameType) {
                     case gameTypes.TIC_TAC_TOE:
@@ -134,9 +137,10 @@ module.exports = (io, socket) => {
         });
     });
 
-    socket.on(clientEvents.END_TURN, (data) => {
-        Room.findById(data.roomId, (err, room) => {
+    socket.on(clientEvents.END_TURN, () => {
+        Player.getRoom(socket.client.id, (err, player) => {
             if (err) return console.log(err);
+            let room = player.currentRoom;
             if (room) {
                 room.currentPlayerIndex = (room.currentPlayerIndex + 1) % room.players.length;
                 room.save((err, room) => {
@@ -148,8 +152,9 @@ module.exports = (io, socket) => {
     });
 
     socket.on(clientEvents.END_GAME, (data) => {
-        Room.findById(data.roomId, (err, room) => {
+        Player.getRoom(socket.client.id, (err, player) => {
             if (err) return console.log(err);
+            let room = player.currentRoom;
             if (room) {
                 room.winner = room.players[data.winner];
                 room.finished = true;
@@ -161,18 +166,32 @@ module.exports = (io, socket) => {
         });
     });
 
-    socket.on(clientEvents.REQUEST_RESET, (data) => {
-        socket.to(data.roomId).emit(serverEvents.SEND_RESET_REQUEST);
-        socket.emit(serverEvents.WAITING_RESPONSE);
-    });
-
-    socket.on(clientEvents.DECLINE_RESET, (data) => {
-        io.in(data.roomId).emit(serverEvents.DECLINED_RESET);
-    });
-
-    socket.on(clientEvents.ACCEPT_RESET, (data) => {            
-        Room.findById(data.roomId, (err, room) => {
+    socket.on(clientEvents.REQUEST_RESET, () => {
+        Player.getRoom(socket.client.id, (err, player) => {
             if (err) return console.log(err);
+            let room = player.currentRoom;
+            if (room) {
+                socket.to(room._id).emit(serverEvents.SEND_RESET_REQUEST);
+                socket.emit(serverEvents.WAITING_RESPONSE);
+            }
+        });
+        
+    });
+
+    socket.on(clientEvents.DECLINE_RESET, () => {
+        Player.getRoom(socket.client.id, (err, player) => {
+            if (err) return console.log(err);
+            let room = player.currentRoom;
+            if (room) {
+                io.in(room._id).emit(serverEvents.DECLINED_RESET);
+            }
+        });
+    });
+
+    socket.on(clientEvents.ACCEPT_RESET, () => { 
+        Player.getRoom(socket.client.id, (err, player) => {
+            if (err) return console.log(err);
+            let room = player.currentRoom;
             if (room) {
                 resetRoom(room, (err, room) => {
                     if (err) return console.log(err);
@@ -180,7 +199,7 @@ module.exports = (io, socket) => {
                     io.in(room._id).emit(serverEvents.ACCEPTED_RESET);
                 });
             }
-        });
+        });        
     });
 
     socket.on(clientEvents.LEAVE_ROOM, () => {

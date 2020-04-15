@@ -53,10 +53,10 @@ const updateUsersOnline = (online) => {
     }
 }
 
-const updateRoom = (room) => {
+const setQueue = (queued) => {
     return {
-        type: types.UPDATE_ROOM,
-        room: room
+        type: types.SET_QUEUE,
+        queued
     }
 }
 
@@ -69,5 +69,5 @@ export default {
     errors,
     setConnection,
     updateUsersOnline,
-    updateRoom
+    setQueue
 }

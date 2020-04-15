@@ -4,6 +4,7 @@ import Home from './home';
 import LoadingRoom from './loading_room';
 import TicTacToe from './tic_tac_toe';
 import history from '../history';
+import gameTypes from '../../../constants/gameTypes';
 
 class App extends React.Component {
     render() {
@@ -11,8 +12,8 @@ class App extends React.Component {
             <Router history={history}>
                 <Switch>
                     <Route exact path='/' component={Home} />
-                    <Route exact path='/:room' component={LoadingRoom} />
-                    <Route path='/:room/tic_tac_toe' component={TicTacToe} />
+                    <Route path='/room' component={LoadingRoom} />
+                    <Route path={'/' + gameTypes.TIC_TAC_TOE} component={TicTacToe} />
                 </Switch>
             </Router>
         )

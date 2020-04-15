@@ -64,7 +64,7 @@ const errorReducer = (state={}, action) => {
 
 let socketState = {
     online: 0,
-    room: null
+    queued: false
 }
 
 const socketReducer = (state=socketState, action) => {
@@ -73,9 +73,9 @@ const socketReducer = (state=socketState, action) => {
             return Object.assign({}, state, {
                 online: action.online
             });
-        case types.UPDATE_ROOM:
+        case types.SET_QUEUE:
             return Object.assign({}, state, {
-                room: action.room
+                queued: action.queued
             });
         default:
             return state;

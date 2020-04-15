@@ -3,6 +3,7 @@ import sActions from '../../../socket/actions';
 import gameTypes from '../../../../../constants/gameTypes';
 import history from '../../../history';
 import { ticOperations } from '../../tic_tac_toe/duck';
+import { homeOperations } from '../../home/duck';
 
 const sendResetRequest = Creators.sendResetRequest;
 const waitingResponse = Creators.waitingResponse;
@@ -52,6 +53,7 @@ const resetAll = (gameType) => {
 const leave = () => {
     return (dispatch) => {
         history.push('/');
+        dispatch(homeOperations.setQueue(false));
         dispatch(sActions.sLeaveRoom());
     }
 }
@@ -65,7 +67,6 @@ const updateRoomState = (room) => {
         let user = getState().home.auth.user.username;
         let opponent = room.ready ? room.players.filter(player => player.username != user)[0] : null;
         let payload = {
-            roomId: getState().home.socket.room,
             currentPlayerIndex: room.currentPlayerIndex,
             started: room.started,
             ready: room.ready,
@@ -97,13 +98,12 @@ const updateGame = (data) => {
 
 const startGame = () => {
     return (dispatch, getState) => {
-        let room = getState().home.socket.room;
         let gameType = getState().room.room.gameType;
         dispatch(Creators.startRoom());
-        dispatch(sActions.sStartGame(room));
+        dispatch(sActions.sStartGame());
         switch (gameType) {
             case gameTypes.TIC_TAC_TOE:
-                history.push(`/${room}/tic_tac_toe`);
+                history.push(`/${gameTypes.TIC_TAC_TOE}`);
                 break;
             default:
                 return;
@@ -112,31 +112,27 @@ const startGame = () => {
 }
 
 const reset = () => {
-    return (dispatch, getState) => {
-        let roomId = getState().home.socket.room;
-        dispatch(sActions.sRequestReset({ roomId: roomId }));
+    return (dispatch) => {
+        dispatch(sActions.sRequestReset());
     }
 }
 
 const acceptReset = () => {
-    return (dispatch, getState) => {
-        let roomId = getState().home.socket.room;
-        dispatch(sActions.sAcceptReset({ roomId: roomId }));
+    return (dispatch) => {
+        dispatch(sActions.sAcceptReset());
     }
         
 }
 
 const declineReset = () => {
-    return (dispatch, getState) => {
-        let roomId = getState().home.socket.room;
-        dispatch(sActions.sDeclineReset({ roomId: roomId }));
+    return (dispatch) => {
+        dispatch(sActions.sDeclineReset());
     }
 }
 
 const setDeclinePrompt = () => {
-    return (dispatch, getState) => {
-        let roomId = getState().home.socket.room;
-        dispatch(Creators.setDeclinePrompt({ roomId: roomId }));
+    return (dispatch) => {
+        dispatch(Creators.setDeclinePrompt());
     }
 }
 

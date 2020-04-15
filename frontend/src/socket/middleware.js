@@ -17,8 +17,8 @@ const socketMiddleware = () => {
                 store.dispatch(homeOperations.setGuestId(data.username));
             });
 
-            socket.on(events.ASSIGN_ROOM, (data) => {
-                store.dispatch(homeOperations.assignRoom(data.roomId));
+            socket.on(events.REJOIN_QUEUE, (data) => {
+                store.dispatch(homeOperations.joinQueue(data.gameType));
             });
 
             socket.on(events.UPDATE_ROOM, (data) => {
@@ -72,20 +72,16 @@ const socketMiddleware = () => {
                     socket.emit(action.type, action.user);
                     break;
                 case types.START_GAME:
-                    socket.emit(action.type, { roomId: action.roomId });
-                    break;
+                case types.JOIN_QUEUE:
                 case types.JOIN_ROOM:
                 case types.UPDATE_GAME_STATE:
+                case types.END_GAME:
+                    socket.emit(action.type, action.payload);
+                    break;
                 case types.REQUEST_RESET:
                 case types.DECLINE_RESET:
                 case types.ACCEPT_RESET:
                 case types.END_TURN:
-                case types.END_GAME:
-                    socket.emit(action.type, action.payload);
-                    break;
-                case types.GET_ROOM:
-                    socket.emit(action.type, action.gameType);
-                    break;
                 case types.LEAVE_ROOM:
                     socket.emit(action.type);
                     break;

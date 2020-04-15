@@ -14,37 +14,28 @@ const sAuth = (user) => {
     }
 }
 
-const sJoinRoom = (payload) => {
-    return {
-        type: clientEvents.JOIN_ROOM,
-        payload
-    }
-}
-
 const sLeaveRoom = () => {
     return {
         type: clientEvents.LEAVE_ROOM
     }
 }
 
-const sGetRoom = (gameType) => {
+const sJoinQueue = (payload) => {
     return {
-        type: clientEvents.GET_ROOM,
-        gameType: gameType
+        type: clientEvents.JOIN_QUEUE,
+        payload
     }
 }
 
-const sStartGame = (roomId) => {
+const sStartGame = () => {
     return {
         type: clientEvents.START_GAME,
-        roomId: roomId
     }
 }
 
-const sEndTurn = (payload) => {
+const sEndTurn = () => {
     return {
-        type: clientEvents.END_TURN,
-        payload
+        type: clientEvents.END_TURN
     }
 }
 
@@ -62,33 +53,29 @@ const sEndGame = (payload) => {
     }
 }
 
-const sRequestReset = (payload) => {
+const sRequestReset = () => {
     return {
-        type: clientEvents.REQUEST_RESET,
-        payload
+        type: clientEvents.REQUEST_RESET
     }
 }
 
-const sDeclineReset = (payload) => {
+const sDeclineReset = () => {
     return {
-        type: clientEvents.DECLINE_RESET,
-        payload
+        type: clientEvents.DECLINE_RESET
     }
 }
 
-const sAcceptReset = (payload) => {
+const sAcceptReset = () => {
     return {
-        type: clientEvents.ACCEPT_RESET,
-        payload
+        type: clientEvents.ACCEPT_RESET
     }
 }
 
 export default {
     sConnect,
     sAuth,
-    sJoinRoom,
     sLeaveRoom,
-    sGetRoom,
+    sJoinQueue,
     sStartGame,
     sEndTurn,
     sUpdateGameState,

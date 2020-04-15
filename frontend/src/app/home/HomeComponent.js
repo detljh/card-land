@@ -118,7 +118,7 @@ class HomeComponent extends React.Component {
                 }
                 
                 <div style={styles.main}>
-                    <div style={styles.icon} onClick={() => this.props.getRoom(gameTypes.TIC_TAC_TOE)}>
+                    <div style={styles.icon} onClick={() => this.props.joinQueue(gameTypes.TIC_TAC_TOE)}>
                         <img src={ticIcon} alt="tic_tac_toe" style={styles.icon.img} />
                         <span>Tic Tac Toe</span>
                     </div>

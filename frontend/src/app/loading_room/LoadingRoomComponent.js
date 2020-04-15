@@ -14,7 +14,7 @@ class LoadingRoomComponent extends React.Component {
     }
 
     componentDidMount() {
-        if (this.props.room === null) {
+        if (!this.props.queued) {
             history.push('/');
             return;
         }

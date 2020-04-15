@@ -9,6 +9,7 @@ const hideLoginForm = Creators.hideLoginForm;
 const hideRegisterForm = Creators.hideRegisterForm;
 const setConnection = Creators.setConnection;
 const updateUsersOnline = Creators.updateUsersOnline;
+const setQueue = Creators.setQueue;
 
 const showLoginForm = () => {
     return (dispatch) => {
@@ -67,21 +68,12 @@ const logout = () => {
     }
 }
 
-const getRoom = (gameType) => {
-    return (dispatch) => {
-        dispatch(sActions.sGetRoom(gameType));
-    }   
-}
-
-const assignRoom = (roomId) => {
+const joinQueue = (gameType) => {
     return (dispatch, getState) => {
-        dispatch(Creators.updateRoom(roomId));
-        if (roomId === null) {
-            return;
-        }
-        dispatch(sActions.sJoinRoom({ roomId: roomId, username: getState().home.auth.user.username }));
-        history.push(`/${roomId}`);
-    }
+        dispatch(Creators.setQueue(true));
+        dispatch(sActions.sJoinQueue({ gameType: gameType, username: getState().home.auth.user.username }));
+        history.push(`/room`);
+    }   
 }
 
 const setGuestId = (username) => {
@@ -95,12 +87,12 @@ export default {
     showRegisterForm,
     hideLoginForm,
     hideRegisterForm,
+    setQueue,
     login,
     register,
     logout,
-    getRoom,
+    joinQueue,
     setConnection,
     updateUsersOnline,
-    assignRoom,
     setGuestId
 }
