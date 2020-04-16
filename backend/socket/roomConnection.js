@@ -117,18 +117,15 @@ module.exports = (io, socket) => {
                     let opponent = room.players.filter(p => p.socket != player.socketId)[0];
                     Player.findBySocket(opponent.socket, (err, player) => {
                         if (err) return console.log(err);
+                        room.started = true;
                         if (!player || String(player.currentRoom) !== String(room._id)) {
                             room.players = room.players.filter(p => p.socket != opponent.socket);
-                            room.save((err) => {
-                                if (err) return console.log(err);
-                                io.in(room._id).emit(serverEvents.UPDATE_ROOM, { room: room });
-                            })
-                        } else {
-                            room.started = true;
-                            room.save((err) => {
-                                if (err) return console.log(err);
-                            });
                         }
+                        
+                        room.save((err) => {
+                            if (err) return console.log(err);
+                            io.in(room._id).emit(serverEvents.UPDATE_ROOM, { room: room });
+                        })
                     });       
                 }
             }
