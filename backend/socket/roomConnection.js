@@ -86,8 +86,8 @@ module.exports = (io, socket) => {
         Player.createPlayer(socket.client.id, null, data.gameType, (err) => {
             if (err) return console.log(err);
             if (queue[data.gameType].length >= 2) {
-                let p1 = queue[data.gameType].pop();
-                let p2 = queue[data.gameType].pop();
+                let p1 = queue[data.gameType].shift();
+                let p2 = queue[data.gameType].shift();
                 let players = [{ socket: p1.socket.client.id, username: p1.username },
                     { socket: p2.socket.client.id, username: p2.username }];
                 Room.createRoom(data.gameType, players, (err, room) => {
