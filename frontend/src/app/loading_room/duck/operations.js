@@ -60,7 +60,7 @@ const leave = () => {
 
 const updateRoomState = (room) => {
     return (dispatch, getState) => {
-        if (!room) {
+        if (!room || !getState().home.socket.queued) {
             dispatch(Creators.resetRoom());
             return;
         }
