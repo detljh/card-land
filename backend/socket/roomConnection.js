@@ -34,6 +34,7 @@ const disconnect = (io, socket) => {
                                 sockets.forEach(socketId => {
                                     Player.findBySocket(socketId, (err, player) => {
                                         if (err) return console.log(err);
+                                        if (!player) return;
                                         player.destroy((err) => {
                                             if (err) return console.log(err);
                                             io.sockets.sockets[socketId].leave(room._id);
@@ -77,14 +78,14 @@ const resetRoom = (room, cb) => {
 
 module.exports = (io, socket) => {
     socket.on(clientEvents.JOIN_QUEUE, (data) => {
-        if (!queue[data.gameType]) {
-            queue[data.gameType] = [{ socket: socket, username: data.username }];
-        } else {
-            queue[data.gameType].push({ socket: socket, username: data.username });
-        }
-
         Player.createPlayer(socket.client.id, null, data.gameType, (err) => {
             if (err) return console.log(err);
+            if (!queue[data.gameType]) {
+                queue[data.gameType] = [{ socket: socket, username: data.username }];
+            } else {
+                queue[data.gameType].push({ socket: socket, username: data.username });
+            }
+            
             if (queue[data.gameType].length >= 2) {
                 let p1 = queue[data.gameType].shift();
                 let p2 = queue[data.gameType].shift();
