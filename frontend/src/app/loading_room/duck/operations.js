@@ -18,7 +18,7 @@ const tick = (dispatch, getState, cb) => {
         } else {
             dispatch(Creators.countdown());
             let count = getState().room.room.countdown;
-
+            
             if (count === 0) {
                 clearInterval(timer);
                 return cb();
