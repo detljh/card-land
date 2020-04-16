@@ -6,6 +6,8 @@ const Room = mongoose.model('Room');
 const Player = mongoose.model('Player');
 const tictactoe = require('./games/tictactoe');
 
+let queue = {};
+
 const disconnect = (io, socket) => {
     Player.getRoom(socket.client.id, (err, player) => {
         if (err) return console.log(err);
@@ -73,7 +75,6 @@ const resetRoom = (room, cb) => {
     room.save(cb);
 }
 
-let queue = {};
 module.exports = (io, socket) => {
     socket.on(clientEvents.JOIN_QUEUE, (data) => {
         if (!queue[data.gameType]) {
