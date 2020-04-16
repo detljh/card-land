@@ -30,7 +30,7 @@ PlayerSchema.statics.getRoom = function(id, cb) {
 }
 
 PlayerSchema.statics.assignRoom = function(id, room, cb) {
-    return this.updateOne({
+    return this.findOneAndUpdate({
         socketId: id
     }, {
         currentRoom: room
