@@ -23,20 +23,21 @@ const rejoinQueue = (io, room) => {
 }
 
 const disconnect = (io, socket) => {
-    let rooms = Object.keys(socket.rooms);
-    rooms.forEach(roomId => {
-        if (roomId == socket.client.id) {
-            return;
-        }
+    Player.destroy(socket.client.id, (err, player) => {
+        if (err) return console.log(err);
+        if (!player) return;
+        // remove player from queue if in
+        queue[player.gameType] = queue[player.gameType].filter(p => p.socket.client.id != player.socketId);
 
-        Room.findById(roomId, (err, room) => {
-            if (err) return console.log(err);
-            Player.destroy(socket.client.id, (err, player) => {
-                if (err) return console.log(err);
-                if (!room) {
-                    // disconnecting after in waiting room and havent been matched
-                    queue[player.gameType] = queue[player.gameType].filter(p => p.socket.client.id != player.socketId);
-                } else {
+        let rooms = Object.keys(socket.rooms);
+        rooms.forEach(roomId => {
+            if (roomId == socket.client.id) {
+                return;
+            }
+
+            Room.findById(roomId, (err, room) => {
+                if (err) return console.log(err); 
+                if (room) {
                     // disconnecting after in waiting room and found match
                     let update = {
                         players: room.players.filter(p => p.socket != player.socketId)
@@ -46,6 +47,7 @@ const disconnect = (io, socket) => {
                     socket.emit(serverEvents.UPDATE_GAME, { state: null, gameType: room.gameType });
                     Room.updateRoom(room._id, update, (err, room) => {
                         if (err) return console.log(err);
+                        if (!room) return;
                         if (!room.started) {
                             // room has not started then rejoin all other opponents to queue
                             rejoinQueue(io, room);
@@ -130,7 +132,11 @@ module.exports = (io, socket) => {
             }
             Room.updateRoom(roomId, update, (err, room) => {
                 if (err) return console.log(err);
-                io.in(room._id).emit(serverEvents.UPDATE_ROOM, { room: room });
+                if (!room) {
+                    disconnect(io, socket);
+                } else {
+                    io.in(room._id).emit(serverEvents.UPDATE_ROOM, { room: room });
+                }
             });
         });
     });
@@ -144,6 +150,7 @@ module.exports = (io, socket) => {
             
             Room.findById(roomId, (err, room) => {
                 if (err) return console.log(err);
+                if (!room) return;
                 switch(room.gameType) {
                     case gameTypes.TIC_TAC_TOE:
                         tictactoe.updateGame(io, data, room._id);
@@ -170,7 +177,11 @@ module.exports = (io, socket) => {
                 }
                 Room.updateRoom(roomId, update, (err, room) => {
                     if (err) return console.log(err);
-                    io.in(room._id).emit(serverEvents.UPDATE_ROOM, { room: room });
+                    if (!room) {
+                        disconnect(io, socket);
+                    } else {
+                        io.in(room._id).emit(serverEvents.UPDATE_ROOM, { room: room });
+                    }
                 });
             });
         });
@@ -193,7 +204,11 @@ module.exports = (io, socket) => {
             
                 Room.updateRoom(room._id, update, (err, room) => {
                     if (err) return console.log(err);
-                    io.in(room._id).emit(serverEvents.UPDATE_GAME, { state: room });
+                    if (!room) {
+                        disconnect(io, socket);
+                    } else {
+                        io.in(room._id).emit(serverEvents.UPDATE_GAME, { state: room });
+                    }
                 });
             });
         });
@@ -231,8 +246,12 @@ module.exports = (io, socket) => {
                 if (!room) return;
                 resetRoom(room, (err, room) => {
                     if (err) return console.log(err);
-                    io.in(room._id).emit(serverEvents.UPDATE_ROOM, { room: room });
-                    io.in(room._id).emit(serverEvents.ACCEPTED_RESET);
+                    if (!room) {
+                        disconnect(io, socket);
+                    } else {
+                        io.in(room._id).emit(serverEvents.UPDATE_ROOM, { room: room });
+                        io.in(room._id).emit(serverEvents.ACCEPTED_RESET);
+                    }
                 });
             });
         });
