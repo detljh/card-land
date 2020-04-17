@@ -37,8 +37,24 @@ RoomSchema.statics.createRoom = function(gameType, players, cb) {
     }, cb);
 }
 
-RoomSchema.methods.destroy = function(cb) {
-    return this.remove(cb);
+RoomSchema.statics.destroy = function(id, cb) {
+    return this.findOneAndDelete({
+        _id: id
+    }, cb);
+}
+
+RoomSchema.statics.updateRoom = function(id, update, cb) {
+    return this.findOneAndUpdate({
+        _id: id
+    }, update, {
+        new: true
+    }, cb);
+}
+
+RoomSchema.statics.findById = function(id, cb) {
+    return this.findOne({
+        _id: id
+    }, cb);
 }
 
 const Room = mongoose.model('Room', RoomSchema);

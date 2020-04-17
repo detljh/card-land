@@ -17,26 +17,19 @@ const TicTacToeStateSchema = mongoose.Schema({
     winSquares: Array
 });
 
-TicTacToeStateSchema.statics.findByRoom = function(id, cb) {
-    return this.findOne({
-        room: id
-    }, cb);
-}
-
-TicTacToeStateSchema.statics.createState = function(room, currentIcon, squares, turns, boardStatus, winSquares, cb) {
-    return this.create({
-        room: room,
-        currentIcon: currentIcon,
-        squares: squares,
-        turns: turns,
-        boardStatus: boardStatus,
-        winSquares: winSquares
-    }, cb);
-}
-
 TicTacToeStateSchema.statics.destroy = function(room, cb) {
-    return this.deleteOne({
+    return this.findOneAndDelete({
         room: room
+    }, cb);
+}
+
+TicTacToeStateSchema.statics.updateState = function(room, update, cb) {
+    return this.findOneAndUpdate({
+        room: room
+    }, update, 
+    {
+        upsert: true,
+        new: true
     }, cb);
 }
 

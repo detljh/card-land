@@ -2,18 +2,17 @@ const mongoose = require('mongoose');
 
 const PlayerSchema = mongoose.Schema({
     socketId: String,
-    gameType: String,
-    currentRoom: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Room'
-    }
+    gameType: String
 });
 
-PlayerSchema.statics.createPlayer = function(socketId, roomId, gameType, cb) {
-    return this.create({
-        socketId: socketId,
-        gameType: gameType,
-        currentRoom: roomId
+PlayerSchema.statics.createPlayer = function(socketId, gameType, cb) {
+    return this.findOneAndUpdate({
+        socketId: socketId
+    },{
+        gameType: gameType
+    }, {
+        upsert: true,
+        new: true
     }, cb);
 }
 
@@ -23,22 +22,10 @@ PlayerSchema.statics.findBySocket = function(id, cb) {
     }, cb);
 }
 
-PlayerSchema.statics.getRoom = function(id, cb) {
-    return this.findOne({
+PlayerSchema.statics.destroy = function(id, cb) {
+    return this.findOneAndDelete({
         socketId: id
-    }).populate('currentRoom').exec(cb);
-}
-
-PlayerSchema.statics.assignRoom = function(id, room, cb) {
-    return this.findOneAndUpdate({
-        socketId: id
-    }, {
-        currentRoom: room
     }, cb);
-}
-
-PlayerSchema.methods.destroy = function(cb) {
-    return this.remove(cb);
 }
 
 const Player = mongoose.model('Player', PlayerSchema);

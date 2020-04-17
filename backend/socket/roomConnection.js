@@ -8,77 +8,82 @@ const tictactoe = require('./games/tictactoe');
 
 let queue = {};
 
-const disconnect = (io, socket) => {
-    Player.getRoom(socket.client.id, (err, player) => {
+const rejoinQueue = (io, room) => {
+    io.in(room._id).emit(serverEvents.UPDATE_ROOM, { room: null });
+    Room.destroy(room._id, (err) => {
         if (err) return console.log(err);
-        if (!player) return;
-        let room = player.currentRoom;
-
-        player.destroy((err) => {
+        io.of('/').in(room._id).clients((err, sockets) => {
             if (err) return console.log(err);
-            if (!room) {
-                queue[player.gameType] = queue[player.gameType].filter(p => p.socket.client.id != player.socketId);
-            } else {
-                room.players = room.players.filter(p => p.socket != player.socketId);
-                socket.leave(room._id);
-                socket.emit(serverEvents.UPDATE_ROOM, { room: null });
-                socket.emit(serverEvents.UPDATE_GAME, { state: null, gameType: room.gameType });
-                room.save((err, room) => {
-                    if (err) return console.log(err);
-                    if (!room.started) {
-                        io.in(room._id).emit(serverEvents.UPDATE_ROOM, { room: null });
-                        room.destroy((err) => {
-                            if (err) return console.log(err);
-                            io.of('/').in(room._id).clients((err, sockets) => {
-                                if (err) return console.log(err);
-                                sockets.forEach(socketId => {
-                                    Player.findBySocket(socketId, (err, player) => {
-                                        if (err) return console.log(err);
-                                        if (!player) return;
-                                        player.destroy((err) => {
-                                            if (err) return console.log(err);
-                                            io.sockets.sockets[socketId].leave(room._id);
-                                            io.sockets.sockets[socketId].emit(serverEvents.REJOIN_QUEUE, { gameType: room.gameType });
-                                        });
-                                    });
-                                    
-                                });
-                            });
-                        });
-                    } else if (room.players.length === 0) {
-                        room.destroy((err) => {
-                            if (err) return console.log(err);
-                            switch(room.gameType) {
-                                case gameTypes.TIC_TAC_TOE:
-                                    tictactoe.destroy(room);
-                                    break;
-                                default:
-                                    return;
-                            }
-                        });
-                    } else {
-                        io.in(room._id).emit(serverEvents.UPDATE_ROOM, { room: room });
+            sockets.forEach(socketId => {
+                io.sockets.sockets[socketId].leave(room._id);
+                io.sockets.sockets[socketId].emit(serverEvents.REJOIN_QUEUE, { gameType: room.gameType });
+            });
+        });
+    });
+}
+
+const disconnect = (io, socket) => {
+    let rooms = Object.keys(socket.rooms);
+    rooms.forEach(roomId => {
+        if (roomId == socket.client.id) {
+            return;
+        }
+
+        Room.findById(roomId, (err, room) => {
+            if (err) return console.log(err);
+            Player.destroy(socket.client.id, (err, player) => {
+                if (err) return console.log(err);
+                if (!room) {
+                    // disconnecting after in waiting room and havent been matched
+                    queue[player.gameType] = queue[player.gameType].filter(p => p.socket.client.id != player.socketId);
+                } else {
+                    // disconnecting after in waiting room and found match
+                    let update = {
+                        players: room.players.filter(p => p.socket != player.socketId)
                     }
-                });
-            }
-        }); 
+                    socket.leave(room._id);
+                    socket.emit(serverEvents.UPDATE_ROOM, { room: null });
+                    socket.emit(serverEvents.UPDATE_GAME, { state: null, gameType: room.gameType });
+                    Room.updateRoom(room._id, update, (err, room) => {
+                        if (err) return console.log(err);
+                        if (!room.started) {
+                            // room has not started then rejoin all other opponents to queue
+                            rejoinQueue(io, room);
+                        } else if (room.players.length === 0) {
+                            // room has started and this socket is last one to leave
+                            Room.destroy(room._id, (err) => {
+                                if (err) return console.log(err);
+                                switch(room.gameType) {
+                                    case gameTypes.TIC_TAC_TOE:
+                                        tictactoe.destroy(room._id);
+                                        break;
+                                    default:
+                                        return;
+                                }
+                            });
+                        } else {
+                            // room has started and this socket is not last one to leave
+                            io.in(room._id).emit(serverEvents.UPDATE_ROOM, { room: room });
+                        }
+                    });
+                }
+            }); 
+        });
     });
 }
 
 const resetRoom = (room, cb) => {
-    room.currentPlayerIndex = Math.floor(Math.random() * room.players.length);
-    room.gameState = {
+    let update = {
+        currentPlayerIndex: Math.floor(Math.random() * room.players.length),
         finished: false,
         winner: null
-    };
-    room.finished = false;
-    room.winner = null;
-    room.save(cb);
+    }
+    Room.updateRoom(room._id, update, cb);
 }
 
 module.exports = (io, socket) => {
     socket.on(clientEvents.JOIN_QUEUE, (data) => {
-        Player.createPlayer(socket.client.id, null, data.gameType, (err) => {
+        Player.createPlayer(socket.client.id, data.gameType, (err) => {
             if (err) return console.log(err);
             if (!queue[data.gameType]) {
                 queue[data.gameType] = [{ socket: socket, username: data.username }];
@@ -91,133 +96,154 @@ module.exports = (io, socket) => {
                 let p2 = queue[data.gameType].shift();
                 let players = [{ socket: p1.socket.client.id, username: p1.username },
                     { socket: p2.socket.client.id, username: p2.username }];
+                    
                 Room.createRoom(data.gameType, players, (err, room) => {
                     if (err) return console.log(err);
-                    Player.assignRoom(p1.socket.client.id, room._id, (err) => {
-                        if (err) return console.log(err);
-                        Player.assignRoom(p2.socket.client.id, room._id, (err) => {
-                            if (err) return console.log(err);
-                            p1.socket.join(room._id);
-                            p2.socket.join(room._id);
-                            io.in(room._id).emit(serverEvents.UPDATE_ROOM, { room: room });
-                            io.in(room._id).emit(serverEvents.READY);
-                        });
-                    });
+                    if (p1.socket.connected) {
+                        p1.socket.join(room._id);
+                    }
+
+                    if (p2.socket.connected) {
+                        p2.socket.join(room._id);
+
+                    }
+
+                    if (p1.socket.connected && p2.socket.connected) {
+                        io.in(room._id).emit(serverEvents.UPDATE_ROOM, { room: room });
+                        io.in(room._id).emit(serverEvents.READY);
+                    } else {
+                        rejoinQueue(io, room);
+                    }
                 });
             }
         });
     });
 
     socket.on(clientEvents.START_GAME, () => {
-        Player.getRoom(socket.client.id, (err, player) => {
-            if (err) return console.log(err);
-            if (player) {
-                let room = player.currentRoom;
-                if (room) {
-                    let opponent = room.players.filter(p => p.socket != player.socketId)[0];
-                    Player.findBySocket(opponent.socket, (err, player) => {
-                        if (err) return console.log(err);
-                        room.started = true;
-                        if (!player || String(player.currentRoom) !== String(room._id)) {
-                            room.players = room.players.filter(p => p.socket != opponent.socket);
-                        }
-                        
-                        room.save((err) => {
-                            if (err) return console.log(err);
-                            io.in(room._id).emit(serverEvents.UPDATE_ROOM, { room: room });
-                        })
-                    });       
-                }
+        let rooms = Object.keys(socket.rooms);
+        rooms.forEach(roomId => {
+            if (roomId == socket.client.id) {
+                return;
             }
+            let update = {
+                started: true
+            }
+            Room.updateRoom(roomId, update, (err, room) => {
+                if (err) return console.log(err);
+                io.in(room._id).emit(serverEvents.UPDATE_ROOM, { room: room });
+            });
         });
     });
 
     socket.on(clientEvents.UPDATE_GAME_STATE, (data) => {
-        Player.getRoom(socket.client.id, (err, player) => {
-            if (err) return console.log(err);
-            let room = player.currentRoom;
-            if (room) {
+        let rooms = Object.keys(socket.rooms);
+        rooms.forEach(roomId => {
+            if (roomId == socket.client.id) {
+                return;
+            }
+            
+            Room.findById(roomId, (err, room) => {
+                if (err) return console.log(err);
                 switch(room.gameType) {
                     case gameTypes.TIC_TAC_TOE:
-                        tictactoe.updateGame(io, data, room);
+                        tictactoe.updateGame(io, data, room._id);
                         break;
                     default:
                         return;
                 }
-            }
+            });
         });
     });
 
     socket.on(clientEvents.END_TURN, () => {
-        Player.getRoom(socket.client.id, (err, player) => {
-            if (err) return console.log(err);
-            let room = player.currentRoom;
-            if (room) {
-                room.currentPlayerIndex = (room.currentPlayerIndex + 1) % room.players.length;
-                room.save((err, room) => {
+        let rooms = Object.keys(socket.rooms);
+        rooms.forEach(roomId => {
+            if (roomId == socket.client.id) {
+                return;
+            }
+
+            Room.findById(roomId, (err, room) => {
+                if (err) return console.log(err);
+                if (!room) return;
+                let update = {
+                    currentPlayerIndex: (room.currentPlayerIndex + 1) % room.players.length
+                }
+                Room.updateRoom(roomId, update, (err, room) => {
                     if (err) return console.log(err);
                     io.in(room._id).emit(serverEvents.UPDATE_ROOM, { room: room });
                 });
-            }
+            });
         });
     });
 
     socket.on(clientEvents.END_GAME, (data) => {
-        Player.getRoom(socket.client.id, (err, player) => {
-            if (err) return console.log(err);
-            let room = player.currentRoom;
-            if (room) {
-                room.winner = room.players[data.winner];
-                room.finished = true;
-                room.save((err, room) => {
+        let rooms = Object.keys(socket.rooms);
+        rooms.forEach(roomId => {
+            if (roomId == socket.client.id) {
+                return;
+            }
+
+            Room.findById(roomId, (err, room) => {
+                if (err) return console.log(err);
+                if (!room) return;
+                let update = {
+                    winner: room.players[data.winner],
+                    finished: true
+                }
+            
+                Room.updateRoom(room._id, update, (err, room) => {
                     if (err) return console.log(err);
                     io.in(room._id).emit(serverEvents.UPDATE_GAME, { state: room });
                 });
-            }
+            });
         });
     });
 
     socket.on(clientEvents.REQUEST_RESET, () => {
-        Player.getRoom(socket.client.id, (err, player) => {
-            if (err) return console.log(err);
-            let room = player.currentRoom;
-            if (room) {
-                socket.to(room._id).emit(serverEvents.SEND_RESET_REQUEST);
-                socket.emit(serverEvents.WAITING_RESPONSE);
+        let rooms = Object.keys(socket.rooms);
+        rooms.forEach(roomId => {
+            if (roomId == socket.client.id) {
+                return;
             }
+            socket.to(roomId).emit(serverEvents.SEND_RESET_REQUEST);
+            socket.emit(serverEvents.WAITING_RESPONSE);
         });
-        
     });
 
     socket.on(clientEvents.DECLINE_RESET, () => {
-        Player.getRoom(socket.client.id, (err, player) => {
-            if (err) return console.log(err);
-            let room = player.currentRoom;
-            if (room) {
-                io.in(room._id).emit(serverEvents.DECLINED_RESET);
+        let rooms = Object.keys(socket.rooms);
+        rooms.forEach(roomId => {
+            if (roomId == socket.client.id) {
+                return;
             }
+            io.in(roomId).emit(serverEvents.DECLINED_RESET);
         });
     });
 
     socket.on(clientEvents.ACCEPT_RESET, () => { 
-        Player.getRoom(socket.client.id, (err, player) => {
-            if (err) return console.log(err);
-            let room = player.currentRoom;
-            if (room) {
+        let rooms = Object.keys(socket.rooms);
+        rooms.forEach(roomId => {
+            if (roomId == socket.client.id) {
+                return;
+            }
+            Room.findById(roomId, (err, room) => {
+                if (err) return console.log(err);
+                if (!room) return;
                 resetRoom(room, (err, room) => {
                     if (err) return console.log(err);
                     io.in(room._id).emit(serverEvents.UPDATE_ROOM, { room: room });
                     io.in(room._id).emit(serverEvents.ACCEPTED_RESET);
                 });
-            }
-        });        
+            });
+        });
+
     });
 
     socket.on(clientEvents.LEAVE_ROOM, () => {
         disconnect(io, socket);
     });
 
-    socket.on('disconnect', () => {
+    socket.on('disconnecting', () => {
         disconnect(io, socket);
     });
 

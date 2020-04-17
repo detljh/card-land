@@ -49,7 +49,7 @@ class TicTacToeComponent extends React.Component {
         return (
             <div style={styles.page}>
                 {
-                    (!this.props.opponent || (!this.props.finished && !this.props.isTurn)) &&
+                    (!this.props.opponent || (!this.props.finished && !this.props.isTurn)) ?
                     <div style={disabledPage} onClick={() => this.handleClick()}>
                         <ExpireComponent delay={ 1000 }>
                             <CSSTransition
@@ -67,10 +67,8 @@ class TicTacToeComponent extends React.Component {
                                 </div>
                             </CSSTransition>
                         </ExpireComponent>
-                    </div>
-                }
-                
-                <CSSTransition
+                    </div> :
+                    <CSSTransition
                     in={ this.props.finished }
                     appear={ true }
                     timeout= { 1000 }
@@ -78,8 +76,8 @@ class TicTacToeComponent extends React.Component {
                     unmountOnExit>
                     <div style={disabledPage}>
                         {
-                             this.props.finished && 
-                             <div style={styles.endGameBlock.alert}>{this.props.endGameText}</div>
+                            this.props.finished && 
+                            <div style={styles.endGameBlock.alert}>{this.props.endGameText}</div>
                         }
                         <div style={styles.endGameBlock}>   
                             {
@@ -113,7 +111,8 @@ class TicTacToeComponent extends React.Component {
                             }
                         </div>
                     </div>
-                </CSSTransition>
+                    </CSSTransition>
+                }
 
                 <HomeButtonComponent />
                 <div style={styles.header}>
