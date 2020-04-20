@@ -27,7 +27,7 @@ class TicTacToeComponent extends React.Component {
     }
 
     componentWillUnmount() {
-       this.props.leave();
+        this.props.leave();
     }
 
     handleClick() {

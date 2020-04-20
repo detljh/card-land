@@ -9,7 +9,10 @@ let styles = {
         justifyContent: 'center',
         alignItems: 'center',
         backgroundColor: 'black',
-        position: 'fixed'
+        position: 'fixed',
+        started: {
+            backgroundColor: 'white'
+        }
     },
     main: {
         width: '100%',

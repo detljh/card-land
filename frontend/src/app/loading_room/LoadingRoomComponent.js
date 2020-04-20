@@ -22,10 +22,10 @@ class LoadingRoomComponent extends React.Component {
     }
 
     componentWillUnmount() {
+        window.removeEventListener('load', this.handleLoad);   
         if (this.props.connected && !this.props.started) {
             this.props.leave();
         }
-        window.removeEventListener('load', this.handleLoad);   
     }
 
     handleLoad() {
@@ -36,25 +36,28 @@ class LoadingRoomComponent extends React.Component {
         let rightStyle = Object.assign({}, styles.right,
             this.props.opponent !== null && styles.right.fill
         );
+        let pageStyle = Object.assign({}, styles.page,
+            this.props.started && styles.page.started
+        );
         return (
-            <div style={styles.page}>
+            <div style={pageStyle}>
                 <div style={styles.main}>
                     <CSSTransition
-                        in={ true }
+                        in={ this.props.started != true }
                         appear={ true }
-                        timeout={ 600 }
+                        timeout={{ enter: 300, exit: 500 }}
                         classNames="slideLeft">
                         <div style={styles.left}>
                             {this.props.user.username}
                         </div>
                     </CSSTransition>
                     <CSSTransition
-                        in={ this.props.opponent !== null }
-                        timeout={ 600 }
+                        in={ this.props.opponent && this.props.started != true }
+                        timeout={{ enter: 300, exit: 500 }}
                         classNames="slideRight">
                         <div style={rightStyle}>
-                        {
-                            this.props.opponent !== null && this.props.opponent.username
+                        {  
+                            this.props.opponent && this.props.opponent.username
                         }
                         </div>
                     </CSSTransition>

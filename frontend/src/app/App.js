@@ -16,7 +16,7 @@ class App extends React.Component {
                     <TransitionGroup>
                         <CSSTransition
                         key={location.pathname}
-                        timeout={{enter: 500}}
+                        timeout={{ enter: 500 }}
                         classNames="page">
                             <div>
                                 <Switch location={location}>
