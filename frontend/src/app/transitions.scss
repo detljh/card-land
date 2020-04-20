@@ -1,3 +1,12 @@
+.page-enter, .page-appear {
+    opacity: 0;
+}
+
+.page-enter-active, .page-appear-active {
+    opacity: 1;
+    transition: opacity 500ms;
+}
+
 .fade-enter, .fade-appear {
     opacity: 0;
 }
