@@ -22,19 +22,18 @@ const rejoinQueue = (io, room) => {
     });
 }
 
-const disconnect = (io, socket) => {
+const disconnect = (io, socket, rooms) => {
     Player.destroy(socket.client.id, (err, player) => {
         if (err) return console.log(err);
         if (!player) return;
         // remove player from queue if in
         queue[player.gameType] = queue[player.gameType].filter(p => p.socket.client.id != player.socketId);
 
-        let rooms = Object.keys(socket.rooms);
         rooms.forEach(roomId => {
             if (roomId == socket.client.id) {
                 return;
             }
-
+            console.log(roomId);
             Room.findById(roomId, (err, room) => {
                 if (err) return console.log(err); 
                 if (room) {
@@ -259,11 +258,11 @@ module.exports = (io, socket) => {
     });
 
     socket.on(clientEvents.LEAVE_ROOM, () => {
-        disconnect(io, socket);
+        disconnect(io, socket, Object.keys(socket.rooms));
     });
 
     socket.on('disconnecting', () => {
-        disconnect(io, socket);
+        disconnect(io, socket, Object.keys(socket.rooms));
     });
 
 }

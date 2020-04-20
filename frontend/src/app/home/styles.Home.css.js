@@ -128,8 +128,8 @@ let styles = {
         overflow: 'hidden',
         left: '0',
         display: 'flex',
-        padding: '30px 20px',
-        justifyContent: 'flex-start'
+        padding: '50px 20px',
+        justifyContent: 'space-evenly'
     },
     formWrapper: {
         display: 'flex',
@@ -149,7 +149,10 @@ let styles = {
         textAlign: 'center',
         opacity: '1',
         margin: '20px',
-        height: '100px',
+        width: '10vw',
+        height: '10vw',
+        minWidth: '100px',
+        minHeight: '100px',
         transition: 'all 0.5s ease-in-out',
         ':hover': {
             cursor: 'pointer',
@@ -158,8 +161,8 @@ let styles = {
             transition: 'all 0.5s ease-in-out'
         },
         img: {
-            width: '70px',
-            height: '70px',
+            width: '100%',
+            height: '100%',
         }
     }
 }

@@ -18,6 +18,7 @@ let styles = {
         marginLeft: 'auto',
         cursor: 'pointer',
         color: global.mainColor,
+        fontSize: '1.2em',
         transition: 'all 0.5s',
         ':hover': {
             color: global.highlightColor,
@@ -29,7 +30,7 @@ let styles = {
         flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center',
-        padding: '20px',
+        padding: '30px',
         width: '100%',
         boxSizing: 'border-box',
         marginBottom: 'auto',
@@ -44,6 +45,7 @@ let styles = {
         borderWidth: '1px',
         borderStyle: 'solid',
         borderColor: 'grey',
+        width: '100%',
         error: {
             borderColor: 'red'
         } 

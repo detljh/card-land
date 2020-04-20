@@ -22,10 +22,10 @@ class LoadingRoomComponent extends React.Component {
     }
 
     componentWillUnmount() {
-        window.removeEventListener('load', this.handleLoad);   
         if (this.props.connected && !this.props.started) {
             this.props.leave();
         }
+        window.removeEventListener('load', this.handleLoad);   
     }
 
     handleLoad() {
