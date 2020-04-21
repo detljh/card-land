@@ -4,6 +4,7 @@ import gameTypes from '../../../../../constants/gameTypes';
 import history from '../../../history';
 import { ticOperations } from '../../tic_tac_toe/duck';
 import { homeOperations } from '../../home/duck';
+import { bsOperations } from '../../battleships/duck';
 
 const sendResetRequest = Creators.sendResetRequest;
 const waitingResponse = Creators.waitingResponse;
@@ -43,6 +44,9 @@ const resetAll = (gameType) => {
         switch (gameType) {
             case gameTypes.TIC_TAC_TOE:
                 dispatch(ticOperations.reset());
+                break;
+            case gameTypes.BATTLESHIPS:
+                dispatch(bsOperations.reset());
                 break;
             default:
                 return;
@@ -91,6 +95,9 @@ const updateGame = (data) => {
             case gameTypes.TIC_TAC_TOE:
                 dispatch(ticOperations.setGameState(data.state));
                 break;
+            case gameTypes.BATTLESHIPS:
+                dispatch(bsOperations.setGameState(data.state));
+                break;
             default:
                 return;
         }
@@ -106,6 +113,9 @@ const startGame = () => {
             switch (gameType) {
                 case gameTypes.TIC_TAC_TOE:
                     history.push(`/${gameTypes.TIC_TAC_TOE}`);
+                    break;
+                case gameTypes.BATTLESHIPS:
+                    history.push(`/${gameTypes.BATTLESHIPS}`);
                     break;
                 default:
                     return;

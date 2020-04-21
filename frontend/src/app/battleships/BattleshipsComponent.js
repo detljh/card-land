@@ -1,7 +1,5 @@
 import React from 'react';
-import styles from './styles.TicTacToe.css';
 import history from '../../history';
-import Square from './SquareContainer';
 import PlayerInfoComponent from '../utils/PlayerInfoComponent';
 import Radium from 'radium';
 import ExpireComponent from '../utils/ExpireComponent';
@@ -10,8 +8,9 @@ import '../transitions.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSpinner } from '@fortawesome/free-solid-svg-icons';
 import HomeButtonComponent from '../utils/HomeButtonComponent';
+import styles from './styles.Battleships.css';
 
-class TicTacToeComponent extends React.Component {
+class BattleshipsComponent extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -124,11 +123,7 @@ class TicTacToeComponent extends React.Component {
                 </div>
                 <div style={styles.main}>
                     <div style={styles.game}>
-                        {
-                            Array.from(new Array(9), (e, index) => 
-                            <Square key={`square-${index}`} id={index} />
-                            )
-                        }
+                        
                     </div>
                 </div>
             </div>
@@ -136,4 +131,4 @@ class TicTacToeComponent extends React.Component {
     }
 }
 
-export default Radium(TicTacToeComponent);
+export default Radium(BattleshipsComponent);

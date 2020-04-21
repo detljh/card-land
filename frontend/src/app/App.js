@@ -3,6 +3,7 @@ import { Router, Switch, Route } from 'react-router-dom';
 import Home from './home';
 import LoadingRoom from './loading_room';
 import TicTacToe from './tic_tac_toe';
+import Battleships from './battleships';
 import history from '../history';
 import gameTypes from '../../../constants/gameTypes';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
@@ -23,6 +24,7 @@ class App extends React.Component {
                                     <Route exact path='/' component={Home} />
                                     <Route path='/room' component={LoadingRoom} />
                                     <Route path={'/' + gameTypes.TIC_TAC_TOE} component={TicTacToe} />
+                                    <Route path={'/' + gameTypes.BATTLESHIPS} component={Battleships} />
                                 </Switch>
                             </div>
                         </CSSTransition>
