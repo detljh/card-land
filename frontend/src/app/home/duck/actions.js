@@ -53,10 +53,11 @@ const updateUsersOnline = (online) => {
     }
 }
 
-const setQueue = (queued) => {
+const setQueue = (queued, gameType) => {
     return {
         type: types.SET_QUEUE,
-        queued
+        queued: queued,
+        gameType: gameType
     }
 }
 

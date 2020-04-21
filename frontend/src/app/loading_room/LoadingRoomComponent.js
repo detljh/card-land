@@ -62,6 +62,7 @@ class LoadingRoomComponent extends React.Component {
                         </div>
                     </CSSTransition>
                 </div>
+                <div style={styles.title}>{this.props.gameType}</div>
                 <div style={styles.displayState}>
                     {
                         this.props.opponent === null ? 

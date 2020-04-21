@@ -70,7 +70,7 @@ const logout = () => {
 
 const joinQueue = (gameType) => {
     return (dispatch, getState) => {
-        dispatch(Creators.setQueue(true));
+        dispatch(Creators.setQueue(true, gameType));
         dispatch(sActions.sJoinQueue({ gameType: gameType, username: getState().home.auth.user.username }));
         history.push(`/room`);
     }   

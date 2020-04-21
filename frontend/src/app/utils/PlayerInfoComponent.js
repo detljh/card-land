@@ -11,8 +11,7 @@ class PlayerInfoComponent extends React.Component {
         let playerInfoStyle = Object.assign({}, styles.playerInfo,
             this.props.isTurn && styles.playerInfo.turn  
         );
-        let turnIndicatorStyle = Object.assign({}, styles.turnIndicator,
-            this.props.isTurn ? this.props.currentIcon === 'x' ? styles.turnIndicator.playerOne : styles.turnIndicator.playerTwo : styles.turnIndicator.playerTwo
+        let turnIndicatorStyle = Object.assign({}, styles.turnIndicator
         );
         return (
             <div style={playerInfoStyle}>    

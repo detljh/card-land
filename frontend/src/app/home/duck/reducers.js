@@ -64,7 +64,8 @@ const errorReducer = (state={}, action) => {
 
 let socketState = {
     online: 0,
-    queued: false
+    queued: false,
+    gameType: null
 }
 
 const socketReducer = (state=socketState, action) => {
@@ -75,7 +76,8 @@ const socketReducer = (state=socketState, action) => {
             });
         case types.SET_QUEUE:
             return Object.assign({}, state, {
-                queued: action.queued
+                queued: action.queued,
+                gameType: action.gameType
             });
         default:
             return state;

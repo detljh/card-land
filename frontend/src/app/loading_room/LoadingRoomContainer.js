@@ -10,7 +10,8 @@ const mapStateToProps = (state) => {
         started: state.room.room.started,
         queued: state.home.socket.queued,
         user: state.home.auth.user,
-        opponent: state.room.room.opponent
+        opponent: state.room.room.opponent,
+        gameType: state.home.socket.gameType
     }
 }
 

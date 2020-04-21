@@ -23,6 +23,7 @@ let styles = {
         alignItems: 'center',
         backgroundColor: 'black',
         position: 'fixed',
+        color: 'white',
         started: {
             backgroundColor: 'white'
         }
@@ -35,7 +36,6 @@ let styles = {
         gridTemplateColumns: 'repeat(2, minmax(0, 1fr))'
     },
     left: {
-        color: 'white',
         fontSize: '2em',
         textShadow: `2px 2px 0 hsl(0, 0%, 20%)`,
         gridColumn: '1 / 2',
@@ -48,7 +48,6 @@ let styles = {
         }
     },
     right: {
-        color: 'white',
         fontSize: '2em',
         textShadow: `2px 2px 0 hsl(0, 0%, 20%)`,
         gridColumn: '2 / 3',
@@ -65,7 +64,6 @@ let styles = {
     displayState: {
         position: 'absolute',
         fontSize: '2em',
-        color: 'white',
         waiting: {
             display: 'flex',
             flexDirection: 'column',
@@ -80,6 +78,15 @@ let styles = {
             fontSize: '2em',
             animation: 'x 1s ease-out 0s 5',
             animationName: pulse,
+        }
+    },
+    title: {
+        position: 'absolute',
+        fontSize: '2.6em',
+        top: '10px',
+        textShadow: `2px 2px 0 hsl(0, 0%, 20%)`,
+        [global.breakPointMedium]: {
+            fontSize: '1.7em'
         }
     }
 }

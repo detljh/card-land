@@ -11,6 +11,7 @@ let style = {
         padding: '10px',
         opacity: '0.5',
         width: '160px',
+        margin: '0 auto',
         transition: 'all 0.5s',
         turn: {
             opacity: '1',
