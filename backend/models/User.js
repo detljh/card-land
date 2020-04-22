@@ -18,4 +18,4 @@ UserSchema.statics.createUser = function(username, password, cb) {
     }, cb);
 }
 
-const User = mongoose.model('User', UserSchema);
+mongoose.model('User', UserSchema);

@@ -11,15 +11,15 @@ let borderRadius = '10px';
 
 let styles = {
     square: {
-        backgroundImage: `radial-gradient(circle, white, ${global.ticTacToeShadowColor})`,
+        backgroundImage: `radial-gradient(circle, white, ${global.shadowColor})`,
         cursor: 'pointer',
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
-        fontSize: 'calc(60vw/3)',
+        fontSize: '130px',
         overflow: 'hidden',
-        [global.breakPointLarge]: {
-            fontSize: '130px'
+        [global.breakPointMedium]: {
+            fontSize: 'calc(60vw/3)'
         }
     },
     square0: {

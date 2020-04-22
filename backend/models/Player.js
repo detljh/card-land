@@ -28,4 +28,4 @@ PlayerSchema.statics.destroy = function(id, cb) {
     }, cb);
 }
 
-const Player = mongoose.model('Player', PlayerSchema);
+mongoose.model('Player', PlayerSchema);

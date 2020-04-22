@@ -9,23 +9,8 @@ let styles = {
     main: {
         width: '100%',
         display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
         marginTop: '60px',
-        padding: '20px 5px'
-    },
-    game: {
-        margin: 'auto',
-        width: '60vw',
-        height: 'calc(60vw)',
-        display: 'grid',
-        gridTemplate: 'repeat(3, minmax(0, 1fr)) / repeat(3, minmax(0, 1fr))',
-        boxShadow: `0 0 0 2px white, 0 0 7px 4px ${global.ticTacToeShadowColor}`,
-        borderRadius: '10px',
-        [global.breakPointLarge]: {
-            height: '400px',
-            width: '400px'
-        }
+        padding: '0 5px'
     }
 }
 

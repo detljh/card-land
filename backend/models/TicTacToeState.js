@@ -33,4 +33,4 @@ TicTacToeStateSchema.statics.updateState = function(room, update, cb) {
     }, cb);
 }
 
-const TicTacToeState = mongoose.model('TicTacToeState', TicTacToeStateSchema);
+mongoose.model('TicTacToeState', TicTacToeStateSchema);

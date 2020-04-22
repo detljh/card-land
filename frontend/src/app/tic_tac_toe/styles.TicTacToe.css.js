@@ -16,15 +16,15 @@ let styles = {
     },
     game: {
         margin: 'auto',
-        width: '60vw',
-        height: 'calc(60vw)',
+        height: '400px',
+        width: '400px',
         display: 'grid',
         gridTemplate: 'repeat(3, minmax(0, 1fr)) / repeat(3, minmax(0, 1fr))',
-        boxShadow: `0 0 0 2px white, 0 0 7px 4px ${global.ticTacToeShadowColor}`,
+        boxShadow: `0 0 0 2px white, 0 0 7px 4px ${global.shadowColor}`,
         borderRadius: '10px',
-        [global.breakPointLarge]: {
-            height: '400px',
-            width: '400px'
+        [global.breakPointMedium]: {
+            width: '60vw',
+            height: 'calc(60vw)'
         }
     },
     header: {

@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from './styles.TicTacToe.css';
 import history from '../../history';
-import Square from './SquareContainer';
+import SquareContainer from './SquareContainer';
 import Radium from 'radium';
 import GameOverUIContainer from '../utils/GameOverUIContainer';
 import GameTurnUIContainer from '../utils/GameTurnUIContainer';
@@ -33,7 +33,7 @@ class TicTacToeComponent extends React.Component {
                     <div style={styles.game}>
                         {
                             Array.from(new Array(9), (e, index) => 
-                            <Square key={`square-${index}`} id={index} />
+                            <SquareContainer key={`square-${index}`} id={index} />
                             )
                         }
                     </div>

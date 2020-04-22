@@ -11,9 +11,9 @@ let spin = Radium.keyframes({
 
 let mainColor = 'red';
 let highlightColor = 'hsla(0, 100%, 70%)';
-let ticTacToeShadowColor = 'hsl(0, 0%, 80%)';
+let shadowColor = 'hsl(0, 0%, 80%)';
 let breakPointMedium = '@media screen and (max-width: 700px)';
-let breakPointLarge = '@media screen and (min-width: 700px)';
+let breakPointLarge = '@media screen and (max-width: 900px)';
 let spinner = {
     animation: 'x 1.5s ease-in-out 0s infinite',
     animationName: spin,
@@ -64,7 +64,7 @@ let playerTwoColor = 'hsl(220, 80%, 60%)';
 export default {
     mainColor,
     highlightColor,
-    ticTacToeShadowColor,
+    shadowColor,
     breakPointLarge,
     breakPointMedium,
     spinner,

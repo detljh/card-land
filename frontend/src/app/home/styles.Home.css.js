@@ -29,6 +29,7 @@ let styles = {
         alignItems: 'center',
         backgroundColor: 'hsla(0, 0%, 0%, 0)',
         transition: 'all 0.5s',
+        fontSize: '2em',
         logoutButton: {
             zIndex: '999',
             position: 'fixed',
@@ -43,10 +44,10 @@ let styles = {
                 transition: 'all 0.5s ease-in-out'
             },
             [global.breakPointMedium]: {
-                fontSize: '1.5em'
+                fontSize: '1em'
             },
             [global.breakPointLarge]: {
-                fontSize: '2em'
+                fontSize: '1.5em'
             }
         },
         online: {
@@ -68,7 +69,7 @@ let styles = {
     },
     headerCollapseText: {
         color: 'white',
-        fontSize: '1.6em',
+        fontSize: '1.4em',
         opacity: '0',
         position: 'fixed',
         transition: 'all 0.7s',
@@ -76,7 +77,8 @@ let styles = {
             opacity: '1',
             transition: 'all 0.7s'
         },
-        [global.breakPointMedium]: {
+        
+        [global.breakPointLarge]: {
             fontSize: '1em'
         }
     },

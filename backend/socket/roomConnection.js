@@ -5,6 +5,7 @@ const mongoose = require('mongoose');
 const Room = mongoose.model('Room');
 const Player = mongoose.model('Player');
 const tictactoe = require('./games/tictactoe');
+const battleships = require('./games/battleships');
 
 let queue = {};
 
@@ -57,6 +58,9 @@ const disconnect = (io, socket, rooms) => {
                                 switch(room.gameType) {
                                     case gameTypes.TIC_TAC_TOE:
                                         tictactoe.destroy(room._id);
+                                        break;
+                                    case gameTypes.BATTLESHIPS:
+                                        battleships.destroy(room._id);
                                         break;
                                     default:
                                         return;
@@ -153,6 +157,9 @@ module.exports = (io, socket) => {
                 switch(room.gameType) {
                     case gameTypes.TIC_TAC_TOE:
                         tictactoe.updateGame(io, data, room._id);
+                        break;
+                    case gameTypes.BATTLESHIPS:
+                        battleships.updateGame(io, data, room._id);
                         break;
                     default:
                         return;

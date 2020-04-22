@@ -57,4 +57,4 @@ RoomSchema.statics.findById = function(id, cb) {
     }, cb);
 }
 
-const Room = mongoose.model('Room', RoomSchema);
+mongoose.model('Room', RoomSchema);
