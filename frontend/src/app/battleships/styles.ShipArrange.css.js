@@ -25,15 +25,27 @@ let styles = {
         }
     },
     menu: {
-        margin: '20px 20px 20px 0',
+        margin: '20px 5px 20px 0',
         flexBasis: '40%',
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'space-evenly',
-        alignItems: 'flex-start'
+        alignItems: 'flex-start',
+        [global.breakPointLarge]: {
+        }
+    },
+    rotateShipIcon: {
+        fontSize: '1.5em',
+        cursor: 'pointer',
+        transition: 'all 0.5s',
+        ':hover': {
+            transform: 'scale(1.1)',
+            color: 'red',
+            transition: 'all 0.5s'
+        }
     },
     option: {
-        margin: '2px 20px',
+        margin: '2px ',
         display: 'flex',
         flexDirection: 'row',
         alignItems: 'center',
@@ -42,11 +54,13 @@ let styles = {
         title: {
             fontSize: '1.5em',
             marginRight: 'auto',
-            [global.breakPointMedium]: {
+            [global.breakPointLarge]: {
                 margin: '0',
                 textAlign: 'center',
-                fontSize: '1em'
             },
+            [global.breakPointMedium]: {
+                fontSize: '1em'
+            }
         },
         ship: {
             margin: '4px 10px',
@@ -54,10 +68,7 @@ let styles = {
             boxShadow: `0 0 5px 2px ${global.shadowColor}`,
             height: 'calc(407px / 11)',
             cursor: 'pointer',
-            square: {
-                boxShadow: `0 0 0px 1px white`,
-                backgroundColor: 'hsl(170, 50%, 80%)'
-            },
+            square: global.shipSquare,
             carrier: {
                 width: 'calc(407px / 11 * 5)',
                 gridTemplateColumns: 'repeat(5, minmax(0, 1fr))',

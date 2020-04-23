@@ -4,7 +4,7 @@ import Radium from 'radium';
 import GameHeaderContainer from '../utils/GameHeaderContainer';
 import styles from './styles.Battleships.css';
 import GameContainer from './GameContainer';
-import ShipArrangeComponent from './ShipArrangeComponent';
+import ShipArrangeContainer from './ShipArrangeContainer';
 
 class BattleshipsComponent extends React.Component {
     constructor(props) {
@@ -28,9 +28,9 @@ class BattleshipsComponent extends React.Component {
 
                 <div style={styles.main}>
                     {
-                        this.props.shipsArranged ?
-                        <GameContainer /> :
-                        <ShipArrangeComponent />
+                        this.props.shipArrangeScreen ?
+                        <ShipArrangeContainer /> :
+                        <GameContainer />
                     }
                 </div>
             </div>

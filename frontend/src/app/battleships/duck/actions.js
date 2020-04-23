@@ -21,8 +21,32 @@ const setGameState = (payload) => {
     }
 }
 
+const selectShip = (id) => {
+    return {
+        type: types.SELECT_SHIP,
+        id: id
+    }
+}
+
+const setHoverSquares = (hoverSquares, isValidHover) => {
+    return {
+        type: types.SET_SHIP_HOVER_SQUARES,
+        hoverSquares: hoverSquares,
+        isValidHover: isValidHover
+    }
+}
+
+const rotateShip = () => {
+    return {
+        type: types.ROTATE_SHIP
+    }
+}
+
 export default {
     takeTurn,
     reset,
-    setGameState
+    setGameState,
+    selectShip,
+    setHoverSquares,
+    rotateShip
 }

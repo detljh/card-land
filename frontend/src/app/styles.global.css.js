@@ -12,7 +12,7 @@ let spin = Radium.keyframes({
 let mainColor = 'red';
 let highlightColor = 'hsla(0, 100%, 70%)';
 let shadowColor = 'hsl(0, 0%, 80%)';
-let breakPointMedium = '@media screen and (max-width: 700px)';
+let breakPointMedium = '@media screen and (max-width: 768px)';
 let breakPointLarge = '@media screen and (max-width: 900px)';
 let spinner = {
     animation: 'x 1.5s ease-in-out 0s infinite',
@@ -61,6 +61,12 @@ let alert = {
 let playerOneColor = 'hsl(0, 100%, 70%)';
 let playerTwoColor = 'hsl(220, 80%, 60%)';
 
+let shipSquare = {
+    backgroundImage: 'none',
+    boxShadow: `0 0 0px 1px white`,
+    backgroundColor: 'hsl(170, 50%, 80%)'
+}
+
 export default {
     mainColor,
     highlightColor,
@@ -72,5 +78,6 @@ export default {
     popupButtons,
     alert,
     playerOneColor,
-    playerTwoColor
+    playerTwoColor,
+    shipSquare
 }

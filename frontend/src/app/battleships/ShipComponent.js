@@ -9,7 +9,7 @@ class ShipComponent extends React.Component {
             this.props.type === 'battleship' && styles.option.ship.battleship,
             this.props.type === 'cruiser' && styles.option.ship.cruiser,
             this.props.type === 'submarine' && styles.option.ship.submarine,
-            this.props.clicked && styles.option.ship.clicked
+            this.props.shipSelected === this.props.id && styles.option.ship.clicked
         );
         let numSquares = 
             this.props.type === 'carrier' ? 5 :
@@ -17,7 +17,7 @@ class ShipComponent extends React.Component {
             this.props.type === 'cruiser' ? 3 :
             2;
         return (
-            <div style={shipStyle}>
+            <div style={shipStyle} onClick={() => this.props.selectShip(this.props.id)}>
                 {
                     Array.from(new Array(numSquares), (e, index) => 
                         <div key={`${this.props.type}-${index}`} style={styles.option.ship.square} />

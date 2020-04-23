@@ -4,7 +4,7 @@ import { roomOperations } from '../loading_room/duck';
 
 const mapStateToProps = (state) => {
     return {
-        shipsArranged: state.bs.game.shipsArranged,
+        shipArrangeScreen: state.bs.game.shipArrangeScreen,
         queued: state.home.socket.queued
     }
 }

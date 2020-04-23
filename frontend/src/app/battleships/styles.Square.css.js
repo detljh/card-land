@@ -16,16 +16,21 @@ let styles = {
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
-        fontSize: 'calc(60vw/3)',
+        fontSize: '1em',
         overflow: 'hidden',
-        [global.breakPointLarge]: {
-            fontSize: '130px'
+        shipSquare: global.shipSquare,
+        [global.breakPointMedium]: {
+            fontSize: '12px'
         },
         ':hover': {
             backgroundImage: 'none',
             backgroundColor: 'hsla(0, 50%, 50%, 0.5)',
             cursor: 'pointer'
         }
+    },
+    iconHover: {
+        display: 'flex',
+        color: 'red'
     },
     label: {
         display: 'flex',

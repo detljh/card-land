@@ -5,7 +5,9 @@ import { bsOperations } from './duck';
 const mapStateToProps = (state) => {
     return {
         squares: state.bs.game.squares,
-        shipsArranged: state.bs.game.shipsArranged
+        shipArrangeScreen: state.bs.game.shipArrangeScreen,
+        hoverSquares: state.bs.arrange.hoverSquares,
+        isValidHover: state.bs.arrange.isValidHover
     }
 }
 
@@ -13,6 +15,9 @@ const mapDispatchToProps = (dispatch) => {
     return {
         takeTurn: (id) => {
             dispatch(bsOperations.takeTurn(id));
+        },
+        showShip: (id) => {
+            dispatch(bsOperations.showShip(id));
         }
     }
 }
