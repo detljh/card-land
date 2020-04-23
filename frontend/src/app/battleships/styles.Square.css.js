@@ -30,7 +30,8 @@ let styles = {
     },
     iconHover: {
         display: 'flex',
-        color: 'red'
+        color: 'red',
+        zIndex: '99'
     },
     label: {
         display: 'flex',

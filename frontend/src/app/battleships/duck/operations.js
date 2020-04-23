@@ -3,7 +3,6 @@ import sActions from '../../../socket/actions';
 
 const setGameState = Creators.setGameState;
 const reset = Creators.reset;
-const selectShip = Creators.selectShip;
 const rotateShip = Creators.rotateShip;
 
 const takeTurn = () => {
@@ -33,6 +32,21 @@ const checkStatus = () => {
     return { end: false, winner: null };
 }
 
+const selectShip = (id) => {
+    return (dispatch, getState) => {
+        let placedShips = getState().bs.arrange.placedShips;
+        if (placedShips[id] && placedShips[id].length > 0) {
+            let placedShips = getState().bs.arrange.placedShips;
+            let updated = Object.assign({}, placedShips, {
+                [id]: []
+            });
+            dispatch(Creators.updatePlacedShips(updated));
+        }
+
+        dispatch(Creators.selectShip(id));
+    }
+}
+
 const showShip = (hoveredSquareId) => {
     return (dispatch, getState) => {
         let id = getState().bs.arrange.shipSelected;
@@ -54,23 +68,48 @@ const showShip = (hoveredSquareId) => {
             numSquares = 2;
         }
 
+        let placedShips = getState().bs.arrange.placedShips;
+        let keys = Object.keys(placedShips);
         for (let i = 0; i < numSquares; i++) {
+            let square = 0;
             if (horizontal) {
-                if ((hoveredSquareId + i) % 11 === 0) {
+                square = hoveredSquareId + i;
+                if (square % 11 === 0) {
                     isValidHover = false;
                     break;
                 }
-                hoverSquares.push(hoveredSquareId + i);
             } else {
-                if (hoveredSquareId + (11 * i) > 121) {
+                square = hoveredSquareId + (11 * i);
+                if (square > 121) {
                     isValidHover = false;
                     break;
                 }
-                hoverSquares.push(hoveredSquareId + (11 * i));
             }
+
+            if (keys.find(key => placedShips[key].includes(square))) {
+                isValidHover = false;
+            }
+            hoverSquares.push(square);
+        }
+        dispatch(Creators.setHoverSquares(hoverSquares, isValidHover));
+    }
+}
+
+const placeShip = () => {
+    return (dispatch, getState) => {
+        let isValidHover = getState().bs.arrange.isValidHover;
+        if (!isValidHover) {
+            return;
         }
 
-        dispatch(Creators.setHoverSquares(hoverSquares, isValidHover));
+        let shipSelected = getState().bs.arrange.shipSelected;
+        let placedShips = getState().bs.arrange.placedShips;
+        let hoverSquares = getState().bs.arrange.hoverSquares;
+        let updated = Object.assign({}, placedShips, {
+            [shipSelected]: hoverSquares
+        });
+        dispatch(Creators.updatePlacedShips(updated));
+        dispatch(Creators.selectShip(null));
     }
 }
 
@@ -80,5 +119,6 @@ export default {
     reset,
     selectShip,
     rotateShip,
-    showShip
+    showShip,
+    placeShip
 }

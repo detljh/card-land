@@ -4,7 +4,8 @@ import { bsOperations } from './duck';
 
 const mapStateToProps = (state) => {
     return {
-        shipSelected: state.bs.arrange.shipSelected
+        shipSelected: state.bs.arrange.shipSelected,
+        placedShips: state.bs.arrange.placedShips
     }
 }
 

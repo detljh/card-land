@@ -25,7 +25,11 @@ class SquareComponent extends React.Component {
             return;
         }
         
-        this.props.takeTurn(this.props.id);
+        if (this.props.shipArrangeScreen) {
+            this.props.placeShip();
+        } else {
+            this.props.takeTurn(this.props.id);
+        }
     }
 
     render() {
@@ -36,11 +40,15 @@ class SquareComponent extends React.Component {
             isRowLabel && styles.label.rowLabel
         );
 
+        let placed = Object.keys(this.props.placedShips).find(key => {
+            return this.props.placedShips[key].includes(this.props.id);
+        });
         let hoveredSquare = this.props.hoverSquares.includes(this.props.id);
         let squareStyle = Object.assign({}, styles.square,
-            hoveredSquare && styles.square.shipSquare
+            hoveredSquare && styles.square.shipSquare,
+            placed && styles.square.shipSquare
         );
-
+        
         return (
             this.props.id === 0 ?
             <div style={styles.label} /> :

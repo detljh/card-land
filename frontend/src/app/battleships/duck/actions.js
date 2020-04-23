@@ -42,11 +42,19 @@ const rotateShip = () => {
     }
 }
 
+const updatePlacedShips = (placedShips) => {
+    return {
+        type: types.UPDATE_PLACED_SHIPS,
+        placedShips: placedShips
+    }
+}
+
 export default {
     takeTurn,
     reset,
     setGameState,
     selectShip,
     setHoverSquares,
-    rotateShip
+    rotateShip,
+    updatePlacedShips
 }

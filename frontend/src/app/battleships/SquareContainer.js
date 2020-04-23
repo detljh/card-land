@@ -7,7 +7,8 @@ const mapStateToProps = (state) => {
         squares: state.bs.game.squares,
         shipArrangeScreen: state.bs.game.shipArrangeScreen,
         hoverSquares: state.bs.arrange.hoverSquares,
-        isValidHover: state.bs.arrange.isValidHover
+        isValidHover: state.bs.arrange.isValidHover,
+        placedShips: state.bs.arrange.placedShips
     }
 }
 
@@ -18,6 +19,9 @@ const mapDispatchToProps = (dispatch) => {
         },
         showShip: (id) => {
             dispatch(bsOperations.showShip(id));
+        },
+        placeShip: () => {
+            dispatch(bsOperations.placeShip());
         }
     }
 }

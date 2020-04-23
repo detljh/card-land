@@ -102,8 +102,15 @@ let styles = {
                 }
             },
             clicked: {
-                opacity: '0.4'
+                backgroundColor: 'hsl(0, 0%, 80%)'
             }
+        },
+        clicked: {
+            transform: 'scale(1.2)'
+        },
+        placed: {
+            opacity: 0.4,
+            transform: 'scale(0.8)'
         },
         [global.breakPointLarge]: {
             flexDirection: 'column',

@@ -25,7 +25,8 @@ const ARRANGE_INITIAL_STATE = {
     shipSelected: null,
     hoverSquares: [],
     isValidHover: true,
-    horizontal: true
+    horizontal: true,
+    placedShips: {}
 }
 
 const arrangeReducer = (state=ARRANGE_INITIAL_STATE, action) => {
@@ -43,6 +44,25 @@ const arrangeReducer = (state=ARRANGE_INITIAL_STATE, action) => {
             return Object.assign({}, state, {
                 horizontal: !state.horizontal
             });
+        case types.UPDATE_PLACED_SHIPS:
+            return Object.assign({}, state, {
+                placedShips: action.placedShips,
+            });
+        case types.CLEAR_SELECTED_SHIP:
+            return Object.assign({}, state, {
+                shipSelected: null
+            });
+        default:
+            return state;
+    }
+}
+
+const UI_INITIAL_STATE = {
+    showReadyButton: false
+}
+
+const uiReducer = (state=UI_INITIAL_STATE, action) => {
+    switch (action.type) {
         default:
             return state;
     }
@@ -50,6 +70,7 @@ const arrangeReducer = (state=ARRANGE_INITIAL_STATE, action) => {
 
 const reducer = combineReducers({
     game: gameReducer,
-    arrange: arrangeReducer
+    arrange: arrangeReducer,
+    ui: uiReducer
 });
 export default reducer;
