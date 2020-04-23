@@ -24,6 +24,23 @@ let styles = {
             height: 'calc(60vw)' 
         }
     },
+    readyButton: {
+        backgroundColor: 'hsl(100, 50%, 80%)',
+        padding: '10px',
+        display: 'inline-block',
+        cursor: 'pointer',
+        position: 'absolute',
+        top: '100px',
+        left: '20px',
+        borderRadius: '10px',
+        boxShadow: '0 0 3px 2px hsl(100, 50%, 40%)',
+        color: 'hsl(100, 50%, 10%)',
+        transition: 'all 0.5s',
+        ':hover': {
+            boxShadow: '0 0 3px 2px hsl(100, 50%, 40%), 0 0 1px 2px inset hsl(100, 50%, 40%)',
+            transition: 'all 0.5s'
+        }
+    },
     menu: {
         margin: '20px 5px 20px 0',
         flexBasis: '40%',
@@ -42,6 +59,37 @@ let styles = {
             transform: 'scale(1.1)',
             color: 'red',
             transition: 'all 0.5s'
+        }
+    },
+    tooltipContainer: {
+        position: 'relative',
+        display: 'flex',
+        alignItems: 'center',
+        flexDirection: 'column',
+        justifyContent: 'center',
+    },
+    tooltip: {
+        position: 'absolute',
+        bottom: '115%',
+        display: 'inline-block',
+        text: {
+            padding: '5px',
+            backgroundColor: 'hsla(0, 0%, 0%, 0.9)',
+            color: 'white',
+            fontSize: '0.8em',
+            textAlign: 'center',
+            zIndex: '99',
+            whiteSpace: 'nowrap'
+        },
+        arrow: {
+            position: 'absolute',
+            left: '50%',
+            marginLeft: '-7px',
+            top: '100%',
+            borderTop: '7px solid hsla(0, 0%, 0%, 0.9)',
+            borderBottom: '7px solid transparent',
+            borderLeft: '7px solid transparent',
+            borderRight: '7px solid transparent',
         }
     },
     option: {

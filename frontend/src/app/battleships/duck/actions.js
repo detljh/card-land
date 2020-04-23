@@ -49,6 +49,13 @@ const updatePlacedShips = (placedShips) => {
     }
 }
 
+const displayReadyButton = (value) => {
+    return {
+        type: types.DISPLAY_READY_BUTTON,
+        value: value
+    }
+}
+
 export default {
     takeTurn,
     reset,
@@ -56,5 +63,6 @@ export default {
     selectShip,
     setHoverSquares,
     rotateShip,
-    updatePlacedShips
+    updatePlacedShips,
+    displayReadyButton
 }

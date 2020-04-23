@@ -37,12 +37,13 @@ const selectShip = (id) => {
         let placedShips = getState().bs.arrange.placedShips;
         if (placedShips[id] && placedShips[id].length > 0) {
             let placedShips = getState().bs.arrange.placedShips;
-            let updated = Object.assign({}, placedShips, {
-                [id]: []
-            });
+            let updated = {...placedShips};
+            delete updated[id];
             dispatch(Creators.updatePlacedShips(updated));
         }
 
+        dispatch(Creators.setHoverSquares([], true));
+        dispatch(Creators.displayReadyButton(false));
         dispatch(Creators.selectShip(id));
     }
 }
@@ -108,8 +109,14 @@ const placeShip = () => {
         let updated = Object.assign({}, placedShips, {
             [shipSelected]: hoverSquares
         });
+
         dispatch(Creators.updatePlacedShips(updated));
         dispatch(Creators.selectShip(null));
+
+        let numPlaced = Object.keys(updated).length;
+        if (numPlaced === 6) {
+            dispatch(Creators.displayReadyButton(true));
+        }
     }
 }
 

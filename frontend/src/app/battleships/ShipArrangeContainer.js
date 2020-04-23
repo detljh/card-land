@@ -4,7 +4,7 @@ import { bsOperations } from './duck';
 
 const mapStateToProps = (state) => {
     return {
-        
+        displayReadyButton: state.bs.ui.displayReadyButton
     }
 }
 
@@ -12,6 +12,9 @@ const mapDispatchToProps = (dispatch) => {
     return {
         rotateShip: () => {
             dispatch(bsOperations.rotateShip());
+        },
+        ready: () => {
+            dispatch();
         }
     }
 }

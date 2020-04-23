@@ -42,7 +42,8 @@ const arrangeReducer = (state=ARRANGE_INITIAL_STATE, action) => {
             });
         case types.ROTATE_SHIP:
             return Object.assign({}, state, {
-                horizontal: !state.horizontal
+                horizontal: !state.horizontal,
+                hoverSquares: []
             });
         case types.UPDATE_PLACED_SHIPS:
             return Object.assign({}, state, {
@@ -58,11 +59,15 @@ const arrangeReducer = (state=ARRANGE_INITIAL_STATE, action) => {
 }
 
 const UI_INITIAL_STATE = {
-    showReadyButton: false
+    displayReadyButton: false
 }
 
 const uiReducer = (state=UI_INITIAL_STATE, action) => {
     switch (action.type) {
+        case types.DISPLAY_READY_BUTTON:
+            return Object.assign({}, state, {
+                displayReadyButton: action.value
+            });
         default:
             return state;
     }
