@@ -2,7 +2,7 @@ const serverEvents = require('../../../constants/serverEvents');
 const mongoose = require('mongoose');
 const TicTacToeState = mongoose.model('TicTacToeState');
 
-const updateGame = (io, data, roomId) => {
+const updateGame = (io, data, room) => {
     let update = {
         currentIcon: data.currentIcon,
         squares: data.squares,
@@ -10,9 +10,9 @@ const updateGame = (io, data, roomId) => {
         boardStatus: data.boardStatus,
         winSquares: data.winSquares
     }
-    TicTacToeState.updateState(roomId, update, (err, state) => {
+    TicTacToeState.updateState(room._id, update, (err, state) => {
         if (err) return console.log(err);
-        io.in(roomId).emit(serverEvents.UPDATE_GAME, { state: state });
+        io.in(room._id).emit(serverEvents.UPDATE_GAME, { state: state });
     });
 }
 

@@ -3,14 +3,21 @@ import { combineReducers } from 'redux';
 
 const GAME_INITIAL_STATE = {
     shipArrangeScreen: true,
-    squares: new Array(121)
+    finished: false,
+    winner: null,
+    playerOneState: null,
+    playerOneState: null
 }
 
 const gameReducer = (state=GAME_INITIAL_STATE, action) => {
     switch (action.type) {
         case types.SET_GAME_STATE:
             return Object.assign({}, state,
-                
+                action.payload.winner !== undefined && {winner: action.payload.winner},
+                action.payload.finished !== undefined && {finished: action.payload.finished},
+                action.payload.shipArrangeScreen !== undefined && {shipArrangeScreen: action.payload.shipArrangeScreen},
+                action.payload.playerOneState !== undefined && {playerOneState: {...action.payload.playerOneState}},
+                action.payload.playerTwoState !== undefined && {playerTwoState: {...action.payload.playerTwoState}}
             );
         case types.RESET:
             return Object.assign({}, GAME_INITIAL_STATE, {
@@ -59,7 +66,7 @@ const arrangeReducer = (state=ARRANGE_INITIAL_STATE, action) => {
 }
 
 const UI_INITIAL_STATE = {
-    displayReadyButton: false
+    displayReadyButton: true
 }
 
 const uiReducer = (state=UI_INITIAL_STATE, action) => {

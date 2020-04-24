@@ -7,7 +7,7 @@ const rotateShip = Creators.rotateShip;
 
 const takeTurn = () => {
     return (dispatch, getState) => {
-        let finished = getState().tic.game.finished;
+        let finished = getState().bs.game.finished;
         if (finished) {
             return;
         }
@@ -120,6 +120,17 @@ const placeShip = () => {
     }
 }
 
+const ready = () => {
+    return (dispatch, getState) => {
+        let state = {
+            username: getState().home.auth.user.username,
+            placedShips: getState().bs.arrange.placedShips
+        }
+
+        dispatch(sActions.sUpdateGameState(state));
+    }
+}
+
 export default {
     setGameState,
     takeTurn,
@@ -127,5 +138,6 @@ export default {
     selectShip,
     rotateShip,
     showShip,
-    placeShip
+    placeShip,
+    ready
 }

@@ -18,14 +18,14 @@ class GameComponent extends React.Component {
                 <div style={styles.board}>
                     {
                         Array.from(new Array(121), (e, index) => 
-                        <SquareContainer key={`square-${index}`} id={index} />
+                        <SquareContainer key={`square-${index}`} id={index} isOpponentBoard={false} />
                         )
                     }
                 </div>
                 <div style={styles.board}>
                     {
                         Array.from(new Array(121), (e, index) => 
-                        <SquareContainer key={`square-opponent-${index}`} id={index} />
+                        <SquareContainer key={`square-opponent-${index}`} id={index} isOpponentBoard={true} />
                         )
                     }
                 </div>

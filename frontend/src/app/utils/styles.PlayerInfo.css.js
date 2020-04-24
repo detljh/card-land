@@ -9,14 +9,9 @@ let style = {
         justifyContent: 'flex-start',
         alignItems: 'center',
         padding: '10px',
-        opacity: '0.5',
         width: '160px',
         margin: '0 auto',
         transition: 'all 0.5s',
-        turn: {
-            opacity: '1',
-            transition: 'all 0.5s'
-        }
     },
     turnIndicator: {
         playerOne: {
@@ -31,7 +26,15 @@ let style = {
         opacity: '0.2',
         fontSize: '2.3em',
         bottom: '10%'
-    })
+    }),
+    check: {
+        position: 'absolute',
+        opacity: '0.2',
+        fontSize: '2.3em',
+        bottom: '10%',
+        color: 'green',
+        transition: 'all 0.5s'
+    }
 }
 
 export default style;

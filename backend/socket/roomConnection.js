@@ -156,10 +156,10 @@ module.exports = (io, socket) => {
                 if (!room) return;
                 switch(room.gameType) {
                     case gameTypes.TIC_TAC_TOE:
-                        tictactoe.updateGame(io, data, room._id);
+                        tictactoe.updateGame(io, data, room);
                         break;
                     case gameTypes.BATTLESHIPS:
-                        battleships.updateGame(io, data, room._id);
+                        battleships.updateGame(io, data, room);
                         break;
                     default:
                         return;

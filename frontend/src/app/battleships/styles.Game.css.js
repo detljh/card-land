@@ -27,6 +27,11 @@ let styles = {
             width: '60vw',
             height: 'calc(60vw)' 
         }
+    },
+    disabled: {
+        zIndex: '999',
+        position: 'absolute',
+        backgroundColor: 'red'
     }
 }
 

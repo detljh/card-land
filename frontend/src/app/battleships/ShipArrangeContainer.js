@@ -14,7 +14,7 @@ const mapDispatchToProps = (dispatch) => {
             dispatch(bsOperations.rotateShip());
         },
         ready: () => {
-            dispatch();
+            dispatch(bsOperations.ready());
         }
     }
 }

@@ -77,9 +77,11 @@ let styles = {
             opacity: '1',
             transition: 'all 0.7s'
         },
-        
         [global.breakPointLarge]: {
             fontSize: '1em'
+        },
+        [global.breakPointLarge]: {
+            fontSize: '0.5em'
         }
     },
     headerButtonsBlock: {

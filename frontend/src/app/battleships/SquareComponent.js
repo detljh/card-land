@@ -21,10 +21,6 @@ class SquareComponent extends React.Component {
     }
 
     click() {
-        if (this.props.squares[this.props.id]) {
-            return;
-        }
-        
         if (this.props.shipArrangeScreen) {
             this.props.placeShip();
         } else {
@@ -40,13 +36,22 @@ class SquareComponent extends React.Component {
             isRowLabel && styles.label.rowLabel
         );
 
-        let placed = Object.keys(this.props.placedShips).find(key => {
-            return this.props.placedShips[key].includes(this.props.id);
-        });
-        let hoveredSquare = this.props.hoverSquares.includes(this.props.id);
+        let placed = null;
+        if (this.props.shipArrangeScreen || !this.props.isOpponentBoard) {
+            placed = Object.keys(this.props.placedShips).find(key => {
+                return this.props.placedShips[key].includes(this.props.id);
+            });
+        }
+        
+        let hoveredSquare = null;
+
+        if (this.props.shipSelected) {
+            hoveredSquare = this.props.hoverSquares.includes(this.props.id);
+        }
         let squareStyle = Object.assign({}, styles.square,
             hoveredSquare && styles.square.shipSquare,
-            placed && styles.square.shipSquare
+            placed && styles.square.shipSquare,
+            (this.props.isOpponentBoard || this.props.shipArrangeScreen) && styles.square.hover
         );
         
         return (
@@ -56,22 +61,24 @@ class SquareComponent extends React.Component {
             <div style={labelStyle}>{LABEL_MAP[this.props.id]}</div> :
             isColumnLabel ? 
             <div style={labelStyle}>{String(this.props.id).slice(1)}</div> :
+            this.props.shipArrangeScreen ?
             <div style={squareStyle} onMouseEnter={() => this.props.showShip(this.props.id)} onClick = {() => this.click()}>
-            
                 <span style={styles.iconHover}>
                     {
-                        this.props.shipArrangeScreen ? 
-                        (hoveredSquare && !this.props.isValidHover) && 'x' :
-                        ''
+                        (hoveredSquare && !this.props.isValidHover) && 'x'
                     }
+                </span>
+            </div> :
+            !this.props.isOpponentBoard ?
+            <div style={squareStyle}></div> :
+            <div style={squareStyle} onClick = {() => this.click()}>
+            
+                <span style={styles.iconHover}>
+                    
                 </span>
             
                 <span style={styles.iconPlaced}>
-                    {
-                        this.props.shipArrangeScreen ? 
-                        '' :
-                        ''
-                    }
+                    
                 </span>
             </div>
         )

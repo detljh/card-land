@@ -22,9 +22,16 @@ class BattleshipsComponent extends React.Component {
     }
 
     render() {
+        let playersReady = [];
+        if (this.props.playerOneState) {
+            playersReady.push(this.props.playerOneState.username);
+        }
+        if (this.props.playerTwoState) {
+            playersReady.push(this.props.playerTwoState.username);
+        }
         return (
             <div style={styles.page}>
-                <GameHeaderContainer />
+                <GameHeaderContainer readyScreen={this.props.shipArrangeScreen} playersReady={playersReady} />
 
                 <div style={styles.main}>
                     {

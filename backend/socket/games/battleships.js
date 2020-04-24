@@ -2,13 +2,31 @@ const serverEvents = require('../../../constants/serverEvents');
 const mongoose = require('mongoose');
 const BattleshipsState = mongoose.model('BattleshipsState');
 
-const updateGame = (io, data, roomId) => {
-    let update = {
-        
+const updateGame = (io, data, room) => {
+    let update = {};
+    if (data.placedShips) {
+        let currentPlayer = room.players[room.currentPlayerIndex];
+        if (data.username === currentPlayer.username) {
+            // player one
+            update.playerOneState = {
+                username: data.username,
+                placedShips: {...data.placedShips}
+            }
+        } else {
+            // player two
+            update.playerTwoState = {
+                username: data.username,
+                placedShips: {...data.placedShips}
+            }
+        }
     }
-    BattleshipsState.updateState(roomId, update, (err, state) => {
+    
+    BattleshipsState.updateState(room._id, update, (err, state) => {
         if (err) return console.log(err);
-        io.in(roomId).emit(serverEvents.UPDATE_GAME, { state: state });
+        if (state.playerOneState && state.playerTwoState) {
+            state.shipArrangeScreen = false;
+        }
+        io.in(room._id).emit(serverEvents.UPDATE_GAME, { state: state });
     });
 }
 

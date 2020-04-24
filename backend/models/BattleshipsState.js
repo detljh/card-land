@@ -4,8 +4,8 @@ const BattleshipsStateSchema = mongoose.Schema({
     room: {
         type: mongoose.Schema.Types.ObjectId,
     },
-    playerOneBoard: Array,
-    playerTwoBoard: Array
+    playerOneState: Object,
+    playerTwoState: Object
 });
 
 BattleshipsStateSchema.statics.destroy = function(room, cb) {
@@ -21,7 +21,7 @@ BattleshipsStateSchema.statics.updateState = function(room, update, cb) {
     {
         upsert: true,
         new: true
-    }, cb);
+    }).lean().exec(cb);
 }
 
 mongoose.model('BattleshipsState', BattleshipsStateSchema);
