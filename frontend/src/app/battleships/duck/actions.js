@@ -49,16 +49,16 @@ const updatePlacedShips = (placedShips) => {
     }
 }
 
+const finishShipArrange = () => {
+    return {
+        type: types.FINISH_SHIP_ARRANGE
+    }
+}
+
 const displayReadyButton = (value) => {
     return {
         type: types.DISPLAY_READY_BUTTON,
         value: value
-    }
-}
-
-const finishShipArrange = () => {
-    return {
-        type: types.FINISH_SHIP_ARRANGE
     }
 }
 

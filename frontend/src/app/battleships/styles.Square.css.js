@@ -25,6 +25,10 @@ let styles = {
                 cursor: 'pointer'
             }
         },
+        attacked: {
+            backgroundImage: 'none',
+            backgroundColor: 'hsla(0, 50%, 50%, 0.5)',
+        },
         [global.breakPointMedium]: {
             fontSize: '12px'
         }

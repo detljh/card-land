@@ -56,6 +56,14 @@ const resetUI = () => {
     }
 }
 
+const displayAlert = (value, alert) => {
+    return {
+        type: types.DISPLAY_ALERT,
+        value: value,
+        alert: alert
+    }
+}
+
 export default {
     countdown,
     updateRoomState,
@@ -65,5 +73,6 @@ export default {
     waitingResponse,
     setDeclinePrompt,
     setAcceptPrompt,
-    resetUI
+    resetUI,
+    displayAlert
 }

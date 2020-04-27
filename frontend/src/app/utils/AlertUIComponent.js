@@ -1,11 +1,11 @@
 import React from 'react';
 import Radium from 'radium';
-import ExpireComponent from './ExpireComponent';
 import { CSSTransition } from 'react-transition-group';
 import '../transitions.scss';
 import styles from './styles.GameUI.css';
+import ExpireComponent from './ExpireComponent';
 
-class GameAlertUIComponent extends React.Component {
+class AlertUIComponent extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -15,30 +15,31 @@ class GameAlertUIComponent extends React.Component {
     }
 
     handleClick() {
-        this.setState({
-            clicked: true
-        });
-        setTimeout(() => {
+        console.log(this.props.isClickAlert);
+        if (this.props.isClickAlert) {
             this.setState({
-                clicked: false
+                clicked: true
             });
-        }, 1000);
+            setTimeout(() => {
+                this.setState({
+                    clicked: false
+                });
+            }, 1000);
+        }
     }
 
     render() {
         return (
             <div style={styles.disabledPage} onClick={() => this.handleClick()}>
-                <ExpireComponent delay={ 1000 }>
+                <ExpireComponent delay={ 1000 } removeAlert={this.props.removeAlert}>
                     <CSSTransition
-                        in={ this.state.clicked }
+                        in={ this.state.clicked || this.props.displayAlert }
                         appear={ true }
                         timeout={ 1000 }
                         classNames="fade"
                         unmountOnExit>
                         <div style={styles.displayAlert}>
-                            {
-                                this.props.text
-                            }
+                            {this.props.alert}
                         </div>
                     </CSSTransition>
                 </ExpireComponent>
@@ -47,4 +48,4 @@ class GameAlertUIComponent extends React.Component {
     }
 }
 
-export default Radium(GameAlertUIComponent);
+export default Radium(AlertUIComponent);

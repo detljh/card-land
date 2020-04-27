@@ -22,10 +22,10 @@ class SquareComponent extends React.Component {
         super(props);
     }
 
-    click() {
+    click(hitSquare) {
         if (this.props.shipArrangeScreen) {
             this.props.placeShip();
-        } else {
+        } else if (!hitSquare) {
             this.props.takeTurn(this.props.id);
         }
     }
@@ -46,26 +46,32 @@ class SquareComponent extends React.Component {
         }
 
         let hitSquare = false;
+        let ownHitSquare = false;
         if (this.props.isOpponentBoard) {
-            hitSquare = this.props.hitSquares.find(square => square.id === this.props.id);
+            if (this.props.hitSquares) {
+                hitSquare = this.props.hitSquares.find(square => square.id === this.props.id);
+            }
         } else {
-
+            if (this.props.ownHitSquares) {
+                ownHitSquare = this.props.ownHitSquares.find(square => square.id === this.props.id);
+            }
         }
         
         let hoveredSquare = null;
-
         if (this.props.shipSelected) {
             hoveredSquare = this.props.hoverSquares.includes(this.props.id);
         }
+
         let ownBoardStyle = Object.assign({}, styles.square,
             hoveredSquare && styles.square.shipSquare,
             placed && styles.square.shipSquare,
             this.props.shipArrangeScreen && styles.square.hover
         );
         let opponentBoardStyle = Object.assign({}, styles.square,
-            styles.square.hover,
-            hitSquare && styles.square.hover
+            !hitSquare && styles.square.hover,
+            hitSquare && styles.square.attacked
         );
+
         return (
             this.props.id === 0 ?
             <div style={styles.label} /> :
@@ -74,7 +80,7 @@ class SquareComponent extends React.Component {
             isColumnLabel ? 
             <div style={labelStyle}>{String(this.props.id).slice(1)}</div> :
             this.props.shipArrangeScreen ?
-            <div style={ownBoardStyle} onMouseEnter={() => this.props.showShip(this.props.id)} onClick = {() => this.click()}>
+            <div style={ownBoardStyle} onMouseEnter={() => this.props.showShip(this.props.id)} onClick={() => this.click()}>
                 <div style={styles.icon}>
                     {
                         (hoveredSquare && !this.props.isValidHover) && 'x'
@@ -82,11 +88,18 @@ class SquareComponent extends React.Component {
                 </div>
             </div> :
             !this.props.isOpponentBoard ?
-            <div style={ownBoardStyle}></div> :
-            <div style={opponentBoardStyle} onClick = {() => this.click()}>
+            <div style={ownBoardStyle}>
                 <div style={styles.icon}>
                     {
-                        (hitSquare && hitSquare[0].ship) &&
+                        ownHitSquare &&
+                        <FontAwesomeIcon icon={faBomb} />
+                    }
+                </div>
+            </div> :
+            <div style={opponentBoardStyle} onClick={() => this.click(hitSquare)}>
+                <div style={styles.icon}>
+                    {
+                        (hitSquare && hitSquare.ship) &&
                         <FontAwesomeIcon icon={faBomb} />
                     }
                 </div>

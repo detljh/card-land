@@ -41,7 +41,9 @@ const UI_INITIAL_STATE = {
     resetRequestPrompt: false,
     waitingResponsePrompt: false,
     declinePrompt: false,
-    acceptPrompt: false
+    acceptPrompt: false,
+    displayAlert: false,
+    alert: null
 }
 
 const uiReducer = (state=UI_INITIAL_STATE, action) => {
@@ -65,6 +67,12 @@ const uiReducer = (state=UI_INITIAL_STATE, action) => {
                 acceptPrompt: true,
                 waitingResponsePrompt: false,
                 resetRequestPrompt: false
+            });
+        case types.DISPLAY_ALERT:
+            console.log(action);
+            return Object.assign({}, state, {
+                displayAlert: action.value,
+                alert: action.alert
             });
         case types.RESET_UI:
             return UI_INITIAL_STATE;

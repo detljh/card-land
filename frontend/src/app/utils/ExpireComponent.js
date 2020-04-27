@@ -32,6 +32,9 @@ class ExpireComponent extends React.Component {
                 visible: false
             });
             this._timer = null;
+            if (this.props.removeAlert) {
+                this.props.removeAlert();
+            }
         }, this.props.delay);
     }
 

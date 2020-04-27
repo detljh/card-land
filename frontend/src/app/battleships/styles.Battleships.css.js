@@ -11,7 +11,10 @@ let styles = {
         display: 'flex',
         marginTop: '60px',
         padding: '0 5px'
-    }
+    },
+    displayAlert: Object.assign({}, global.alert, {
+        margin: 'auto'
+    })
 }
 
 export default styles;

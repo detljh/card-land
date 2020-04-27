@@ -6,7 +6,7 @@ const GAME_INITIAL_STATE = {
     finished: false,
     winner: null,
     playerOneState: null,
-    playerTwoState: null
+    playerTwoState: null,
 }
 
 const gameReducer = (state=GAME_INITIAL_STATE, action) => {
@@ -20,9 +20,7 @@ const gameReducer = (state=GAME_INITIAL_STATE, action) => {
                 action.payload.playerTwoState !== undefined && {playerTwoState: {...action.payload.playerTwoState}}
             );
         case types.RESET:
-            return Object.assign({}, GAME_INITIAL_STATE, {
-                
-            });
+            return GAME_INITIAL_STATE;
         default:
             return state;
     }

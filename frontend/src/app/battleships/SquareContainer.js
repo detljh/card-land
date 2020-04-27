@@ -9,7 +9,10 @@ const mapStateToProps = (state) => {
         isValidHover: state.bs.arrange.isValidHover,
         placedShips: state.bs.arrange.placedShips,
         shipSelected: state.bs.arrange.shipSelected,
-        // hitSquares: !state.bs.game.shipArrangeScreen ? state.home.auth.user.username === state.bs.game.playerOneState.username ? playerOneState.hitSquares : playerTwoState.hitSquares : []
+        // squares that player hit on opponent's board
+        hitSquares: !state.bs.game.shipArrangeScreen ? state.home.auth.user.username === state.bs.game.playerOneState.username ? state.bs.game.playerOneState.hitSquares : state.bs.game.playerTwoState.hitSquares : [],
+        // squares that opponent hit on player's board
+        ownHitSquares: !state.bs.game.shipArrangeScreen ? state.home.auth.user.username === state.bs.game.playerOneState.username ? state.bs.game.playerTwoState.hitSquares : state.bs.game.playerOneState.hitSquares : []
     }
 }
 

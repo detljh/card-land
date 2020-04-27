@@ -1,5 +1,6 @@
 import Creators from './actions';
 import sActions from '../../../socket/actions';
+import { roomOperations } from '../../loading_room/duck';
 
 const setGameState = Creators.setGameState;
 const reset = Creators.reset;
@@ -49,7 +50,9 @@ const takeTurn = (id) => {
             dispatch(sActions.sEndGame(status));
         } else {
             dispatch(sActions.sUpdateGameState(payload));
-            if (!status.shipHit && !status.shipsDestroyed) {
+            if (status.shipDestroyed) {
+                dispatch(roomOperations.displayAlert(true, "Opponent ship has been destroyed"));
+            } else if (!status.shipHit && !status.shipDestroyed) {
                 dispatch(sActions.sEndTurn());
             }
         }
@@ -59,15 +62,15 @@ const takeTurn = (id) => {
 const checkStatus = (id, currentPlayer, opponentState, playerState) => {
     let hit = Object.keys(opponentState.placedShips).find(key => opponentState.placedShips[key].includes(id));
     let hitSquares = playerState.hitSquares ? playerState.hitSquares : [];
-
     if (hit) {
-        let numHit = playerState.hit ? playerState.hit : 0;
+        let numHit = playerState[hit] ? playerState[hit] : 0;
         let shipsDestroyed = playerState.shipsDestroyed ? playerState.shipsDestroyed : 0;
 
-        playerState.hitSquares = hitSquares.push({id: id, ship: true});
-        playerState.hit += numHit + 1;
+        hitSquares.push({ id: id, ship: true });
+        playerState.hitSquares = hitSquares;
+        playerState[hit] = numHit + 1;
 
-        if (SHIP_MAP[hit] === playerState.hit) {
+        if (SHIP_MAP[hit] === playerState[hit]) {
             playerState.shipsDestroyed = shipsDestroyed + 1;
             if (shipsDestroyed === SHIP_MAP.totalShips) {
                 return { end: true, winner: currentPlayer };
@@ -76,7 +79,8 @@ const checkStatus = (id, currentPlayer, opponentState, playerState) => {
         }
         return { end: false, winner: null, shipHit: true };
     } else {
-        playerState.hitSquares = hitSquares.push({id: id, ship: false});
+        hitSquares.push({ id: id, ship: false });
+        playerState.hitSquares = hitSquares;
     }
     return { end: false, winner: null };
 }
@@ -141,13 +145,14 @@ const showShip = (hoveredSquareId) => {
 const placeShip = () => {
     return (dispatch, getState) => {
         let isValidHover = getState().bs.arrange.isValidHover;
-        if (!isValidHover) {
+        let hoverSquares = getState().bs.arrange.hoverSquares;
+
+        if (!isValidHover || hoverSquares.length === 0) {
             return;
         }
 
         let shipSelected = getState().bs.arrange.shipSelected;
         let placedShips = getState().bs.arrange.placedShips;
-        let hoverSquares = getState().bs.arrange.hoverSquares;
         let updated = Object.assign({}, placedShips, {
             [shipSelected]: hoverSquares
         });
