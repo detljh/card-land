@@ -2,6 +2,8 @@ import React from 'react';
 import history from '../../history';
 import Radium from 'radium';
 import GameHeaderContainer from '../utils/GameHeaderContainer';
+import GameOverUIContainer from '../utils/GameOverUIContainer';
+import GameAlertUIContainer from '../utils/GameAlertUIContainer';
 import styles from './styles.Battleships.css';
 import GameContainer from './GameContainer';
 import ShipArrangeContainer from './ShipArrangeContainer';
@@ -13,12 +15,12 @@ class BattleshipsComponent extends React.Component {
 
     componentDidMount() {
         if (!this.props.queued) {
-            //history.push('/');
+            history.push('/');
         }
     }
 
     componentWillUnmount() {
-        //this.props.leave();
+        this.props.leave();
     }
 
     render() {
@@ -31,6 +33,16 @@ class BattleshipsComponent extends React.Component {
         }
         return (
             <div style={styles.page}>
+                {
+                    this.props.shipArrangeScreen ?
+                    this.props.finishedShipArrange &&
+                    <GameAlertUIContainer text="Waiting for Opponent" /> :
+                    !this.props.opponent ? 
+                    <GameAlertUIContainer text="Opponent Has Left" /> :
+                    (!this.props.finished && !this.props.isTurn) ?
+                    <GameAlertUIContainer text="Opponent's Turn" /> :
+                    <GameOverUIContainer />
+                }
                 <GameHeaderContainer readyScreen={this.props.shipArrangeScreen} playersReady={playersReady} />
 
                 <div style={styles.main}>

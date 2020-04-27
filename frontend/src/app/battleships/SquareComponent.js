@@ -1,6 +1,8 @@
 import React from 'react';
 import styles from './styles.Square.css';
 import Radium from 'radium';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faBomb } from '@fortawesome/free-solid-svg-icons';
 
 const LABEL_MAP = {
     1: 'A',
@@ -42,18 +44,28 @@ class SquareComponent extends React.Component {
                 return this.props.placedShips[key].includes(this.props.id);
             });
         }
+
+        let hitSquare = false;
+        if (this.props.isOpponentBoard) {
+            hitSquare = this.props.hitSquares.find(square => square.id === this.props.id);
+        } else {
+
+        }
         
         let hoveredSquare = null;
 
         if (this.props.shipSelected) {
             hoveredSquare = this.props.hoverSquares.includes(this.props.id);
         }
-        let squareStyle = Object.assign({}, styles.square,
+        let ownBoardStyle = Object.assign({}, styles.square,
             hoveredSquare && styles.square.shipSquare,
             placed && styles.square.shipSquare,
-            (this.props.isOpponentBoard || this.props.shipArrangeScreen) && styles.square.hover
+            this.props.shipArrangeScreen && styles.square.hover
         );
-        
+        let opponentBoardStyle = Object.assign({}, styles.square,
+            styles.square.hover,
+            hitSquare && styles.square.hover
+        );
         return (
             this.props.id === 0 ?
             <div style={styles.label} /> :
@@ -62,24 +74,22 @@ class SquareComponent extends React.Component {
             isColumnLabel ? 
             <div style={labelStyle}>{String(this.props.id).slice(1)}</div> :
             this.props.shipArrangeScreen ?
-            <div style={squareStyle} onMouseEnter={() => this.props.showShip(this.props.id)} onClick = {() => this.click()}>
-                <span style={styles.iconHover}>
+            <div style={ownBoardStyle} onMouseEnter={() => this.props.showShip(this.props.id)} onClick = {() => this.click()}>
+                <div style={styles.icon}>
                     {
                         (hoveredSquare && !this.props.isValidHover) && 'x'
                     }
-                </span>
+                </div>
             </div> :
             !this.props.isOpponentBoard ?
-            <div style={squareStyle}></div> :
-            <div style={squareStyle} onClick = {() => this.click()}>
-            
-                <span style={styles.iconHover}>
-                    
-                </span>
-            
-                <span style={styles.iconPlaced}>
-                    
-                </span>
+            <div style={ownBoardStyle}></div> :
+            <div style={opponentBoardStyle} onClick = {() => this.click()}>
+                <div style={styles.icon}>
+                    {
+                        (hitSquare && hitSquare[0].ship) &&
+                        <FontAwesomeIcon icon={faBomb} />
+                    }
+                </div>
             </div>
         )
     }

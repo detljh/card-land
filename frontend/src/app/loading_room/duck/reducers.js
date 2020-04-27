@@ -5,7 +5,7 @@ const ROOM_INITIAL_STATE = {
     players: [],
     currentPlayerIndex: null,
     opponent: null,
-    countdown: 5,
+    countdown: 1,
     started: false,
     ready: false,
     gameType: null

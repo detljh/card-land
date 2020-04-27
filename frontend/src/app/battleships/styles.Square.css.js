@@ -29,7 +29,7 @@ let styles = {
             fontSize: '12px'
         }
     },
-    iconHover: {
+    icon: {
         display: 'flex',
         color: 'red',
         zIndex: '99'

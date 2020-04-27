@@ -7,7 +7,8 @@ const mapStateToProps = (state) => {
         shipArrangeScreen: state.bs.game.shipArrangeScreen,
         queued: state.home.socket.queued,
         playerOneState: state.bs.game.playerOneState,
-        playerTwoState: state.bs.game.playerTwoState
+        playerTwoState: state.bs.game.playerTwoState,
+        finishedShipArrange: state.bs.arrange.finishedShipArrange
     }
 }
 

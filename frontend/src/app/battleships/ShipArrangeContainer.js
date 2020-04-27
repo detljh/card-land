@@ -4,7 +4,7 @@ import { bsOperations } from './duck';
 
 const mapStateToProps = (state) => {
     return {
-        displayReadyButton: state.bs.ui.displayReadyButton
+        displayReadyButton: state.bs.ui.displayReadyButton,
     }
 }
 

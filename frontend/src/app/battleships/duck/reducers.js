@@ -6,7 +6,7 @@ const GAME_INITIAL_STATE = {
     finished: false,
     winner: null,
     playerOneState: null,
-    playerOneState: null
+    playerTwoState: null
 }
 
 const gameReducer = (state=GAME_INITIAL_STATE, action) => {
@@ -33,7 +33,8 @@ const ARRANGE_INITIAL_STATE = {
     hoverSquares: [],
     isValidHover: true,
     horizontal: true,
-    placedShips: {}
+    placedShips: {},
+    finishedShipArrange: false
 }
 
 const arrangeReducer = (state=ARRANGE_INITIAL_STATE, action) => {
@@ -59,6 +60,10 @@ const arrangeReducer = (state=ARRANGE_INITIAL_STATE, action) => {
         case types.CLEAR_SELECTED_SHIP:
             return Object.assign({}, state, {
                 shipSelected: null
+            });
+        case types.FINISH_SHIP_ARRANGE:
+            return Object.assign({}, state, {
+                finishedShipArrange: true
             });
         default:
             return state;

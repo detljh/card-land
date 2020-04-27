@@ -8,7 +8,8 @@ const mapStateToProps = (state) => {
         hoverSquares: state.bs.arrange.hoverSquares,
         isValidHover: state.bs.arrange.isValidHover,
         placedShips: state.bs.arrange.placedShips,
-        shipSelected: state.bs.arrange.shipSelected
+        shipSelected: state.bs.arrange.shipSelected,
+        // hitSquares: !state.bs.game.shipArrangeScreen ? state.home.auth.user.username === state.bs.game.playerOneState.username ? playerOneState.hitSquares : playerTwoState.hitSquares : []
     }
 }
 

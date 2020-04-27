@@ -30,8 +30,7 @@ let styles = {
     },
     disabled: {
         zIndex: '999',
-        position: 'absolute',
-        backgroundColor: 'red'
+        position: 'absolute'
     }
 }
 

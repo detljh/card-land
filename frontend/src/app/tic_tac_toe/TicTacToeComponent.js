@@ -4,7 +4,7 @@ import history from '../../history';
 import SquareContainer from './SquareContainer';
 import Radium from 'radium';
 import GameOverUIContainer from '../utils/GameOverUIContainer';
-import GameTurnUIContainer from '../utils/GameTurnUIContainer';
+import GameAlertUIContainer from '../utils/GameAlertUIContainer';
 import GameHeaderContainer from '../utils/GameHeaderContainer';
 
 class TicTacToeComponent extends React.Component {
@@ -22,8 +22,10 @@ class TicTacToeComponent extends React.Component {
         return (
             <div style={styles.page}>
                 {
-                    (!this.props.opponent || (!this.props.finished && !this.props.isTurn)) ?
-                    <GameTurnUIContainer /> :
+                    !this.props.opponent ? 
+                    <GameAlertUIContainer text="Opponent Has Left" /> :
+                    (!this.props.finished && !this.props.isTurn) ?
+                    <GameAlertUIContainer text="Opponent's Turn" /> :
                     <GameOverUIContainer />
                 }
 

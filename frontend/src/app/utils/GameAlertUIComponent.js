@@ -5,7 +5,7 @@ import { CSSTransition } from 'react-transition-group';
 import '../transitions.scss';
 import styles from './styles.GameUI.css';
 
-class GameTurnUIComponent extends React.Component {
+class GameAlertUIComponent extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -37,9 +37,7 @@ class GameTurnUIComponent extends React.Component {
                         unmountOnExit>
                         <div style={styles.displayAlert}>
                             {
-                                this.props.opponent ?  
-                                <span>Opponent's Turn</span> : 
-                                <span>Opponent has left</span>
+                                this.props.text
                             }
                         </div>
                     </CSSTransition>
@@ -49,4 +47,4 @@ class GameTurnUIComponent extends React.Component {
     }
 }
 
-export default Radium(GameTurnUIComponent);
+export default Radium(GameAlertUIComponent);
