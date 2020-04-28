@@ -62,6 +62,18 @@ const displayReadyButton = (value) => {
     }
 }
 
+const resetArrange = () => {
+    return {
+        type: types.RESET_ARRANGE
+    }
+}
+
+const resetUI = () => {
+    return {
+        type: types.BS_RESET_UI
+    }
+}
+
 export default {
     takeTurn,
     reset,
@@ -71,5 +83,7 @@ export default {
     rotateShip,
     updatePlacedShips,
     displayReadyButton,
-    finishShipArrange
+    finishShipArrange,
+    resetArrange,
+    resetUI
 }

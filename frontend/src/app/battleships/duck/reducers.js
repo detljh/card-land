@@ -63,13 +63,15 @@ const arrangeReducer = (state=ARRANGE_INITIAL_STATE, action) => {
             return Object.assign({}, state, {
                 finishedShipArrange: true
             });
+        case types.RESET_ARRANGE:
+            return ARRANGE_INITIAL_STATE;
         default:
             return state;
     }
 }
 
 const UI_INITIAL_STATE = {
-    displayReadyButton: true
+    displayReadyButton: false
 }
 
 const uiReducer = (state=UI_INITIAL_STATE, action) => {
@@ -78,6 +80,8 @@ const uiReducer = (state=UI_INITIAL_STATE, action) => {
             return Object.assign({}, state, {
                 displayReadyButton: action.value
             });
+        case types.BS_RESET_UI:
+            return UI_INITIAL_STATE;
         default:
             return state;
     }

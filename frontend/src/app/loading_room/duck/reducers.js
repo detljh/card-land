@@ -5,7 +5,7 @@ const ROOM_INITIAL_STATE = {
     players: [],
     currentPlayerIndex: null,
     opponent: null,
-    countdown: 1,
+    countdown: 5,
     started: false,
     ready: false,
     gameType: null
@@ -69,7 +69,6 @@ const uiReducer = (state=UI_INITIAL_STATE, action) => {
                 resetRequestPrompt: false
             });
         case types.DISPLAY_ALERT:
-            console.log(action);
             return Object.assign({}, state, {
                 displayAlert: action.value,
             },

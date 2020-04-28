@@ -4,8 +4,8 @@ const BattleshipsState = mongoose.model('BattleshipsState');
 
 const updateGame = (io, data, room) => {
     let update = {};
+    let currentPlayer = room.players[room.currentPlayerIndex];
     if (data.placedShips) {
-        let currentPlayer = room.players[room.currentPlayerIndex];
         if (data.username === currentPlayer.username) {
             // player one
             update.playerOneState = {
@@ -39,7 +39,15 @@ const destroy = (roomId) => {
     });
 }
 
+const reset = (roomId, io) => {
+    BattleshipsState.destroy(roomId, (err) => {
+        if (err) return console.log(err);
+        io.in(roomId).emit(serverEvents.ACCEPTED_RESET);
+    });
+}
+
 module.exports = {
     updateGame,
-    destroy
+    destroy,
+    reset
 }

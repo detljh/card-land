@@ -256,7 +256,16 @@ module.exports = (io, socket) => {
                         disconnect(io, socket);
                     } else {
                         io.in(room._id).emit(serverEvents.UPDATE_ROOM, { room: room });
-                        io.in(room._id).emit(serverEvents.ACCEPTED_RESET);
+                        switch(room.gameType) {
+                            case gameTypes.TIC_TAC_TOE:
+                                tictactoe.reset(room._id, io);
+                                break;
+                            case gameTypes.BATTLESHIPS:
+                                battleships.reset(room._id, io);
+                                break;
+                            default:
+                                return;
+                        }
                     }
                 });
             });

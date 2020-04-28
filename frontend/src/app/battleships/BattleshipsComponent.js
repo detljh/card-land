@@ -7,8 +7,6 @@ import styles from './styles.Battleships.css';
 import GameContainer from './GameContainer';
 import ShipArrangeContainer from './ShipArrangeContainer';
 import AlertUIContainer from '../utils/AlertUIContainer';
-import { CSSTransition } from 'react-transition-group';
-import '../transitions.scss';
 
 class BattleshipsComponent extends React.Component {
     constructor(props) {
@@ -33,6 +31,7 @@ class BattleshipsComponent extends React.Component {
         if (this.props.playerTwoState) {
             playersReady.push(this.props.playerTwoState.username);
         }
+
         return (
             <div style={styles.page}>
                 {

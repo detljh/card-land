@@ -3,7 +3,6 @@ import sActions from '../../../socket/actions';
 import { roomOperations } from '../../loading_room/duck';
 
 const setGameState = Creators.setGameState;
-const reset = Creators.reset;
 const rotateShip = Creators.rotateShip;
 
 const SHIP_MAP = {
@@ -39,9 +38,7 @@ const takeTurn = (id) => {
         let payload = {};
         if (playerOneState.username === username) {
             payload.playerOneState = {...playerState};
-            payload.playerTwoState = {...opponentState};
         } else {
-            payload.playerOneState = {...opponentState};
             payload.playerTwoState = {...playerState};
         }
 
@@ -61,6 +58,7 @@ const takeTurn = (id) => {
 
 const checkStatus = (id, currentPlayer, opponentState, playerState) => {
     let hit = Object.keys(opponentState.placedShips).find(key => opponentState.placedShips[key].includes(id));
+    
     let hitSquares = playerState.hitSquares ? playerState.hitSquares : [];
     if (hit) {
         let numHit = playerState[hit] ? playerState[hit] : 0;
@@ -70,9 +68,14 @@ const checkStatus = (id, currentPlayer, opponentState, playerState) => {
         playerState.hitSquares = hitSquares;
         playerState[hit] = numHit + 1;
 
-        if (SHIP_MAP[hit] === playerState[hit]) {
+        let shipName =  hit;
+        if (/\d/.test(shipName)) {
+            shipName = shipName.slice(0, -2);
+        }
+
+        if (SHIP_MAP[shipName] === playerState[hit]) {
             playerState.shipsDestroyed = shipsDestroyed + 1;
-            if (shipsDestroyed === SHIP_MAP.totalShips) {
+            if (playerState.shipsDestroyed === SHIP_MAP.totalShips) {
                 return { end: true, winner: currentPlayer };
             }
             return { end: false, winner: null, shipDestroyed: true };
@@ -145,13 +148,13 @@ const showShip = (hoveredSquareId) => {
 const placeShip = () => {
     return (dispatch, getState) => {
         let isValidHover = getState().bs.arrange.isValidHover;
-        let hoverSquares = getState().bs.arrange.hoverSquares;
+        let shipSelected = getState().bs.arrange.shipSelected;
 
-        if (!isValidHover || hoverSquares.length === 0) {
+        if (!isValidHover || shipSelected === null) {
             return;
         }
 
-        let shipSelected = getState().bs.arrange.shipSelected;
+        let hoverSquares = getState().bs.arrange.hoverSquares;
         let placedShips = getState().bs.arrange.placedShips;
         let updated = Object.assign({}, placedShips, {
             [shipSelected]: hoverSquares
@@ -161,7 +164,7 @@ const placeShip = () => {
         dispatch(Creators.selectShip(null));
 
         let numPlaced = Object.keys(updated).length;
-        if (numPlaced === 1) {
+        if (numPlaced === SHIP_MAP.totalShips) {
             dispatch(Creators.displayReadyButton(true));
         }
     }
@@ -177,6 +180,14 @@ const ready = () => {
         dispatch(Creators.displayReadyButton(false));
         dispatch(Creators.finishShipArrange());
         dispatch(sActions.sUpdateGameState(state));
+    }
+}
+
+const reset = () => {
+    return (dispatch) => {
+        dispatch(Creators.reset());
+        dispatch(Creators.resetArrange());
+        dispatch(Creators.resetUI());
     }
 }
 

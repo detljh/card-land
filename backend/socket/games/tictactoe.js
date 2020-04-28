@@ -22,7 +22,15 @@ const destroy = (roomId) => {
     });
 }
 
+const reset = (roomId, io) => {
+    TicTacToeState.destroy(roomId, (err) => {
+        if (err) return console.log(err);
+        io.in(room._id).emit(serverEvents.ACCEPTED_RESET);
+    });
+}
+
 module.exports = {
     updateGame,
-    destroy
+    destroy,
+    reset
 }
