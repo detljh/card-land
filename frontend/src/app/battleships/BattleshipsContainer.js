@@ -12,8 +12,7 @@ const mapStateToProps = (state) => {
         playerOneState: state.bs.game.playerOneState,
         playerTwoState: state.bs.game.playerTwoState,
         finishedShipArrange: state.bs.arrange.finishedShipArrange,
-        alert: state.room.ui.alert,
-        displayAlert: state.room.ui.displayAlert
+        alert: state.room.ui.alert
     }
 }
 

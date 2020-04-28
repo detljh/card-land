@@ -7,6 +7,8 @@ import styles from './styles.Battleships.css';
 import GameContainer from './GameContainer';
 import ShipArrangeContainer from './ShipArrangeContainer';
 import AlertUIContainer from '../utils/AlertUIContainer';
+import { CSSTransition } from 'react-transition-group';
+import '../transitions.scss';
 
 class BattleshipsComponent extends React.Component {
     constructor(props) {
@@ -43,11 +45,8 @@ class BattleshipsComponent extends React.Component {
                     <AlertUIContainer alert="Opponent's Turn" isClickAlert={true} /> :
                     <GameOverUIContainer />
                 }
-                
-                {
-                    this.props.displayAlert &&
-                    <AlertUIContainer alert={this.props.alert} isClickAlert={false} />
-                }
+
+                <AlertUIContainer alert={this.props.alert} isClickAlert={false} />
 
                 <GameHeaderContainer readyScreen={this.props.shipArrangeScreen} playersReady={playersReady} />
 

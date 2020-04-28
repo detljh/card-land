@@ -3,7 +3,6 @@ import Radium from 'radium';
 import { CSSTransition } from 'react-transition-group';
 import '../transitions.scss';
 import styles from './styles.GameUI.css';
-import ExpireComponent from './ExpireComponent';
 
 class AlertUIComponent extends React.Component {
     constructor(props) {
@@ -15,7 +14,6 @@ class AlertUIComponent extends React.Component {
     }
 
     handleClick() {
-        console.log(this.props.isClickAlert);
         if (this.props.isClickAlert) {
             this.setState({
                 clicked: true
@@ -30,11 +28,27 @@ class AlertUIComponent extends React.Component {
 
     render() {
         return (
+            this.props.isClickAlert ?
             <div style={styles.disabledPage} onClick={() => this.handleClick()}>
-                <ExpireComponent delay={ 1000 } removeAlert={this.props.removeAlert}>
+                <CSSTransition
+                    in={ this.state.clicked }
+                    timeout={ 1000 }
+                    classNames="fade"
+                    unmountOnExit>
+                    <div style={styles.displayAlert}>
+                        {this.props.alert}
+                    </div>
+                </CSSTransition>
+            </div> :
+            <CSSTransition
+            in={ this.props.displayAlert }
+            timeout={ 1000 }
+            classNames="fade"
+            onEntered={this.props.removeAlert}
+            unmountOnExit>
+                <div style={styles.disabledPage}>
                     <CSSTransition
-                        in={ this.state.clicked || this.props.displayAlert }
-                        appear={ true }
+                        in={ true }
                         timeout={ 1000 }
                         classNames="fade"
                         unmountOnExit>
@@ -42,8 +56,8 @@ class AlertUIComponent extends React.Component {
                             {this.props.alert}
                         </div>
                     </CSSTransition>
-                </ExpireComponent>
-            </div>
+                </div>
+            </CSSTransition>
         )
     }
 }

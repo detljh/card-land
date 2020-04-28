@@ -6,6 +6,7 @@ let styles = {
         height: '100vh',
         zIndex: '999',
         position: 'fixed',
+        display: 'flex',
         finished: {
             backgroundColor: 'hsla(0, 0%, 50%, 0.5)',
         }

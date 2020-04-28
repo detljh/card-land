@@ -72,8 +72,9 @@ const uiReducer = (state=UI_INITIAL_STATE, action) => {
             console.log(action);
             return Object.assign({}, state, {
                 displayAlert: action.value,
-                alert: action.alert
-            });
+            },
+                action.alert !== null && {alert: action.alert}
+            );
         case types.RESET_UI:
             return UI_INITIAL_STATE;
         default:

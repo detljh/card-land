@@ -4,7 +4,6 @@ const BattleshipsState = mongoose.model('BattleshipsState');
 
 const updateGame = (io, data, room) => {
     let update = {};
-    console.log(data);
     if (data.placedShips) {
         let currentPlayer = room.players[room.currentPlayerIndex];
         if (data.username === currentPlayer.username) {
@@ -29,7 +28,6 @@ const updateGame = (io, data, room) => {
         if (state.playerOneState && state.playerTwoState) {
             state.shipArrangeScreen = false;
         }
-        console.log(state);
 
         io.in(room._id).emit(serverEvents.UPDATE_GAME, { state: state });
     });
