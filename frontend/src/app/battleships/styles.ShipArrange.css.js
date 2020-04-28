@@ -134,8 +134,8 @@ let styles = {
                 [global.breakPointMedium]: {
                     width: 'calc(60vw / 11 * 4)',
                     height: 'calc(60vw / 11)',
-                    minWidth: 'calc(209px / 11 * 4)',
-                    minHeight: 'calc(209px / 11)'
+                    minWidth: 'calc(275px / 11 * 4)',
+                    minHeight: 'calc(275px / 11)'
                 }
             },
             cruiser: {
@@ -144,8 +144,8 @@ let styles = {
                 [global.breakPointMedium]: {
                     width: 'calc(60vw / 11  * 3)',
                     height: 'calc(60vw / 11)',
-                    minWidth: 'calc(209px / 11 * 3)',
-                    minHeight: 'calc(209px / 11)'
+                    minWidth: 'calc(275px / 11 * 3)',
+                    minHeight: 'calc(275px / 11)'
                 }
             },
             submarine: {
@@ -154,8 +154,8 @@ let styles = {
                 [global.breakPointMedium]: {
                     width: 'calc(60vw / 11 * 2)',
                     height: 'calc(60vw / 11)',
-                    minWidth: 'calc(209px / 11 * 2)',
-                    minHeight: 'calc(209px / 11)'
+                    minWidth: 'calc(275px / 11 * 2)',
+                    minHeight: 'calc(275px / 11)'
                 }
             },
             clicked: {

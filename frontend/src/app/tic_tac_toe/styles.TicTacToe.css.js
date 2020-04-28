@@ -12,19 +12,22 @@ let styles = {
         justifyContent: 'center',
         alignItems: 'center',
         marginTop: '60px',
-        padding: '20px 5px'
+        padding: '20px 5px',
+        minWidth: '200px'
     },
     game: {
         margin: 'auto',
-        height: '400px',
-        width: '400px',
+        height: '350px',
+        width: '350px',
         display: 'grid',
         gridTemplate: 'repeat(3, minmax(0, 1fr)) / repeat(3, minmax(0, 1fr))',
         boxShadow: `0 0 0 2px white, 0 0 7px 4px ${global.shadowColor}`,
         borderRadius: '10px',
         [global.breakPointMedium]: {
             width: '60vw',
-            height: 'calc(60vw)'
+            height: 'calc(60vw)',
+            minWidth: '200px',
+            minHeight: '200px'
         }
     },
     header: {

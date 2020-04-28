@@ -13,7 +13,7 @@ let mainColor = 'red';
 let highlightColor = 'hsla(0, 100%, 70%)';
 let shadowColor = 'hsl(0, 0%, 80%)';
 let breakPointMedium = '@media screen and (max-width: 768px)';
-let breakPointLarge = '@media screen and (max-width: 900px)';
+let breakPointLarge = '@media screen and (min-width: 768px) and (max-width: 900px)';
 let spinner = {
     animation: 'x 1.5s ease-in-out 0s infinite',
     animationName: spin,

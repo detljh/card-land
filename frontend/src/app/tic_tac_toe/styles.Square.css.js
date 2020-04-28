@@ -19,7 +19,7 @@ let styles = {
         fontSize: '130px',
         overflow: 'hidden',
         [global.breakPointMedium]: {
-            fontSize: 'calc(60vw/3)'
+            fontSize: 'calc(2em + 15vw)'
         }
     },
     square0: {

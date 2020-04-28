@@ -80,7 +80,7 @@ let styles = {
         [global.breakPointLarge]: {
             fontSize: '1em'
         },
-        [global.breakPointLarge]: {
+        [global.breakPointMedium]: {
             fontSize: '0.5em'
         }
     },
