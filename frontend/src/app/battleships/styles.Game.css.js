@@ -12,6 +12,14 @@ let styles = {
             flexDirection: 'column'
         }
     },
+    boardWrapper: {
+        width: '100%',
+        margin: 'auto',
+        minWidth: '300px',
+        display: 'flex',
+        alignItems: 'center',
+        flexDirection: 'column'
+    },
     board: {
         margin: '20px 0',
         height: '407px',
@@ -25,7 +33,9 @@ let styles = {
         },
         [global.breakPointMedium]: {
             width: '60vw',
-            height: 'calc(60vw)' 
+            height: 'calc(60vw)',
+            minWidth: '275px',
+            minHeight: '275px' 
         }
     },
     disabled: {

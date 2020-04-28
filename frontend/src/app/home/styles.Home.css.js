@@ -69,7 +69,7 @@ let styles = {
     },
     headerCollapseText: {
         color: 'white',
-        fontSize: '1.4em',
+        fontSize: '1.2em',
         opacity: '0',
         position: 'fixed',
         transition: 'all 0.7s',
@@ -133,7 +133,8 @@ let styles = {
         left: '0',
         display: 'flex',
         padding: '50px 20px',
-        justifyContent: 'space-evenly'
+        justifyContent: 'space-evenly',
+        flexWrap: 'wrap'
     },
     formWrapper: {
         display: 'flex',
@@ -167,6 +168,7 @@ let styles = {
         img: {
             width: '100%',
             height: '100%',
+            objectFit: 'cover'
         }
     }
 }

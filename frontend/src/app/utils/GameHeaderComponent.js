@@ -14,11 +14,13 @@ class GameHeaderComponent extends React.Component {
             <div style={styles.header}>
                 <HomeButtonComponent />
 
-                <PlayerInfoComponent username={this.props.user.username} isTurn={this.props.isTurn } spin={false} playersReady={playersReady} />
-                {
-                    this.props.opponent &&
-                    <PlayerInfoComponent username={ this.props.opponent.username} isTurn={!this.props.isTurn} spin={true} playersReady={playersReady} />
-                }
+                <div style={styles.header.contentWrapper}>
+                    <PlayerInfoComponent username={this.props.user.username} isTurn={this.props.isTurn } spin={false} playersReady={playersReady} />
+                    {
+                        this.props.opponent &&
+                        <PlayerInfoComponent username={ this.props.opponent.username} isTurn={!this.props.isTurn} spin={true} playersReady={playersReady} />
+                    }
+                </div>
             </div>
         )
     }

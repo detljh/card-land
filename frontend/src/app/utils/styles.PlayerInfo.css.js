@@ -10,7 +10,7 @@ let style = {
         alignItems: 'center',
         padding: '10px',
         width: '160px',
-        margin: '0 auto',
+        margin: '0 5px',
         transition: 'all 0.5s',
     },
     turnIndicator: {

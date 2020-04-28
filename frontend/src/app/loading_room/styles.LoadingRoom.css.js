@@ -33,22 +33,17 @@ let styles = {
         height: '100vh',
         display: 'grid',
         position: 'fixed',
-        gridTemplateColumns: 'repeat(2, minmax(0, 1fr))'
+        gridTemplateColumns: 'repeat(2, minmax(150px, 1fr))'
     },
     left: {
-        fontSize: '2em',
         textShadow: `2px 2px 0 hsl(0, 0%, 20%)`,
         gridColumn: '1 / 2',
         backgroundColor: global.playerOneColor,
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
-        [global.breakPointMedium]: {
-            fontSize: '1.2em'
-        }
     },
     right: {
-        fontSize: '2em',
         textShadow: `2px 2px 0 hsl(0, 0%, 20%)`,
         gridColumn: '2 / 3',
         display: 'flex',
@@ -56,7 +51,12 @@ let styles = {
         alignItems: 'center',
         fill: {
             backgroundColor: global.playerTwoColor,
-        },
+        }
+    },
+    boxText: {
+        margin: 'auto',
+        display: 'inline-block',
+        fontSize: '2em',
         [global.breakPointMedium]: {
             fontSize: '1.2em'
         }

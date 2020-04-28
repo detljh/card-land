@@ -6,6 +6,7 @@ import gameTypes from '../../../../constants/gameTypes';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 import ticIcon from '../../../public/icon/tictactoe_icon.PNG';
+import bsIcon from '../../../public/icon/battleships_icon.PNG';
 import { CSSTransition } from 'react-transition-group';
 import '../transitions.scss';
 
@@ -123,7 +124,7 @@ class HomeComponent extends React.Component {
                         <span>Tic Tac Toe</span>
                     </div>
                     <div key={`${gameTypes.BATTLESHIPS}_icon`} style={styles.icon} onClick={() => this.props.joinQueue(gameTypes.BATTLESHIPS)}>
-                        <img alt="battleships" style={styles.icon.img} />
+                        <img src={bsIcon} alt="battleships" style={styles.icon.img} />
                         <span>Battleships</span>
                     </div>
                 </div>

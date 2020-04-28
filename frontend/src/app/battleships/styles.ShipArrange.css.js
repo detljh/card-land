@@ -3,6 +3,7 @@ import global from '../styles.global.css';
 let styles = {
     game: {
         width: '100%',
+        minWidth: '300px',
         margin: 'auto',
         display: 'flex',
         alignItems: 'center',
@@ -13,7 +14,7 @@ let styles = {
         }
     },
     board: {
-        margin: '10px',
+        margin: '10px 0',
         height: '407px',
         width: '407px',
         display: 'grid',
@@ -21,7 +22,9 @@ let styles = {
         boxShadow: `0 0 7px 4px ${global.shadowColor}`,
         [global.breakPointMedium]: {
             width: '60vw',
-            height: 'calc(60vw)' 
+            height: 'calc(60vw)',
+            minWidth: '275px',
+            minHeight: '275px' 
         }
     },
     readyButton: {
@@ -29,7 +32,7 @@ let styles = {
         padding: '10px',
         display: 'inline-block',
         cursor: 'pointer',
-        position: 'absolute',
+        position: 'fixed',
         top: '100px',
         left: '20px',
         borderRadius: '10px',
@@ -47,9 +50,7 @@ let styles = {
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'space-evenly',
-        alignItems: 'flex-start',
-        [global.breakPointLarge]: {
-        }
+        alignItems: 'flex-start'
     },
     rotateShipIcon: {
         fontSize: '1.5em',
@@ -122,7 +123,9 @@ let styles = {
                 gridTemplateColumns: 'repeat(5, minmax(0, 1fr))',
                 [global.breakPointMedium]: {
                     width: 'calc(60vw / 11 * 5)',
-                    height: 'calc(60vw / 11)'
+                    height: 'calc(60vw / 11)',
+                    minWidth: 'calc(275px / 11 * 5)',
+                    minHeight: 'calc(275px / 11)'
                 }
             },
             battleship: {
@@ -130,7 +133,9 @@ let styles = {
                 gridTemplateColumns: 'repeat(4, minmax(0, 1fr))',
                 [global.breakPointMedium]: {
                     width: 'calc(60vw / 11 * 4)',
-                    height: 'calc(60vw / 11)'
+                    height: 'calc(60vw / 11)',
+                    minWidth: 'calc(209px / 11 * 4)',
+                    minHeight: 'calc(209px / 11)'
                 }
             },
             cruiser: {
@@ -138,7 +143,9 @@ let styles = {
                 gridTemplateColumns: 'repeat(3, minmax(0, 1fr))',
                 [global.breakPointMedium]: {
                     width: 'calc(60vw / 11  * 3)',
-                    height: 'calc(60vw / 11)'
+                    height: 'calc(60vw / 11)',
+                    minWidth: 'calc(209px / 11 * 3)',
+                    minHeight: 'calc(209px / 11)'
                 }
             },
             submarine: {
@@ -146,7 +153,9 @@ let styles = {
                 gridTemplateColumns: 'repeat(2, minmax(0, 1fr))',
                 [global.breakPointMedium]: {
                     width: 'calc(60vw / 11 * 2)',
-                    height: 'calc(60vw / 11)'
+                    height: 'calc(60vw / 11)',
+                    minWidth: 'calc(209px / 11 * 2)',
+                    minHeight: 'calc(209px / 11)'
                 }
             },
             clicked: {

@@ -29,7 +29,15 @@ let styles = {
         display: 'flex',
         padding: '5px',
         zIndex: '9999',
-        backgroundColor: 'hsl(0, 10%, 90%)'
+        backgroundColor: 'hsl(0, 10%, 90%)',
+        contentWrapper: {
+            height: '100%',
+            width: '100%',
+            minWidth: '350px',
+            margin: 'auto',
+            display: 'flex',
+            justifyContent: 'space-around'
+        }
     },
     displayAlert: Object.assign({}, global.alert, {
         margin: 'auto'

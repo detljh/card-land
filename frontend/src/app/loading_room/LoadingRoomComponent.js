@@ -48,7 +48,7 @@ class LoadingRoomComponent extends React.Component {
                         timeout={{ enter: 300, exit: 500 }}
                         classNames="slideLeft">
                         <div style={styles.left}>
-                            {this.props.user.username}
+                            <p style={styles.boxText}>{this.props.user.username}</p>
                         </div>
                     </CSSTransition>
                     <CSSTransition
@@ -56,9 +56,11 @@ class LoadingRoomComponent extends React.Component {
                         timeout={{ enter: 300, exit: 500 }}
                         classNames="slideRight">
                         <div style={rightStyle}>
-                        {  
-                            this.props.opponent && this.props.opponent.username
-                        }
+                            <p style={styles.boxText}>
+                                {  
+                                    this.props.opponent && this.props.opponent.username
+                                }
+                            </p>
                         </div>
                     </CSSTransition>
                 </div>
