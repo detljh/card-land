@@ -35,11 +35,11 @@ class BattleshipsComponent extends React.Component {
         return (
             <div style={styles.page}>
                 {
+                    !this.props.opponent ? 
+                    <AlertUIContainer alert="Opponent Has Left" isClickAlert={true} /> :
                     this.props.shipArrangeScreen ?
                     this.props.finishedShipArrange &&
                     <AlertUIContainer alert="Waiting for Opponent" isClickAlert={true} /> :
-                    !this.props.opponent ? 
-                    <AlertUIContainer alert="Opponent Has Left" isClickAlert={true} /> :
                     (!this.props.finished && !this.props.isTurn) ?
                     <AlertUIContainer alert="Opponent's Turn" isClickAlert={true} /> :
                     <GameOverUIContainer />
