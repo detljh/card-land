@@ -8,13 +8,13 @@ let styles = {
         display: 'flex',
         alignItems: 'center',
         flexDirection: 'row',
-        justifyContent: 'space-evenly',
+        justifyContent: 'center',
         [global.breakPointMedium]: {
             flexDirection: 'column'
         }
     },
     board: {
-        margin: '10px 0',
+        margin: '10px 10px 10px 30px',
         height: '407px',
         width: '407px',
         display: 'grid',
@@ -36,17 +36,16 @@ let styles = {
         top: '100px',
         left: '20px',
         borderRadius: '10px',
-        boxShadow: '0 0 3px 2px hsl(100, 50%, 40%)',
+        boxShadow: '0 0 0px 2px white, 0 0 0px 4px hsl(100, 50%, 80%)',
         color: 'hsl(100, 50%, 10%)',
         transition: 'all 0.5s',
         ':hover': {
-            boxShadow: '0 0 3px 2px hsl(100, 50%, 40%), 0 0 1px 2px inset hsl(100, 50%, 40%)',
+            boxShadow: '0 0 0px 2px white, 0 0 0px 5px hsl(100, 50%, 40%)',
             transition: 'all 0.5s'
         }
     },
     menu: {
         margin: '20px 5px 20px 0',
-        flexBasis: '40%',
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'space-evenly',

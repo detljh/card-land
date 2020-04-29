@@ -164,7 +164,7 @@ const placeShip = () => {
         dispatch(Creators.selectShip(null));
 
         let numPlaced = Object.keys(updated).length;
-        if (numPlaced === 1) {
+        if (numPlaced === SHIP_MAP.totalShips) {
             dispatch(Creators.displayReadyButton(true));
         }
     }

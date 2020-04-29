@@ -33,6 +33,11 @@ class TooltipUIComponent extends React.Component {
             this.props.position === "right" && styles.tooltip.arrow.right
         );
 
+        let textStyle = Object.assign({}, styles.tooltip.text,
+            this.props.position === "top" && styles.tooltip.text.top,
+            this.props.position === "left" && styles.tooltip.text.left
+        );
+
         return (
             <div style={styles.tooltipContainer}>
                 <CSSTransition
@@ -41,11 +46,11 @@ class TooltipUIComponent extends React.Component {
                     classNames="fade500"
                     unmountOnExit>
                         <div style={tooltipStyle}>
-                            <div style={styles.tooltip.text}>{this.props.text}</div>
+                            <div style={textStyle}>{this.props.text}</div>
                             <div style={arrowStyle} />
                         </div>
                 </CSSTransition>
-                <div onMouseOver={() => this.setShowTooltip(true)} onMouseLeave={() => this.setShowTooltip(false)}>
+                <div style={{margin: '5px'}} onMouseOver={() => this.setShowTooltip(true)} onMouseLeave={() => this.setShowTooltip(false)}>
                     {this.props.children}
                 </div>
             </div>

@@ -36,7 +36,7 @@ let styles = {
             minWidth: '350px',
             margin: 'auto',
             display: 'flex',
-            justifyContent: 'space-around'
+            justifyContent: 'space-evenly'
         }
     },
     displayAlert: Object.assign({}, global.alert, {
@@ -64,30 +64,42 @@ let styles = {
         alignItems: 'center',
         flexDirection: 'column',
         justifyContent: 'center',
-        width: '300px',
         zIndex: '9999'
     },
     tooltip: {
         position: 'absolute',
-        display: 'inline-block',
+        width: '300px',
+        display: 'flex',
         top: {
-            bottom: '115%'
+            bottom: '115%',
+            justifyContent: 'center'
         },
         bottom: {
-            top: '115%'
+            top: '115%',
+            justifyContent: 'center'
         },
         left: {
-            right: '60%'
+            right: '130%',
+            alignItems: 'center',
         },
         right: {
-            left: '60%'
+            left: '130%',
+            alignItems: 'center'
         },
         text: {
             padding: '5px',
             backgroundColor: 'hsla(0, 0%, 0%, 0.9)',
             color: 'white',
             fontSize: '0.8em',
-            textAlign: 'center'
+            textAlign: 'center',
+            display: 'inline-block',
+            position: 'absolute',
+            top: {
+                bottom: '100%'
+            },
+            left: {
+                right: '0%'
+            }
         },
         arrow: {
             position: 'absolute',

@@ -22,16 +22,16 @@ let styles = {
         margin: '20px 0'
     },
     boardTitle: {
-        margin: '5px',
         fontStyle: 'bold',
         backgroundColor: 'hsl(170, 50%, 80%)',
         color: 'white',
-        boxShadow: '0 0 1px 0 white, 0 0 1px 0 hsl(10, 50%, 80%)',
+        boxShadow: '0 0 0 2px white, 0 0 0 4px hsl(170, 50%, 80%)',
         borderRadius: '5px',
         padding: '5px',
-        borderBox: 'content-box'
+        cursor: 'default'
     },
     board: {
+        margin: '20px 0',
         height: '407px',
         width: '407px',
         display: 'grid',
