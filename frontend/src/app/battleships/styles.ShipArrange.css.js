@@ -62,37 +62,6 @@ let styles = {
             transition: 'all 0.5s'
         }
     },
-    tooltipContainer: {
-        position: 'relative',
-        display: 'flex',
-        alignItems: 'center',
-        flexDirection: 'column',
-        justifyContent: 'center',
-    },
-    tooltip: {
-        position: 'absolute',
-        bottom: '115%',
-        display: 'inline-block',
-        text: {
-            padding: '5px',
-            backgroundColor: 'hsla(0, 0%, 0%, 0.9)',
-            color: 'white',
-            fontSize: '0.8em',
-            textAlign: 'center',
-            zIndex: '99',
-            whiteSpace: 'nowrap'
-        },
-        arrow: {
-            position: 'absolute',
-            left: '50%',
-            marginLeft: '-7px',
-            top: '100%',
-            borderTop: '7px solid hsla(0, 0%, 0%, 0.9)',
-            borderBottom: '7px solid transparent',
-            borderLeft: '7px solid transparent',
-            borderRight: '7px solid transparent',
-        }
-    },
     option: {
         margin: '2px ',
         display: 'flex',

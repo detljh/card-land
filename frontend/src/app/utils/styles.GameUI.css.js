@@ -57,9 +57,42 @@ let styles = {
             marginTop: '20vh'
         })
     },
-    
-    spinner: global.spinner
-
+    spinner: global.spinner,
+    tooltipContainer: {
+        position: 'relative',
+        display: 'flex',
+        alignItems: 'center',
+        flexDirection: 'column',
+        justifyContent: 'center',
+    },
+    tooltip: {
+        position: 'absolute',
+        display: 'inline-block',
+        top: {
+            bottom: '115%'
+        },
+        text: {
+            padding: '5px',
+            backgroundColor: 'hsla(0, 0%, 0%, 0.9)',
+            color: 'white',
+            fontSize: '0.8em',
+            textAlign: 'center',
+            zIndex: '99',
+            whiteSpace: 'nowrap'
+        },
+        arrow: {
+            position: 'absolute',
+            borderTop: '7px solid hsla(0, 0%, 0%, 0.9)',
+            borderBottom: '7px solid transparent',
+            borderLeft: '7px solid transparent',
+            borderRight: '7px solid transparent',
+            top: {
+                left: '50%',
+                marginLeft: '-7px',
+                top: '100%'
+            }
+        }
+    }
 }
 
 export default styles;

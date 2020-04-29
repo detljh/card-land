@@ -5,22 +5,9 @@ import styles from './styles.ShipArrange.css';
 import ShipContainer from './ShipContainer';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSyncAlt } from '@fortawesome/free-solid-svg-icons';
-import CSSTransition from 'react-transition-group/CSSTransition';
-import '../transitions.scss'
+import TooltipUIComponent from '../utils/TooltipUIComponent';
 
 class ShipArrangeComponent extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            showRotateTooltip: false
-        }
-    }
-
-    setShowRotateTooltip(value) {
-        this.setState({
-            showRotateTooltip: value
-        });
-    }
     render() {
         return (
             <div style={styles.game}>
@@ -51,21 +38,11 @@ class ShipArrangeComponent extends React.Component {
                     </div>
                 </div>
 
-                <div style={styles.tooltipContainer}>
-                    <CSSTransition
-                        in={this.state.showRotateTooltip}
-                        timeout={500}
-                        classNames="fade500"
-                        unmountOnExit>
-                            <div style={styles.tooltip}>
-                                <div style={styles.tooltip.text}>Rotate ship</div>
-                                <div style={styles.tooltip.arrow} />
-                            </div>
-                    </CSSTransition>
-                    <div style={styles.rotateShipIcon} onClick={() => this.props.rotateShip()} onMouseOver={() => this.setShowRotateTooltip(true)} onMouseLeave={() => this.setShowRotateTooltip(false)}>
+                <TooltipUIComponent position="top">
+                    <div style={styles.rotateShipIcon} onClick={() => this.props.rotateShip()}>
                         <FontAwesomeIcon icon={faSyncAlt} />
                     </div>
-                </div>
+                </TooltipUIComponent>
                 
                 <div style={styles.board}>
                     {
