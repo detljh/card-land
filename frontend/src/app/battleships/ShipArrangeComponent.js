@@ -38,7 +38,7 @@ class ShipArrangeComponent extends React.Component {
                     </div>
                 </div>
 
-                <TooltipUIComponent position="top">
+                <TooltipUIComponent position="top" text="Rotate ship">
                     <div style={styles.rotateShipIcon} onClick={() => this.props.rotateShip()}>
                         <FontAwesomeIcon icon={faSyncAlt} />
                     </div>

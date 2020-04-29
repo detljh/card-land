@@ -20,11 +20,17 @@ class TooltipUIComponent extends React.Component {
 
     render() {
         let tooltipStyle = Object.assign({}, styles.tooltip,
-            this.props.position === "top" && styles.tooltip.top
+            this.props.position === "top" && styles.tooltip.top,
+            this.props.position === "bottom" && styles.tooltip.bottom,
+            this.props.position === "left" && styles.tooltip.left,
+            this.props.position === "right" && styles.tooltip.right
         );
         
         let arrowStyle = Object.assign({}, styles.tooltip.arrow,
-            this.props.position === "top" && styles.tooltip.arrow.top
+            this.props.position === "top" && styles.tooltip.arrow.top,
+            this.props.position === "bottom" && styles.tooltip.arrow.bottom,
+            this.props.position === "left" && styles.tooltip.arrow.left,
+            this.props.position === "right" && styles.tooltip.arrow.right
         );
 
         return (
@@ -35,7 +41,7 @@ class TooltipUIComponent extends React.Component {
                     classNames="fade500"
                     unmountOnExit>
                         <div style={tooltipStyle}>
-                            <div style={styles.tooltip.text}>Rotate ship</div>
+                            <div style={styles.tooltip.text}>{this.props.text}</div>
                             <div style={arrowStyle} />
                         </div>
                 </CSSTransition>

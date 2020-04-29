@@ -64,6 +64,8 @@ let styles = {
         alignItems: 'center',
         flexDirection: 'column',
         justifyContent: 'center',
+        width: '300px',
+        zIndex: '9999'
     },
     tooltip: {
         position: 'absolute',
@@ -71,25 +73,59 @@ let styles = {
         top: {
             bottom: '115%'
         },
+        bottom: {
+            top: '115%'
+        },
+        left: {
+            right: '60%'
+        },
+        right: {
+            left: '60%'
+        },
         text: {
             padding: '5px',
             backgroundColor: 'hsla(0, 0%, 0%, 0.9)',
             color: 'white',
             fontSize: '0.8em',
-            textAlign: 'center',
-            zIndex: '99',
-            whiteSpace: 'nowrap'
+            textAlign: 'center'
         },
         arrow: {
             position: 'absolute',
-            borderTop: '7px solid hsla(0, 0%, 0%, 0.9)',
-            borderBottom: '7px solid transparent',
-            borderLeft: '7px solid transparent',
-            borderRight: '7px solid transparent',
             top: {
+                borderTop: '7px solid hsla(0, 0%, 0%, 0.9)',
+                borderBottom: '7px solid transparent',
+                borderLeft: '7px solid transparent',
+                borderRight: '7px solid transparent',
                 left: '50%',
                 marginLeft: '-7px',
                 top: '100%'
+            },
+            bottom: {
+                borderTop: '7px solid transparent',
+                borderBottom: '7px solid hsla(0, 0%, 0%, 0.9)',
+                borderLeft: '7px solid transparent',
+                borderRight: '7px solid transparent',
+                left: '50%',
+                marginLeft: '-7px',
+                bottom: '100%'
+            },
+            left: {
+                borderTop: '7px solid transparent',
+                borderBottom: '7px solid transparent',
+                borderLeft: '7px solid hsla(0, 0%, 0%, 0.9)',
+                borderRight: '7px solid transparent',
+                top: '50%',
+                marginTop: '-7px',
+                left: '100%'
+            },
+            right: {
+                borderTop: '7px solid transparent',
+                borderBottom: '7px solid transparent',
+                borderLeft: '7px solid transparent',
+                borderRight: '7px solid hsla(0, 0%, 0%, 0.9)',
+                top: '50%',
+                marginTop: '-7px',
+                right: '100%'
             }
         }
     }
