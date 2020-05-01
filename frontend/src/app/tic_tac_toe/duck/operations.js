@@ -1,15 +1,21 @@
 import Creators from './actions';
 import sActions from '../../../socket/actions';
+import { roomOperations } from '../../loading_room/duck';
 
 const setGameState = Creators.setGameState;
 const reset = Creators.reset;
 
 const takeTurn = (id) => {
     return (dispatch, getState) => {
-        let finished = getState().tic.game.finished;
-        if (finished) {
+        let finished = getState().bs.game.finished;
+        let turnTaken = getState().room.room.turnTaken;
+        console.log(turnTaken);
+        if (finished || turnTaken) {
             return;
         }
+        
+        dispatch(roomOperations.turnTaken(true));
+
         let squares = [...getState().tic.game.squares];
         let currentIcon = getState().tic.game.currentIcon;
         

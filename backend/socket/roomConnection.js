@@ -34,7 +34,7 @@ const disconnect = (io, socket, rooms) => {
             if (roomId == socket.client.id) {
                 return;
             }
-            console.log(roomId);
+
             Room.findById(roomId, (err, room) => {
                 if (err) return console.log(err); 
                 if (room) {

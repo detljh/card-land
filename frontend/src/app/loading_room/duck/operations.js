@@ -9,6 +9,7 @@ import { bsOperations } from '../../battleships/duck';
 const sendResetRequest = Creators.sendResetRequest;
 const waitingResponse = Creators.waitingResponse;
 const displayAlert = Creators.displayAlert;
+const turnTaken = Creators.turnTaken;
 
 let timer = null;
 const tick = (dispatch, getState, cb) => {
@@ -174,5 +175,6 @@ export default {
     reset,
     acceptReset,
     declineReset,
-    displayAlert
+    displayAlert,
+    turnTaken
 }

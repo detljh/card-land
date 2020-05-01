@@ -3,6 +3,7 @@ import styles from './styles.Square.css';
 import Radium from 'radium';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBomb } from '@fortawesome/free-solid-svg-icons';
+import { throttle } from 'lodash';
 
 const LABEL_MAP = {
     1: 'A',
@@ -20,13 +21,20 @@ const LABEL_MAP = {
 class SquareComponent extends React.Component {
     constructor(props) {
         super(props);
+        this.takeTurnThrottled = throttle(this.props.takeTurn, 1500);
+        this.showShipThrottled = throttle(this.props.showShip, 200);
+    }
+
+    componentWillUnmount() {
+        this.takeTurnThrottled.cancel();
+        this.showShipThrottled.cancel();
     }
 
     click(hitSquare) {
         if (this.props.shipArrangeScreen) {
             this.props.placeShip();
         } else if (!hitSquare) {
-            this.props.takeTurn(this.props.id);
+            this.takeTurnThrottled(this.props.id);
         }
     }
 
@@ -43,6 +51,8 @@ class SquareComponent extends React.Component {
             placed = Object.keys(this.props.placedShips).find(key => {
                 return this.props.placedShips[key].includes(this.props.id);
             });
+        } else if (this.props.shipsDestroyed) {
+            placed = this.props.shipsDestroyed.find(e => this.props.oppPlacedShips[e].includes(this.props.id));
         }
 
         let hitSquare = false;
@@ -69,7 +79,8 @@ class SquareComponent extends React.Component {
         );
         let opponentBoardStyle = Object.assign({}, styles.square,
             !hitSquare && styles.square.hover,
-            hitSquare && styles.square.attacked
+            hitSquare && styles.square.attacked,
+            placed && styles.square.shipSquare 
         );
 
         return (
@@ -80,7 +91,7 @@ class SquareComponent extends React.Component {
             isColumnLabel ? 
             <div style={labelStyle}>{String(this.props.id).slice(1)}</div> :
             this.props.shipArrangeScreen ?
-            <div style={ownBoardStyle} onMouseEnter={() => this.props.showShip(this.props.id)} onClick={() => this.click()}>
+            <div style={ownBoardStyle} onMouseEnter={() => this.showShipThrottled(this.props.id)} onClick={() => this.click()}>
                 <div style={styles.icon}>
                     {
                         (hoveredSquare && !this.props.isValidHover) && 'x'

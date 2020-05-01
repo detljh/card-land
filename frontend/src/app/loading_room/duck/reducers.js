@@ -8,7 +8,8 @@ const ROOM_INITIAL_STATE = {
     countdown: 5,
     started: false,
     ready: false,
-    gameType: null
+    gameType: null,
+    turnTaken: false
 }
 
 const roomReducer = (state=ROOM_INITIAL_STATE, action) => {
@@ -24,11 +25,16 @@ const roomReducer = (state=ROOM_INITIAL_STATE, action) => {
                 started: action.payload.started,
                 ready: action.payload.ready,
                 players: action.payload.players,
-                gameType: action.payload.gameType
+                gameType: action.payload.gameType,
+                turnTaken: false
         });
         case types.START_ROOM:
             return Object.assign({}, state, {
                 started: true
+            });
+        case types.TURN_TAKEN:
+            return Object.assign({}, state, {
+                turnTaken: action.value
             });
         case types.RESET_ROOM:
             return ROOM_INITIAL_STATE; 

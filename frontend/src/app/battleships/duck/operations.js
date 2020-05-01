@@ -16,9 +16,12 @@ const SHIP_MAP = {
 const takeTurn = (id) => {
     return (dispatch, getState) => {
         let finished = getState().bs.game.finished;
-        if (finished) {
+        let turnTaken = getState().room.room.turnTaken;
+        if (finished || turnTaken) {
             return;
         }
+        
+        dispatch(roomOperations.turnTaken(true));
        
         let opponentState = {};
         let playerState = {};
@@ -47,8 +50,11 @@ const takeTurn = (id) => {
             dispatch(sActions.sEndGame(status));
         } else {
             dispatch(sActions.sUpdateGameState(payload));
-            if (status.shipDestroyed) {
-                dispatch(roomOperations.displayAlert(true, "Opponent ship has been destroyed"));
+            if (status.shipDestroyed || status.shipHit) {
+                dispatch(roomOperations.turnTaken(false));
+                if (status.shipDestroyed) {
+                    dispatch(roomOperations.displayAlert(true, "Opponent ship has been destroyed"));
+                }
             } else if (!status.shipHit && !status.shipDestroyed) {
                 dispatch(sActions.sEndTurn());
             }
@@ -62,7 +68,7 @@ const checkStatus = (id, currentPlayer, opponentState, playerState) => {
     let hitSquares = playerState.hitSquares ? playerState.hitSquares : [];
     if (hit) {
         let numHit = playerState[hit] ? playerState[hit] : 0;
-        let shipsDestroyed = playerState.shipsDestroyed ? playerState.shipsDestroyed : 0;
+        let shipsDestroyed = playerState.shipsDestroyed ? playerState.shipsDestroyed : [];
 
         hitSquares.push({ id: id, ship: true });
         playerState.hitSquares = hitSquares;
@@ -74,8 +80,9 @@ const checkStatus = (id, currentPlayer, opponentState, playerState) => {
         }
 
         if (SHIP_MAP[shipName] === playerState[hit]) {
-            playerState.shipsDestroyed = shipsDestroyed + 1;
-            if (playerState.shipsDestroyed === SHIP_MAP.totalShips) {
+            shipsDestroyed.push(hit);     
+            playerState.shipsDestroyed = shipsDestroyed;
+            if (playerState.shipsDestroyed.length === SHIP_MAP.totalShips) {
                 return { end: true, winner: currentPlayer };
             }
             return { end: false, winner: null, shipDestroyed: true };

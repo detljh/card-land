@@ -1,6 +1,7 @@
 import React from 'react';
 import styles from './styles.Square.css';
 import Radium from 'radium';
+import { throttle } from 'lodash';
 
 class SquareComponent extends React.Component {
     constructor(props) {
@@ -8,6 +9,11 @@ class SquareComponent extends React.Component {
         this.state = {
             hover: false
         };
+        this.takeTurnThrottled = throttle(this.props.takeTurn, 1500);
+    }
+
+    componentWillUnmount() {
+        this.takeTurnThrottled.cancel()
     }
 
     setHover(value) {
@@ -28,7 +34,7 @@ class SquareComponent extends React.Component {
         this.setState({
             hover: false
         });
-        this.props.takeTurn(this.props.id);
+        this.takeTurnThrottled(this.props.id);
     }
 
     render() {

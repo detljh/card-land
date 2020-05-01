@@ -64,6 +64,13 @@ const displayAlert = (value, alert) => {
     }
 }
 
+const turnTaken = (value) => {
+    return {
+        type: types.TURN_TAKEN,
+        value: value
+    }
+}
+
 export default {
     countdown,
     updateRoomState,
@@ -74,5 +81,6 @@ export default {
     setDeclinePrompt,
     setAcceptPrompt,
     resetUI,
-    displayAlert
+    displayAlert,
+    turnTaken
 }

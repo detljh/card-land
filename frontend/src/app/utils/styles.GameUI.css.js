@@ -64,7 +64,7 @@ let styles = {
         alignItems: 'center',
         flexDirection: 'column',
         justifyContent: 'center',
-        zIndex: '9999'
+        zIndex: '999'
     },
     tooltip: {
         position: 'absolute',
