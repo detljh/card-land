@@ -9,6 +9,7 @@ let styles = {
         display: 'flex',
         finished: {
             backgroundColor: 'hsla(0, 0%, 50%, 0.5)',
+            zIndex: '1001'
         }
     },
     prompt: Object.assign({}, global.popupBlock, {
@@ -28,7 +29,7 @@ let styles = {
         left: '0',
         display: 'flex',
         padding: '5px',
-        zIndex: '9999',
+        zIndex: '1002',
         backgroundColor: 'hsl(0, 10%, 90%)',
         contentWrapper: {
             height: '100%',
@@ -51,7 +52,7 @@ let styles = {
         alignItems: 'center',
         textAlign: 'center',
         position: 'relative',
-        zIndex: '1000',
+        zIndex: '9999',
         alert: Object.assign({}, global.alert, {
             position: 'absolute',
             marginTop: '20vh'
@@ -63,13 +64,13 @@ let styles = {
         display: 'flex',
         alignItems: 'center',
         flexDirection: 'column',
-        justifyContent: 'center',
-        zIndex: '999'
+        justifyContent: 'center'
     },
     tooltip: {
         position: 'absolute',
         width: '300px',
         display: 'flex',
+        zIndex: '1003',
         top: {
             bottom: '115%',
             justifyContent: 'center'

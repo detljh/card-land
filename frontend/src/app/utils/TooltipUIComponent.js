@@ -50,7 +50,7 @@ class TooltipUIComponent extends React.Component {
                             <div style={arrowStyle} />
                         </div>
                 </CSSTransition>
-                <div style={{margin: '5px'}} onMouseOver={() => this.setShowTooltip(true)} onMouseLeave={() => this.setShowTooltip(false)}>
+                <div style={{margin: '5px', zIndex: '1000'}} onMouseOver={() => this.setShowTooltip(true)} onMouseLeave={() => this.setShowTooltip(false)}>
                     {this.props.children}
                 </div>
             </div>
