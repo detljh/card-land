@@ -3,7 +3,12 @@ This is a web application created using React and Redux for the client view with
 
 ## Features
 - Register and login with a username and password which is encrypted using BCrypt and stored in a database. 
-- Different games to join where you are matched against another user
+- Join a game room to be matched against another user.
+- Once matched, the game will start in 5 seconds.
+- A random player is chosen to be the first player.
+- Request to play again with your opponent after a game ends.
+- Accept the request and the game will start in 5 seconds.
+- If your opponent leaves the room, the game will stop and you will need to leave.
 
 ## Currently Available Games
 - Tic Tac Toe
